@@ -1,0 +1,58 @@
+<div class="select-ucam-wrapper {{ wrapper_class }}" [class.is-open]="__is_open" [class.disabled]="__disabled">
+
+  <div (click)="!__disabled && toggle(dropdown, origin)" #origin>
+
+    <label
+    *ngIf="label"
+    [for]="'select-' + id"
+    class="select-ucam-label {{ label_class }}">{{ label }}</label>
+
+    <input #select
+      [id]="'select-' + id"
+      class="select-ucam-class {{ class }}"
+      [required]="!optional"
+      [value]="__innervalue.label"
+      [disabled]="!search || __disabled"
+      [placeholder]="placeholder"
+      (blur)="onTouch()"
+      (input)="onSearch($event.target?.value)" />
+
+    <div class="select-ucam-overlay"></div>
+
+    <i *ngIf="icon" class="select-ucam-font-icon {{icon_type}} {{icon}} {{icon_class}}"></i>
+    <svg *ngIf="!icon" class="select-ucam-icon" aria-label="arrow down" data-testid="arrowDown" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M7.231 9.24a.77.77 0 0 1 1.117 0L12 13.025l3.652-3.785a.77.77 0 0 1 1.117 0 .84.84 0 0 1 0 1.157l-4.21 4.363a.77.77 0 0 1-1.117 0l-4.21-4.363a.84.84 0 0 1 0-1.157Z"></path>
+    </svg>
+
+  </div>
+
+  <ng-template #dropdown>
+    <div class="select-menu">
+      <div class="backdrop" (click)="closeDropdown()"></div>
+
+      <div class="select-menu-wrapper" [style.height]="calculateContainerHeight()">
+        <cdk-virtual-scroll-viewport #scrollViewport itemSize="32">
+
+          <div *ngIf="!__filteredValues.length" class="option">Nenhum resultado encontrado</div>
+
+          <div
+            *cdkVirtualFor="let option of __filteredValues"
+            class="option"
+            [class.valid]="option.valid"
+            [class.active]="isActive(option)"
+            (click)="option.valid && selectOption(option)">
+            <span class="option-label">
+              {{ option.label }}
+            </span><br>
+            <span *ngIf="option.description" class="option-description">
+              {{ option.description }}
+            </span>
+          </div>
+
+
+        </cdk-virtual-scroll-viewport>
+      </div>
+
+    </div>
+  </ng-template>
+</div>
