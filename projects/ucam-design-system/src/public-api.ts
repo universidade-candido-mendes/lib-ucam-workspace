@@ -3,4 +3,7 @@
  */
 
 export * from './lib/ucam-design-system.service';
-export * from './lib/ucam-design-system.component';
+
+export * from './lib/components/profile/profile.component';
+export * from './lib/form/select/select.component';
+
