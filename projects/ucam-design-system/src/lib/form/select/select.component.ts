@@ -207,8 +207,8 @@ export class SelectComponent implements OnInit, Validator, ControlValueAccessor 
     return this.__innervalue.id == option.id;
   }
 
-  onSearch(value: string) {
-    this.__filteredValues = this.options.filter(option => option?.label?.includes(value), this.options);
+  onSearch() {
+    this.__filteredValues = this.options.filter(option => option?.label?.includes(this.__innervalue.value), this.options);
   }
 
   calculateContainerHeight(): string {
