@@ -1,5 +1,5 @@
 {
-  "name": "ucam-design-system",
+  "name": "@universidade-candido-mendes/ucam-design-system",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
@@ -7,6 +7,10 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/universidade-candido-mendes/lib-ucam-workspace.git"
   },
   "sideEffects": false
 }
