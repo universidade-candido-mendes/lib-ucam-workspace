@@ -1,4 +1,5 @@
 :host {
+  min-width: 200px;
 
   .profile-wrapper {
     .profile {
@@ -11,6 +12,8 @@
         justify-content: right;
         align-items: center;
         gap: 10px;
+
+        padding-right: 35px;
 
         img {
           height: 100%;
@@ -59,7 +62,7 @@
   .profile-chevron {
     position: absolute;
     right: 16px;
-    top: 13px;
+    top: 17px;
     fill: var(--ucam-border-color, rgb(112, 118, 131));
     transition: transform 0.1s;
 
