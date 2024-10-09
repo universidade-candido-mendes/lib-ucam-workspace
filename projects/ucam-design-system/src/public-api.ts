@@ -2,7 +2,7 @@
  * Public API Surface of ucam-design-system
  */
 
-// export * from './lib/components/profile/profile.component';
+export * from './lib/components/profile/profile.component';
 
 export * from './lib/form/select/select.component';
 

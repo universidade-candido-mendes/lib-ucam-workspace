@@ -1,0 +1,58 @@
+:host {
+
+  .profile-wrapper {
+    .profile {
+      #profile-button {
+        all: unset;
+        height: 40px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-items: center;
+        gap: 10px;
+
+        img {
+          height: 100%;
+        }
+
+        #profile-user-data {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  .profile-hidden-menu {
+    position: absolute;
+    top: -100%;
+
+    z-index: 2;
+
+    width: 220px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    right: 5px;
+    box-sizing: border-box;
+
+    &.active {
+      top: 53px;
+    }
+  }
+
+  .profile-hidden-menu-backdrop {
+    position: absolute;
+
+    &.active {
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #00000001;
+      z-index: 1;
+    }
+  }
+}
