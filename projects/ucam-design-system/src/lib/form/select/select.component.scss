@@ -285,8 +285,10 @@
         left: unset !important;
         top: unset !important;
 
-        padding-top: 14px;
+        padding-top: 5px;
         padding-left: 15px;
+
+        font-weight: bold;
 
         z-index: 0 !important;
         word-break: unset !important;
@@ -294,6 +296,14 @@
 
       .select-ucam-class {
         border: unset !important;
+        padding-left: unset !important;
+
+        min-height: 31px !important;
+        height: 31px !important;
+      }
+
+      .select-ucam-icon {
+        top: 5px !important;
       }
     }
   }
