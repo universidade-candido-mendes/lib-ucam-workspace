@@ -29,7 +29,7 @@ ng build ucam-design-system && cd dist/ucam-design-system && npm link && cd ../.
 In the test project folder:
 
 ```sh
-npm link ucam-design-system && ng s
+npm link <ucam-design-system folder> && ng s
 ```
 
 ## To publish
