@@ -6,7 +6,7 @@
         <small>{{ userprofile?.username }}</small>
         <small>{{ userprofile?.email }}</small>
       </div>
-      <svg class="profile-chevron" aria-label="arrow down" data-testid="arrowDown" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+      <svg class="profile-chevron" [ngClass]="{'open': profileMenuActive}" aria-label="arrow down" data-testid="arrowDown" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.231 9.24a.77.77 0 0 1 1.117 0L12 13.025l3.652-3.785a.77.77 0 0 1 1.117 0 .84.84 0 0 1 0 1.157l-4.21 4.363a.77.77 0 0 1-1.117 0l-4.21-4.363a.84.84 0 0 1 0-1.157Z"></path>
       </svg>
     </button>

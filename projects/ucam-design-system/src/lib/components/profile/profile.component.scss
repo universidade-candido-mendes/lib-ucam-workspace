@@ -55,4 +55,16 @@
       z-index: 1;
     }
   }
+
+  .profile-chevron {
+    position: absolute;
+    right: 16px;
+    top: 13px;
+    fill: var(--ucam-border-color, rgb(112, 118, 131));
+    transition: transform 0.1s;
+
+    &.open {
+      transform: rotateZ(180deg);
+    }
+  }
 }
