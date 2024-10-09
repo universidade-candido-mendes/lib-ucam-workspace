@@ -19,16 +19,16 @@ import { UcamOption } from '../../ucam-design-system.model';
     {
       multi: true,
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent)
+      useExisting: forwardRef(() => UcamSelectComponent)
     },
     {
       multi: true,
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => SelectComponent),
+      useExisting: forwardRef(() => UcamSelectComponent),
     }
   ]
 })
-export class SelectComponent implements OnInit, Validator, ControlValueAccessor {
+export class UcamSelectComponent implements OnInit, Validator, ControlValueAccessor {
 
   @Input() id: string = (Math.random() + 1).toString(36).substring(7);
   @Input() label?: string;

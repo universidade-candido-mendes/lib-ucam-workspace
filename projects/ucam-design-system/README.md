@@ -1,24 +1,57 @@
-# UcamDesignSystem
+# Ucam design system
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
+This project is a workspace to build angular libraries, as explained in this [article](https://angular.io/guide/creating-libraries)
 
-## Code scaffolding
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
 
-Run `ng generate component component-name --project ucam-design-system` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ucam-design-system`.
-> Note: Don't forget to add `--project ucam-design-system` or else it will be added to the default project in your `angular.json` file. 
+## Login from github registry
 
-## Build
+```bash
+npm login --scope=@universidade-candido-mendes --registry=https://npm.pkg.github.com
+```
 
-Run `ng build ucam-design-system` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Install from main repo
 
-## Publishing
+```bash
+npm install --registry=https://registry.npmjs.org/ 
+```
 
-After building your library with `ng build ucam-design-system`, go to the dist folder `cd dist/ucam-design-system` and run `npm publish`.
+## Local test
 
-## Running unit tests
+to test the library in the local environment, run the following codes:
 
-Run `ng test ucam-design-system` to execute the unit tests via [Karma](https://karma-runner.github.io).
+In the workspace folder:
 
-## Further help
+```sh
+ng build ucam-design-system && cd dist/ucam-design-system && npm link && cd ../..
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+In the test project folder:
+
+```sh
+npm link ucam-design-system && ng s
+```
+
+## To publish
+
+```sh
+cd dist/ucam-design-system && npm publish --access public && cd ../..
+```
+
+## Links
+
+- Repository: [https://github.com/universidade-candido-mendes/lib-ucam-workspace](https://github.com/universidade-candido-mendes/lib-ucam-workspace)
+  - In case of sensitive bugs like security vulnerabilities, please contact
+    cpd@ucam-campos.br directly instead of using issue tracker. We value your effort
+    to improve the security and privacy of this project!
+
+## Versioning
+
+0.0.1.0
+
+## Authors
+
+- **Matheus Souza**: [@matheuscruzsouza - Github](https://github.com/matheuscruzsouza)
+
+Please follow github and join us!
+Thanks to visiting me and good coding!

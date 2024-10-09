@@ -1,27 +1,57 @@
-# LibUcamWorkspace
+# Ucam library workspace
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+This project is a workspace to build angular libraries, as explained in this [article](https://angular.io/guide/creating-libraries)
 
-## Development server
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Login from github registry
 
-## Code scaffolding
+```bash
+npm login --scope=@universidade-candido-mendes --registry=https://npm.pkg.github.com
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Install from main repo
 
-## Build
+```bash
+npm install --registry=https://registry.npmjs.org/ 
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Local test
 
-## Running unit tests
+to test the library in the local environment, run the following codes:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+In the workspace folder:
 
-## Running end-to-end tests
+```sh
+ng build <library name> && cd dist/<library name> && npm link && cd ../..
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+In the test project folder:
 
-## Further help
+```sh
+npm link <library name> && ng s
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## To publish
+
+```sh
+cd dist/<library name> && npm publish --access public && cd ../..
+```
+
+## Links
+
+- Repository: [https://github.com/universidade-candido-mendes/lib-ucam-workspace](https://github.com/universidade-candido-mendes/lib-ucam-workspace)
+  - In case of sensitive bugs like security vulnerabilities, please contact
+    cpd@ucam-campos.br directly instead of using issue tracker. We value your effort
+    to improve the security and privacy of this project!
+
+## Versioning
+
+0.0.1.0
+
+## Authors
+
+- **Matheus Souza**: [@matheuscruzsouza - Github](https://github.com/matheuscruzsouza)
+
+Please follow github and join us!
+Thanks to visiting me and good coding!

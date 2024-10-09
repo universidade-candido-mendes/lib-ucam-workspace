@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ucam-profile',
-  standalone: true,
-  imports: [],
+  selector: 'ucam-user-profile',
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
+export class UcamProfileComponent {
 
 }
