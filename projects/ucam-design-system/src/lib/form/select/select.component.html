@@ -1,6 +1,6 @@
 <div class="select-ucam-wrapper {{ wrapper_class }}" [class.is-open]="__is_open" [class.disabled]="__disabled">
 
-  <div (click)="!__disabled && toggle(dropdown, origin)" #origin>
+  <div class="select-ucam-btn" (click)="!__disabled && toggle(dropdown, origin)" #origin>
 
     <label
     *ngIf="label"

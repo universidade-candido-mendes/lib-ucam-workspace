@@ -272,4 +272,26 @@
       }
     }
   }
+
+  &.inline {
+    .select-ucam-btn {
+      border: 1.5px solid rgb(112, 118, 131);
+      border-radius: 8px;
+      display: flex;
+      background-color: #fff;
+
+      .select-ucam-label {
+        position: unset !important;
+        left: unset !important;
+        top: unset !important;
+
+        padding-top: 18px;
+        word-break: unset !important;
+      }
+
+      .select-ucam-class {
+        border: unset !important;
+      }
+    }
+  }
 }
