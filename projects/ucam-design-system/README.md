@@ -13,7 +13,7 @@ npm login --scope=@universidade-candido-mendes --registry=https://npm.pkg.github
 ## Install from main repo
 
 ```bash
-npm install --registry=https://registry.npmjs.org/ 
+npm install --registry=https://npm.pkg.github.com 
 ```
 
 ## Local test
