@@ -10,12 +10,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 npm login --scope=@universidade-candido-mendes --registry=https://npm.pkg.github.com
 ```
 
-## Install from main repo
-
-```bash
-npm install --registry=https://npm.pkg.github.com 
-```
-
 ## Local test
 
 to test the library in the local environment, run the following codes:
