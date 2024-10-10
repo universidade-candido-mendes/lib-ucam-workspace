@@ -19,7 +19,7 @@ export class UcamUserProfile {
   public username = "Username";
   public email = "user@ucam.edu.br";
 
-  constructor(private param: Partial<UcamOption>) {
+  constructor(private param: Partial<UcamUserProfile>) {
     Object.assign(this, this.param);
   }
 
