@@ -116,15 +116,15 @@
   }
 
   .is-open {
-    .select-ucam-class {
+    .select-ucam-btn {
       border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
       outline: none;
 
-      +.select-ucam-font-icon {
+      .select-ucam-font-icon {
         color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
       }
 
-      + .select-ucam-icon {
+      .select-ucam-icon {
         fill: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
       }
     }

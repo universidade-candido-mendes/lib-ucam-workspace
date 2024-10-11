@@ -24,7 +24,7 @@
           flex-direction: column;
 
           small {
-            font-size: 1vw !important;
+            font-size: min(1vw, 10.9px) !important;
           }
         }
       }
@@ -44,9 +44,10 @@
     padding: 10px;
     right: 5px;
     box-sizing: border-box;
+    box-shadow: 2px 2px 8px #d2d2d2;
 
     &.active {
-      top: 53px;
+      top: 55px;
     }
   }
 
