@@ -77,15 +77,15 @@
     color: var(--ucam-text-color, rgb(62, 65, 72));
 
     &:focus-visible {
-      border: 1.5px solid var(--ucam-outline-color, rgb(25, 0, 175));
+      border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
       outline: none;
 
       +.select-ucam-font-icon {
-        color: var(--ucam-outline-color, rgb(25, 0, 175));
+        color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
       }
 
       + .select-ucam-icon {
-        fill: var(--ucam-outline-color, rgb(25, 0, 175));
+        fill: var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
       }
     }
   }
@@ -117,15 +117,15 @@
 
   .is-open {
     .select-ucam-class {
-      border: 1.5px solid var(--ucam-outline-color, rgb(25, 0, 175));
+      border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
       outline: none;
 
       +.select-ucam-font-icon {
-        color: var(--ucam-outline-color, rgb(25, 0, 175)) !important;
+        color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
       }
 
       + .select-ucam-icon {
-        fill: var(--ucam-outline-color, rgb(25, 0, 175)) !important;
+        fill: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
       }
     }
 
@@ -205,14 +205,14 @@
           &.valid:hover,
           &.active {
             .option-label {
-              color: var(--ucam-select-title-color, rgb(25, 0, 175));
+              color: var(--mat-option-selected-state-label-text-color, rgb(25, 0, 175));
             }
 
             .option-description {
-              color: var(--ucam-select-title-color, rgb(85, 85, 103));
+              color: var(--mat-option-selected-state-label-text-color, rgb(85, 85, 103));
             }
 
-            background-color: var(--ucam-select-active-color, rgb(238, 235, 255));
+            background-color: var(--mat-datepicker-calendar-date-in-range-state-background-color, rgb(238, 235, 255));
           }
         }
 
@@ -236,11 +236,11 @@
 
       &::-webkit-scrollbar-thumb {
         border-radius: 16px;
-        background: var(--rb-brand-imed-primary-300, #1900AF);
+        background: var(--primary-color, #1900AF);
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: var(--rb-brand-imed-primary-300, #160095);
+        background: var(--primary-darker-color, #160095);
       }
     }
   }
@@ -251,11 +251,11 @@
       .select-ucam-label,
       .select-ucam-class,
       .select-ucam-font-icon {
-        color: var(--ucam-error-color, rgb(189, 7, 0));
+        color: var(--warn-color, rgb(189, 7, 0));
       }
 
       .select-ucam-class {
-        border: 1.5px solid var(--ucam-error-color, rgb(189, 7, 0));
+        border: 1.5px solid var(--warn-color, rgb(189, 7, 0));
       }
     }
 

@@ -1,5 +1,3 @@
-@use '@angular/material' as mat;
-
 :host {
   width: 75px;
   height: 100%;
@@ -12,9 +10,9 @@
 
   box-sizing: border-box;
 
-  background-color: mat.get-theme-color($theme, primary);
+  background-color: var(--primary-color, #1900AF);
 
-  color: var(--mat-app-background-color);
+  color: var(--mat-app-background-color, #f1f3f5);
 
   .sidemenu-main-menu-wrapper {
     height: 100%;
