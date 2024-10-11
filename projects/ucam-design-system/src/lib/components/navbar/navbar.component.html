@@ -1,6 +1,6 @@
 <img src="images/logo-ucam-cinza-2.svg" id="ucam-navbar-main-logo" alt="Logo da ucam">
 <ng-content></ng-content>
-<ucam-profile>
-  <ng-content select="profile,[profile]"></ng-content>
+<ucam-profile [userprofile]="userprofile">
+  <ng-content select="profile,[profile]" ></ng-content>
 </ucam-profile>
 

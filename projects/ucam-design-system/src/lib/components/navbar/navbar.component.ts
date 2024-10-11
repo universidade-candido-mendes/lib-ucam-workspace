@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UcamUserProfile } from '../../ucam-design-system.model';
 import { UcamProfileComponent } from '../profile/profile.component';
 
 @Component({
@@ -11,5 +12,8 @@ import { UcamProfileComponent } from '../profile/profile.component';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+
+  @Input()
+  userprofile?: UcamUserProfile;
 
 }
