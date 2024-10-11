@@ -12,7 +12,7 @@
 
   box-sizing: border-box;
 
-  background-color: mat.get-theme-color($ucam-frontend-template-theme, primary);
+  background-color: mat.get-theme-color($theme, primary);
 
   color: var(--mat-app-background-color);
 
