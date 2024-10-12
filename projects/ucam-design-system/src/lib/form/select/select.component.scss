@@ -33,6 +33,11 @@
     }
   }
 
+  .select-ucam-btn {
+    background: var(--mat-app-background-color, rgb(255, 255, 255));
+    color: var(--mat-app-text-color, rgb(62, 65, 72));
+  }
+
   .select-ucam-label {
     display: inline-block;
     margin-bottom: 4px;
@@ -49,8 +54,8 @@
     line-height: 22px;
     letter-spacing: 0px;
     font-family: 'Nexa Text', 'Nunito', sans-serif;
-    color: var(--ucam-border-color, rgb(112, 118, 131));
-    background: linear-gradient(#ffffff10 0 40%, var(--ucam-background-color,#fff) 40% 52%,#ffffff10 52%);
+    color: var(--mat-app-text-color, rgb(112, 118, 131));
+    background: linear-gradient(#ffffff10 0 40%, var(--mat-app-background-color,#fff) 40% 52%,#ffffff10 52%);
   }
 
   .select-ucam-class {
@@ -73,8 +78,8 @@
     font-size: 14px;
     line-height: 22px;
     letter-spacing: 0px;
-    background: var(--ucam-background-color, rgb(255, 255, 255));
-    color: var(--ucam-text-color, rgb(62, 65, 72));
+    background: var(--mat-app-background-color, rgb(255, 255, 255));
+    color: var(--mat-app-text-color, rgb(62, 65, 72));
 
     &:focus-visible {
       border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
@@ -103,7 +108,7 @@
     position: absolute;
     right: 16px;
     top: 13px;
-    color: var(--ucam-border-color, rgb(112, 118, 131));
+    color: var(--mat-app-text-color, rgb(112, 118, 131));
     font-size: 24px;
   }
 
@@ -111,7 +116,7 @@
     position: absolute;
     right: 16px;
     top: 13px;
-    fill: var(--ucam-border-color, rgb(112, 118, 131));
+    fill: var(--mat-app-text-color, rgb(112, 118, 131));
     transition: transform 0.1s;
   }
 
@@ -162,7 +167,7 @@
       height: 100%;
       width: 100%;
       border-radius: 8px;
-      background: var(--ucam-background-color, rgb(255, 255, 255));
+      background: var(--mat-app-background-color, rgb(255, 255, 255));
 
       ::ng-deep .cdk-virtual-scroll-content-wrapper {
         box-sizing: border-box;
@@ -176,7 +181,7 @@
         line-height: 22px;
         letter-spacing: 0;
         font-family: 'Nexa Text', 'Nunito', sans-serif;
-        color: var(--ucam-border-color, rgb(112, 118, 131));
+        color: var(--mat-app-text-color, rgb(112, 118, 131));
 
         .option {
           padding: 8px;
@@ -212,7 +217,8 @@
               color: var(--mat-option-selected-state-label-text-color, rgb(85, 85, 103));
             }
 
-            background-color: var(--mat-datepicker-calendar-date-in-range-state-background-color, rgb(238, 235, 255));
+            background-color: var(--mat-stepper-header-selected-state-icon-background-color, rgb(238, 235, 255));
+            font-weight: bold;
           }
         }
 

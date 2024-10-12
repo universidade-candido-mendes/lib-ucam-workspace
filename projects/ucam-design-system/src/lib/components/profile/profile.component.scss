@@ -25,6 +25,7 @@
 
           small {
             font-size: min(1vw, 10.9px) !important;
+            color: var(--mat-app-text-color) !important;
           }
         }
       }
@@ -45,6 +46,7 @@
     right: 5px;
     box-sizing: border-box;
     box-shadow: 2px 2px 8px #d2d2d2;
+    color: var(--mat-app-text-color);
 
     &.active {
       top: 55px;
@@ -68,7 +70,7 @@
     position: absolute;
     right: 16px;
     top: 17px;
-    fill: var(--ucam-border-color, rgb(112, 118, 131));
+    fill: var(--mat-app-text-color, rgb(112, 118, 131));
     transition: transform 0.1s;
 
     &.open {
