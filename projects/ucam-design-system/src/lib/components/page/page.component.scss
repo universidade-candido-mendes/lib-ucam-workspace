@@ -19,6 +19,26 @@
 
       padding: 0 10px;
       box-sizing: border-box;
+
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 16px;
+        background: #f1f1f1;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 16px;
+        background: var(--primary-color, #1900AF);
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-darker-color, #160095);
+      }
     }
   }
 }
