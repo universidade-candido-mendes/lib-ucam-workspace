@@ -1,14 +1,33 @@
 
 <div class="sidemenu-main-menu-wrapper">
   <div class="main-menu">
-    <mat-icon
-      id="toggler"
-      aria-hidden="false"
-      aria-label="Menu"
-      fontIcon="menu" >
-    </mat-icon>
+    <div  class="sector header">
+      <mat-icon fontIcon="menu"></mat-icon>
+    </div>
 
-    <img src="icon.svg" id="system-logo" alt="System logo">
+    <div  class="sector identifier">
+      <img src="icon.svg" id="system-logo" alt="System logo">
+
+      <p>{{ routes.app.title }}</p>
+      <p>{{ routes.app.subtitle }}</p>
+    </div>
+
+    <div class="sector links">
+      <p>MENU</p>
+
+      <div class="links-wrapper">
+        <div class="link"
+             *ngFor="let link of routes.links"
+             [routerLink]="link.address"
+             routerLinkActive="active"
+             ariaCurrentWhenActive="page">
+
+          <mat-icon [fontIcon]="link.icon"></mat-icon>
+          <div>{{link.label}}</div>
+
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>

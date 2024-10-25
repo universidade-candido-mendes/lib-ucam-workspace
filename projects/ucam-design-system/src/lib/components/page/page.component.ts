@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UcamUserProfile } from '../../ucam-design-system.model';
+import { MenuConfig, UcamUserProfile } from '../../ucam-design-system.model';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidemenuComponent } from '../sidemenu/sidemenu.component';
 
@@ -17,5 +17,8 @@ export class PageComponent {
 
   @Input()
   userprofile?: UcamUserProfile;
+
+  @Input()
+  routes!: MenuConfig;
 
 }

@@ -24,3 +24,37 @@ export class UcamUserProfile {
   }
 
 }
+
+export class AppConfig {
+
+  public title!: string;
+  public subtitle!: string;
+
+  constructor(private param: Partial<AppConfig>) {
+    Object.assign(this, this.param);
+  }
+
+}
+
+export class MenuLink {
+
+  public icon!: string;
+  public label!: string;
+  public address!: string;
+
+  constructor(private param: Partial<MenuLink>) {
+    Object.assign(this, this.param);
+  }
+
+}
+
+export class MenuConfig {
+
+  public app!: AppConfig;
+  public links!: MenuLink[];
+
+  constructor(private param: Partial<MenuConfig>) {
+    Object.assign(this, this.param);
+  }
+
+}
