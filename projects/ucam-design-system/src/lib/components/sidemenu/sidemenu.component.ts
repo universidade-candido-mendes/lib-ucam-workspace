@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ucam-sidemenu',
@@ -11,8 +11,20 @@ import { Router } from '@angular/router';
   templateUrl: './sidemenu.component.html',
   styleUrl: './sidemenu.component.scss'
 })
-export class SidemenuComponent {
+export class SidemenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private activedRoute: ActivatedRoute
+  ) {
 
+  }
+
+  ngOnInit() {
+    console.log(this.activedRoute.snapshot.url[0]?.path);
+
+    this.activedRoute.url.subscribe(url => {
+      console.log(url[0]?.path);
+    });
+  }
 }
