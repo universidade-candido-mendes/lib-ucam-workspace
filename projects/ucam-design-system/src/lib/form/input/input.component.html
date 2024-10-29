@@ -3,5 +3,10 @@
     [for]="'select-' + id"
     class="select-ucam-label {{ label_class }}">{{ label }}</label>
 
-<input #input [value]="__innervalue" (keyup)="onInputChange()">
+<input
+    #input
+    [type]="'text'"
+    [value]="__innervalue"
+    (keyup)="onInputChange()">
+
 <span *ngIf="hasError('required')">Required field</span>
