@@ -210,11 +210,11 @@
           &.valid:hover,
           &.active {
             .option-label {
-              color: var(--mat-option-selected-state-label-text-color, rgb(25, 0, 175));
+              color: var(--mat-app-on-primary, rgb(25, 0, 175));
             }
 
             .option-description {
-              color: var(--mat-option-selected-state-label-text-color, rgb(85, 85, 103));
+              color: var(--mat-app-on-primary, rgb(85, 85, 103));
             }
 
             background-color: var(--mat-stepper-header-selected-state-icon-background-color, rgb(238, 235, 255));
@@ -273,9 +273,9 @@
           color: var(--ucam-validated-color, rgb(9, 133, 0));
         }
 
-        +.select-ucam-icon {
-          fill: var(--ucam-validated-color, rgb(9, 133, 0));
-        }
+        // +.select-ucam-icon {
+        //   fill: var(--ucam-validated-color, rgb(9, 133, 0));
+        // }
       }
     }
   }
