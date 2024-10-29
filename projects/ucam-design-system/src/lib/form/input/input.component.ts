@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 
 @Component({
@@ -40,13 +40,13 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() icon_type = "fa-regular";
   @Input() icon_class?: string;
 
+  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+
   __innervalue: any = null;
   __disabled = false;
 
   onInputChange: any = (el: HTMLInputElement, evt: InputEvent) => {
-    console.log(this, evt);
-
-    this.__innervalue = el.value;
+    this.__innervalue = this.input.nativeElement.value;
   };
 
   constructor() { }

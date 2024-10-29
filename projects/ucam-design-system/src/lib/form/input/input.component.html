@@ -3,5 +3,5 @@
     [for]="'select-' + id"
     class="select-ucam-label {{ label_class }}">{{ label }}</label>
 
-<input [value]="__innervalue" (input)="onInputChange(this, $event)">
+<input #input [value]="__innervalue" (input)="onInputChange(this, $event)">
 <span *ngIf="hasError('required')">Required field</span>
