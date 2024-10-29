@@ -43,7 +43,9 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __innervalue: any = null;
   __disabled = false;
 
-  onInputChange: any = () => {};
+  onInputChange: any = (el: HTMLInputElement, evt: InputEvent) => {
+    this.__innervalue = el.value;
+  };
 
   constructor() { }
 
