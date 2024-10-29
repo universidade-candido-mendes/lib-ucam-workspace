@@ -19,8 +19,7 @@
     }
   }
 
-  &.ng-invalid {
-
+  &.ng-touched.ng-dirty.ng-invalid {
     span,
     label,
     input[type="text"] {
