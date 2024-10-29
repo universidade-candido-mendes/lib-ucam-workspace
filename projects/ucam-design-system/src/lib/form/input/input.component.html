@@ -9,4 +9,10 @@
     [value]="__innervalue"
     (keyup)="onInputChange()">
 
-<span *ngIf="hasError('required')">Required field</span>
+<span *ngIf="hasError('required')">
+  <small>
+    <strong>
+      Campo obrigatório
+    </strong>
+  </small>
+</span>
