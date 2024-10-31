@@ -169,7 +169,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
             return val;
           }
           val = v[idx];
-          idx++;
           return val;
         }
         return '';
