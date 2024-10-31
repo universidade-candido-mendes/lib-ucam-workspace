@@ -142,13 +142,12 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       let val = '';
       const formatted = this.mask.split('').map((value) => {
         if (this.__innervalue.length >= idx) {
-          if (value in this.__specialChars) {
-            const rgx = new RegExp(this.__specialChars[value]);
-            val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
-            idx++;
-            return val;
+          if (!(value in this.__specialChars)) {
+            val += value;
+            return;
           }
-          val = value + (this.__innervalue[idx] || '');
+          const rgx = new RegExp(this.__specialChars[value]);
+          val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
           idx++;
           return val;
         }
@@ -167,13 +166,11 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       let val = '';
       const formatted = this.mask.split('').map((value) => {
         if (v.length >= idx) {
-          if (value in this.__specialChars) {
-            const rgx = new RegExp(this.__specialChars[value]);
-            val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
-            idx++;
-            return val;
+          if (!(value in this.__specialChars)) {
+            return;
           }
-          val = value + (v[idx] || '');
+          const rgx = new RegExp(this.__specialChars[value]);
+          val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
           idx++;
           return val;
         }
