@@ -1,13 +1,15 @@
 <label
     *ngIf="label"
-    [for]="'select-' + id"
-    class="select-ucam-label {{ label_class }}">{{ label }}</label>
+    [for]="'input-' + id"
+    class="input-ucam-label {{ label_class }}">{{ label }}</label>
 
 <input
     #input
+    [id]="'input-' + id"
     [type]="'text'"
     [value]="__innervalue"
     [disabled]="__disabled"
+    class="input-ucam {{ class }}"
     (keyup)="onInputChange()">
 
 <span *ngIf="hasError('required')">

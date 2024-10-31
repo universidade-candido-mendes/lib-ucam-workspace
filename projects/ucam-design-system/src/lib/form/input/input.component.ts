@@ -37,7 +37,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() wrapper_class?: string;
 
   @Input() icon?: string;
-  @Input() icon_type = "fa-regular";
+  @Input() icon_type = "";
   @Input() icon_class?: string;
 
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
@@ -90,6 +90,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   setDisabledState?(isDisabled: boolean): void {
+    console.log(this, isDisabled);
+
     this.__disabled = isDisabled;
   }
 
