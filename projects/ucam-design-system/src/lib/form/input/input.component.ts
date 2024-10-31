@@ -134,8 +134,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   }
 
-  private convertToStringRegex(input: string): RegExp {
-    const mapping: { [key: string]: string } = {
+  private convertToStringRegex(pattern: string): RegExp {
+    const specialChars: { [key: string]: string } = {
       '0': '[0-9]',
       '9': '[0-9]?',
       'A': '[A-Z]',
@@ -144,15 +144,16 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       'L': '[a-z]'
     };
 
-    let regexPattern = '';
+    // Replace special characters with regex equivalents
+    let regexPattern = pattern.replace(/[0-9ASUL*]/g, match => specialChars[match] || match);
 
-    for (const char of input) {
-      if (char in mapping) {
-        regexPattern += mapping[char];
-      }
+    // Add start and end anchors if not present
+    if (!regexPattern.startsWith('^') && !regexPattern.endsWith('$')) {
+      regexPattern = '^' + regexPattern + '$';
     }
 
-    return new RegExp(`^${regexPattern}$`);
+    // Create and return the RegExp object
+    return new RegExp(regexPattern);
   }
 
   private formatRegExpMask(): void {
