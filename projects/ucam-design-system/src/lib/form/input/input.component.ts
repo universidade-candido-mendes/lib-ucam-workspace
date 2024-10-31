@@ -124,7 +124,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     }
 
     if (typeof this.mask === 'string') {
-      this.convertToStringRegex(this.mask);
+      this.mask = this.convertToStringRegex(this.mask);
       this.formatRegExpMask();
     } else if (this.mask instanceof RegExp) {
       this.formatRegExpMask();
