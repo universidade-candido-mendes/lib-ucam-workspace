@@ -45,14 +45,24 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
+  __originalvalue: any = null;
   __innervalue: any = null;
   __formattedvalue: any = null;
   __disabled = false;
 
+  __specialChars: { [key: string]: string } = {
+    '0': '[0-9]',
+    '9': '[0-9]?',
+    'A': '[A-Z]',
+    'S': '[a-zA-Z]',
+    'U': '[A-Z]',
+    'L': '[a-z]',
+  };
+
   onInputChange: any = () => {
     const value = this.input.nativeElement.value;
     this.ngZone.run(() => {
-      this.__innervalue = value;
+      this.__innervalue = this.clearInput(value);
       this.applyMask();
     });
   };
@@ -62,6 +72,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   ) { }
 
   get value(): any {
+    console.log(this.__formattedvalue, this.__innervalue);
+
     return this.__formattedvalue || this.__innervalue;
   }
 
@@ -124,26 +136,14 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     }
 
     this.formatRegExpMask();
-
-    this.__formattedvalue;
-
   }
 
   private formatRegExpMask(): void {
     if (this.mask) {
-      const specialChars: { [key: string]: string } = {
-        '0': '[0-9]',
-        '9': '[0-9]?',
-        'A': '[A-Z]',
-        'S': '[a-zA-Z]',
-        'U': '[A-Z]',
-        'L': '[a-z]',
-      };
-
       let idx = 0;
       const formatted = this.mask.split('').map((value) => {
-        if (value in specialChars) {
-          const rgx = new RegExp(specialChars[value]);
+        if (value in this.__specialChars) {
+          const rgx = new RegExp(this.__specialChars[value]);
           let val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
           idx++;
           return val;
@@ -153,6 +153,24 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
       this.__formattedvalue = formatted.join('');
     }
+  }
+
+  private clearInput(v: string) {
+    if (this.mask) {
+      let idx = 0;
+      const formatted = this.mask.split('').map((value) => {
+        if (value in this.__specialChars) {
+          const rgx = new RegExp(this.__specialChars[value]);
+          let val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
+          idx++;
+          return val;
+        }
+        return '';
+      });
+
+      return formatted.join('');
+    }
+    return v;
   }
 
 }
