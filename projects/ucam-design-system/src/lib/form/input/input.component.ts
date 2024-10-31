@@ -125,7 +125,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
     this.formatRegExpMask();
 
-    this.__innervalue = this.__formattedvalue;
+    this.__formattedvalue;
 
   }
 

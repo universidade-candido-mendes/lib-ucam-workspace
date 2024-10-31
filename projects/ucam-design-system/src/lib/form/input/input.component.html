@@ -7,7 +7,7 @@
     #input
     [id]="'input-' + id"
     [type]="'text'"
-    [value]="__innervalue"
+    [value]="__formattedvalue || __innervalue"
     [disabled]="__disabled"
     class="input-ucam {{ class }}"
     (keyup)="onInputChange()">
