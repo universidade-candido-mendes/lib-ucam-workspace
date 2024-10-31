@@ -40,8 +40,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() icon_type = "";
   @Input() icon_class?: string;
 
-  @Input() mask?: string | RegExp;
-  @Input() maskChar: string = '_';
+  @Input() mask?: string;
+  @Input() maskChar: string = '';
 
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
@@ -123,43 +123,28 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       return;
     }
 
-    if (typeof this.mask === 'string') {
-      this.mask = this.convertToStringRegex(this.mask);
-      this.formatRegExpMask();
-    } else if (this.mask instanceof RegExp) {
-      this.formatRegExpMask();
-    }
+    this.formatRegExpMask();
 
     console.log(this.__formattedvalue);
 
   }
 
-  private convertToStringRegex(pattern: string): RegExp {
-    const specialChars: { [key: string]: string } = {
-      '0': '[0-9]',
-      '9': '[0-9]?',
-      'A': '[A-Z]',
-      'S': '[a-zA-Z]',
-      'U': '[A-Z]',
-      'L': '[a-z]'
-    };
-
-    // Replace special characters with regex equivalents
-    let regexPattern = pattern.replace(/[0-9ASUL*]/g, match => specialChars[match] || match);
-
-    // Add start and end anchors if not present
-    if (!regexPattern.startsWith('^') && !regexPattern.endsWith('$')) {
-      regexPattern = '^' + regexPattern + '$';
-    }
-
-    // Create and return the RegExp object
-    return new RegExp(regexPattern);
-  }
-
   private formatRegExpMask(): void {
     if (this.mask) {
-      const regex = this.mask;
-      const formatted = this.__innervalue.replace(regex, () => this.maskChar);
+      const specialChars: { [key: string]: string } = {
+        '0': '[0-9]',
+        '9': '[0-9]?',
+        'A': '[A-Z]',
+        'S': '[a-zA-Z]',
+        'U': '[A-Z]',
+        'L': '[a-z]'
+      };
+
+      const formatted = this.mask.split('').map((value, idx) => {
+        const rgx = new RegExp(specialChars[value]);
+        return rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
+      });
+
       this.__formattedvalue = formatted;
     }
   }

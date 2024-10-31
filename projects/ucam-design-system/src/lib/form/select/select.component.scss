@@ -242,11 +242,11 @@
 
       &::-webkit-scrollbar-thumb {
         border-radius: 16px;
-        background: var(--primary-color, #1900AF);
+        background: var(--accent-color, #1900AF);
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-darker-color, #160095);
+        background: var(--accent-darker-color, #160095);
       }
     }
   }
