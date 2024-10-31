@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 
 @Component({
@@ -40,19 +40,30 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() icon_type = "";
   @Input() icon_class?: string;
 
+  @Input() mask?: string | RegExp;
+  @Input() maskChar: string = '_';
+
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
   __innervalue: any = null;
+  __formattedvalue: any = null;
   __disabled = false;
 
   onInputChange: any = () => {
-    this.value = this.input.nativeElement.value;
+    const value = this.input.nativeElement.value;
+    this.ngZone.run(() => {
+      this.__innervalue = value;
+      this.applyMask();
+      this.onInputChange.emit(this.__formattedvalue);
+    });
   };
 
-  constructor() { }
+  constructor(
+    private ngZone: NgZone
+  ) { }
 
   get value(): any {
-    return this.__innervalue;
+    return this.__formattedvalue || this.__innervalue;
   }
 
   set value(value: any) {
@@ -90,8 +101,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    console.log(this, isDisabled);
-
     this.__disabled = isDisabled;
   }
 
@@ -107,6 +116,64 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   hasError(errorType: string): boolean {
     return this.__innervalue === '' && errorType === 'required';
+  }
+
+  private applyMask(): void {
+    if (!this.mask || !this.__innervalue) {
+      this.__formattedvalue = this.__innervalue;
+      return;
+    }
+
+    this.__formattedvalue = this.__innervalue;
+
+    if (typeof this.mask === 'string') {
+      this.formatStringMask();
+    } else if (this.mask instanceof RegExp) {
+      this.formatRegExpMask();
+    }
+  }
+
+  private formatStringMask(): void {
+    let formatted = '';
+    let i = 0;
+    let j = 0;
+
+    if (this.mask && typeof this.mask === 'string') {
+      while (i < this.__innervalue.length && j < this.mask.length) {
+        if (this.mask[j] === this.maskChar) {
+          formatted += this.maskChar;
+          j++;
+        } else if (this.mask[j] === this.__innervalue[i]) {
+          formatted += this.maskChar;
+          i++;
+          j++;
+        } else {
+          formatted += this.maskChar;
+          i++;
+        }
+      }
+
+      while (i < this.__innervalue.length) {
+        formatted += this.maskChar;
+        i++;
+      }
+
+      while (j < this.mask.length) {
+        formatted += this.maskChar;
+        j++;
+      }
+
+      this.__formattedvalue = formatted;
+    }
+
+  }
+
+  private formatRegExpMask(): void {
+    if (this.mask) {
+      const regex = this.mask;
+      const formatted = this.__innervalue.replace(regex, () => this.maskChar);
+      this.__formattedvalue = formatted;
+    }
   }
 
 }
