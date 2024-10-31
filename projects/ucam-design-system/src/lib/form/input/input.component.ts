@@ -154,6 +154,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         return val;
       });
 
+      console.log("FORMATED: ", formatted.join(''));
+
       this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length));
     }
   }
@@ -177,7 +179,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         return '';
       });
 
-      console.log(formatted.join(''));
+      console.log("CLEARED: ", formatted.join(''));
 
       return formatted.join('').substring(0, Math.min(v.length, this.mask.length));
     }
