@@ -148,7 +148,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
             idx++;
             return val;
           }
-          val = value + this.__innervalue[idx];
+          val = value + (this.__innervalue[idx] || '');
           idx++;
           return val;
         }
@@ -173,7 +173,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
             idx++;
             return val;
           }
-          val = value + v[idx];
+          val = value + (v[idx] || '');
           idx++;
           return val;
         }
