@@ -140,7 +140,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         'L': '[a-z]',
       };
 
-      let idx = 0;
+      let idx = -1;
       const formatted = this.mask.split('').map((value) => {
         if (value in specialChars) {
           const rgx = new RegExp(specialChars[value]);
@@ -151,7 +151,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         return value;
       });
 
-      this.__formattedvalue = formatted.join();
+      this.__formattedvalue = formatted.join('');
     }
   }
 
