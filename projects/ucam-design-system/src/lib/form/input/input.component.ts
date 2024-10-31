@@ -140,13 +140,14 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         'L': '[a-z]',
       };
 
-      let idx = -1;
+      let idx = 0;
       const formatted = this.mask.split('').map((value) => {
         if (value in specialChars) {
           const rgx = new RegExp(specialChars[value]);
           console.log(value, rgx, idx, rgx.test(this.__innervalue[idx]));
+          let val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
           idx++;
-          return rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
+          return val;
         }
         return value;
       });
