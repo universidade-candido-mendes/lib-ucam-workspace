@@ -45,7 +45,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
-  __originalvalue: any = null;
   __innervalue: any = null;
   __formattedvalue: any = null;
   __disabled = false;
@@ -64,6 +63,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     this.ngZone.run(() => {
       this.__innervalue = this.clearInput(value);
       this.applyMask();
+      this.writeValue(this.__formattedvalue || this.__innervalue);
     });
   };
 
@@ -72,8 +72,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   ) { }
 
   get value(): any {
-    console.log(this.__formattedvalue, this.__innervalue);
-
     return this.__formattedvalue || this.__innervalue;
   }
 
@@ -162,12 +160,13 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       const formatted = this.mask.split('').map((value) => {
         if (value in this.__specialChars) {
           const rgx = new RegExp(this.__specialChars[value]);
-          val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
-          idx++;
+          if (rgx.test(v[idx])) {
+            val = v[idx];
+            idx++;
+          }
           return val;
         }
         val = v[idx];
-        idx++;
         return val;
       });
 
