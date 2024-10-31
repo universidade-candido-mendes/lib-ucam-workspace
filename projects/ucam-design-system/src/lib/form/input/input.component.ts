@@ -54,7 +54,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     this.ngZone.run(() => {
       this.__innervalue = value;
       this.applyMask();
-      this.__innervalue = this.__formattedvalue;
     });
   };
 
@@ -123,8 +122,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       this.__formattedvalue = this.__innervalue;
       return;
     }
-
-    this.__formattedvalue = this.__innervalue;
 
     if (typeof this.mask === 'string') {
       this.formatStringMask();
