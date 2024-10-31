@@ -139,17 +139,20 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   private formatRegExpMask(): void {
     if (this.mask) {
       let idx = 0;
+      let val = '';
       const formatted = this.mask.split('').map((value) => {
         if (this.__innervalue.length >= idx) {
           if (value in this.__specialChars) {
             const rgx = new RegExp(this.__specialChars[value]);
-            let val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
+            val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
             idx++;
             return val;
           }
-          return value;
+          val = value + this.__innervalue[idx];
+          idx++;
+          return val;
         }
-        return '';
+        return val;
       });
 
       this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length));
@@ -169,6 +172,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
             return val;
           }
           val = v[idx];
+          idx++;
           return val;
         }
         return '';
