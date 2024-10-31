@@ -54,7 +54,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     this.ngZone.run(() => {
       this.__innervalue = value;
       this.applyMask();
-      this.onInputChange.emit(this.__formattedvalue);
+      this.__innervalue = this.__formattedvalue;
     });
   };
 
