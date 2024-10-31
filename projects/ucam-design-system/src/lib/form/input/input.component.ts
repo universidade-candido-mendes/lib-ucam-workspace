@@ -164,7 +164,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         if (v.length >= idx) {
           if (value in this.__specialChars) {
             const rgx = new RegExp(this.__specialChars[value]);
-            val = rgx.test(v[idx]) ? val = v[idx] : this.maskChar;
+            val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
             idx++;
             return val;
           }
@@ -174,7 +174,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         return '';
       });
 
-      console.log(v, formatted, formatted.join('').substring(0, Math.min(v.length, this.mask.length)));
+      console.log(v, formatted.join(''), formatted.join('').substring(0, Math.min(v.length, this.mask.length)));
 
       return formatted.join('').substring(0, Math.min(v.length, this.mask.length));
     }
