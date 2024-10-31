@@ -124,7 +124,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     }
 
     if (typeof this.mask === 'string') {
-      this.formatStringMask();
+      this.convertToStringRegex(this.mask);
+      this.formatRegExpMask();
     } else if (this.mask instanceof RegExp) {
       this.formatRegExpMask();
     }
@@ -133,39 +134,25 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   }
 
-  private formatStringMask(): void {
-    let formatted = '';
-    let i = 0;
-    let j = 0;
+  private convertToStringRegex(input: string): RegExp {
+    const mapping: { [key: string]: string } = {
+      '0': '[0-9]',
+      '9': '[0-9]?',
+      'A': '[A-Z]',
+      'S': '[a-zA-Z]',
+      'U': '[A-Z]',
+      'L': '[a-z]'
+    };
 
-    if (this.mask && typeof this.mask === 'string') {
-      while (i < this.__innervalue.length && j < this.mask.length) {
-        if (this.mask[j] === this.maskChar) {
-          formatted += this.maskChar;
-          j++;
-        } else if (this.mask[j] === this.__innervalue[i]) {
-          formatted += this.maskChar;
-          i++;
-          j++;
-        } else {
-          formatted += this.maskChar;
-          i++;
-        }
+    let regexPattern = '';
+
+    for (const char of input) {
+      if (char in mapping) {
+        regexPattern += mapping[char];
       }
-
-      while (i < this.__innervalue.length) {
-        formatted += this.maskChar;
-        i++;
-      }
-
-      while (j < this.mask.length) {
-        formatted += this.maskChar;
-        j++;
-      }
-
-      this.__formattedvalue = formatted;
     }
 
+    return new RegExp(`^${regexPattern}$`);
   }
 
   private formatRegExpMask(): void {
