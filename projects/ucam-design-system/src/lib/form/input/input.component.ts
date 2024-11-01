@@ -143,12 +143,11 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       this.mask.split('').forEach((value, i) => {
         let val = '';
         if (!Object.keys(this.__specialChars).includes(value)) {
-          formatted.push(value);
-          formatted.push(this.__innervalue[idx]);
+          formatted.push(this.mask?.split('')[idx]);
           return;
         }
         const rgx = new RegExp(this.__specialChars[value]);
-        val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
+        val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : value;
         formatted.push(val);
         console.log(idx, i, val, formatted);
         idx++;
