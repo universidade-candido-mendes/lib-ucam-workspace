@@ -46,6 +46,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
   __innervalue: any = null;
+  __originalvalue: any = null;
   __formattedvalue: any = null;
   __disabled = false;
 
@@ -60,6 +61,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   onInputChange: any = () => {
     const value = this.input.nativeElement.value;
+    this.__originalvalue = value;
     this.ngZone.run(() => {
       this.__innervalue = this.clearInput(value);
       this.applyMask();
@@ -138,7 +140,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   private formatRegExpMask(): void {
     if (this.mask) {
-      let idx = 0;
       const formatted: any[] = [];
       const maskArray = this.mask.substring(0, this.__innervalue.length).split('');
       for (let idx = 0; idx < maskArray.length; idx++) {
@@ -157,7 +158,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         console.log(idx, val, formatted);
       };
 
-      console.log("FORMATED: ", formatted.join(''), idx);
+      console.log("FORMATED: ", formatted.join(''));
 
       this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length)+1);
     }
@@ -170,16 +171,13 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       let idx = 0;
       let val = '';
       const formatted = this.mask.split('').map((value) => {
-        if (v.length >= idx) {
-          if (!(value in this.__specialChars)) {
-            return;
-          }
-          const rgx = new RegExp(this.__specialChars[value]);
-          val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
-          idx++;
-          return val;
+        if (!(value in this.__specialChars)) {
+          return;
         }
-        return '';
+        const rgx = new RegExp(this.__specialChars[value]);
+        val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
+        idx++;
+        return val;
       });
 
       console.log("CLEARED: ", formatted.join(''));
