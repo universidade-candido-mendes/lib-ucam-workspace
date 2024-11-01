@@ -139,12 +139,12 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   private formatRegExpMask(): void {
     if (this.mask) {
       let idx = 0;
-      const formatted = this.mask.split('').map((value, _, arr) => {
+      const formatted = this.mask.split('').map((value, i, arr) => {
         let val = '';
         if (!Object.keys(this.__specialChars).includes(value)) return value;
         const rgx = new RegExp(this.__specialChars[value]);
         val = rgx.test(this.__innervalue[idx]) ? this.__innervalue[idx] : this.maskChar;
-        console.log(idx, val, arr, formatted);
+        console.log(idx, i, val, arr);
         idx++;
         return val;
       });
