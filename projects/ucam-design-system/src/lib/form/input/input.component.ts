@@ -144,6 +144,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         let val = '';
         if (!Object.keys(this.__specialChars).includes(value)) {
           formatted.push(value);
+          formatted.push(this.__innervalue[idx]);
           return;
         }
         const rgx = new RegExp(this.__specialChars[value]);
@@ -155,7 +156,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
       console.log("FORMATED: ", formatted.join(''), idx);
 
-      this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length));
+      this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length)+1);
     }
   }
 
@@ -180,7 +181,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
       console.log("CLEARED: ", formatted.join(''));
 
-      return formatted.join('').substring(0, Math.min(v.length, this.mask.length));
+      return formatted.join('').substring(0, Math.min(v.length, this.mask.length)+1);
     }
     return v;
   }
