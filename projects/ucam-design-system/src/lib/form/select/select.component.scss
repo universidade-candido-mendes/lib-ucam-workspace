@@ -71,7 +71,7 @@
     border-radius: 8px;
     padding-right: 42px;
     padding-left: 14px;
-    height: 48px;
+    height: 40px;
     font-family: 'Nexa Text', 'Nunito', sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -113,8 +113,8 @@
 
   .select-ucam-icon {
     position: absolute;
-    right: 16px;
-    top: 33px;
+    right: 10px;
+    top: 35px;
     fill: var(--mat-app-text-color, rgb(112, 118, 131));
     transition: transform 0.1s;
   }
