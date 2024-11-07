@@ -44,9 +44,9 @@
     word-break: break-word;
     cursor: default;
     -webkit-tap-highlight-color: transparent;
-    position: absolute;
-    top: -10px;
-    left: 12px;
+    // position: absolute;
+    // top: -10px;
+    // left: 12px;
     padding: 0px 4px;
     z-index: 1;
     font-weight: 400;
@@ -55,7 +55,6 @@
     letter-spacing: 0px;
     font-family: 'Nexa Text', 'Nunito', sans-serif;
     color: var(--mat-app-text-color, rgb(112, 118, 131));
-    background: linear-gradient(#ffffff10 0 40%, var(--mat-app-background-color,#fff) 40% 52%,#ffffff10 52%);
   }
 
   .select-ucam-class {
@@ -78,7 +77,7 @@
     font-size: 14px;
     line-height: 22px;
     letter-spacing: 0px;
-    background: var(--mat-app-background-color, rgb(255, 255, 255));
+    background: #ffffff;
     color: var(--mat-app-text-color, rgb(62, 65, 72));
 
     &:focus-visible {
@@ -115,18 +114,18 @@
   .select-ucam-icon {
     position: absolute;
     right: 16px;
-    top: 13px;
+    top: 33px;
     fill: var(--mat-app-text-color, rgb(112, 118, 131));
     transition: transform 0.1s;
   }
 
   .is-open {
     .select-ucam-btn {
-      border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
-      outline: none;
+      color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
 
-      .select-ucam-font-icon {
-        color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
+      .select-ucam-class {
+        border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
+        outline: none;
       }
 
       .select-ucam-icon {
