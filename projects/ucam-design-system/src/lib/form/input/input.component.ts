@@ -153,19 +153,15 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
           const rgx = new RegExp(this.__specialChars[value]);
           val = rgx.test(this.__innervalue[valueIdx]) ? this.__innervalue[valueIdx] : value;
           formatted.push(val);
-          console.log(idx, valueIdx, val, formatted);
           valueIdx++;
         }
       };
-
-      console.log("FORMATED: ", formatted.join(''));
 
       this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length)+1);
     }
   }
 
   private clearInput(v: string) {
-    console.log(v);
 
     if (this.mask) {
       let idx = 0;
@@ -174,13 +170,10 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
         if (!(value in this.__specialChars)) {
           return;
         }
-        const rgx = new RegExp(this.__specialChars[value]);
-        val = rgx.test(v[idx]) ? v[idx] : this.maskChar;
+        val = v[idx];
         idx++;
         return val;
       });
-
-      console.log("CLEARED: ", formatted.join(''));
 
       return formatted.join('').substring(0, Math.min(v.length, this.mask.length)+1);
     }

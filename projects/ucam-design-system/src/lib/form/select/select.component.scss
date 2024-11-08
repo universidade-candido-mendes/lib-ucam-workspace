@@ -152,9 +152,7 @@
     }
 
     .select-menu-wrapper {
-      position: absolute;
-      width: 100%;
-
+      position: fixed;
       padding-top: 5px;
       box-shadow: 2px 2px 8px 0 #d2d2d2;
       border-radius: 8px;
