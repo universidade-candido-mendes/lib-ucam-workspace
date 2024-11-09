@@ -72,7 +72,11 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   get dropdownElement(): Element {
-    return this.elem.nativeElement.querySelector('.select-menu')
+    return this.elem.nativeElement.querySelector('.select-menu');
+  }
+
+  get inputElement(): HTMLElement {
+    return this.elem.nativeElement.querySelector('.select-ucam-class');
   }
 
   set value(value: any) {
@@ -233,7 +237,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   calculateContainerTop(): string {
-    return `${this.elem.nativeElement.getBoundingClientRect().bottom}px`;
+    return `${this.inputElement.getBoundingClientRect().bottom}px`;
   }
 
 }
