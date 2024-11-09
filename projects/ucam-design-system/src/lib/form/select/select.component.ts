@@ -229,9 +229,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   calculateContainerWidth(): string {
-    console.log(this.elem, this.elem.nativeElement.style.width, `${this.elem.nativeElement.style.width}px`);
-
-    return `${this.elem.nativeElement.style.width}px`;
+    return `${this.elem.nativeElement.offsetWidth}px`;
   }
 
 }

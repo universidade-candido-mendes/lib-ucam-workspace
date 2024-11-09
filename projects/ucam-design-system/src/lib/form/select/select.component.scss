@@ -156,6 +156,8 @@
       padding-top: 5px;
       box-shadow: 2px 2px 8px 0 #d2d2d2;
       border-radius: 8px;
+      background: var(--mat-app-background-color, rgb(255, 255, 255));
+      z-index: 2;
     }
 
     .cdk-virtual-scroll-viewport {
