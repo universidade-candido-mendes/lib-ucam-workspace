@@ -30,7 +30,7 @@
     <div class="select-menu">
       <div class="backdrop" (click)="closeDropdown()"></div>
 
-      <div class="select-menu-wrapper" [style.height]="calculateContainerHeight()" [style.width.px]="'select.style.width'">
+      <div class="select-menu-wrapper" [style.height]="calculateContainerHeight()" [style.width]="calculateContainerWidth()">
         <cdk-virtual-scroll-viewport #scrollViewport itemSize="32">
 
           <div *ngIf="!__filteredValues.length" class="option">Nenhum resultado encontrado</div>

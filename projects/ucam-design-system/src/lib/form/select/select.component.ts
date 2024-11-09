@@ -228,4 +228,8 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
     return `${(itemHeight * visibleItems) + marginHeight}px`;
   }
 
+  calculateContainerWidth(): string {
+    return `${this.elem.nativeElement.style.width}px`;
+  }
+
 }
