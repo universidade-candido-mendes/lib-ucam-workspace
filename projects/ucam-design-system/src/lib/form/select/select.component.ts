@@ -232,4 +232,8 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
     return `${this.elem.nativeElement.offsetWidth}px`;
   }
 
+  calculateContainerTop(): string {
+    return `${this.elem.nativeElement.getBoundingClientRect().bottom}px`;
+  }
+
 }
