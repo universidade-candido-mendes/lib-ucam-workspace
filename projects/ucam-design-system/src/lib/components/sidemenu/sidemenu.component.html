@@ -1,15 +1,15 @@
 
-<div class="sidemenu-main-menu-wrapper">
+<div class="sidemenu-main-menu-wrapper" [ngClass]="{isMenuOpen: 'open'}">
   <div class="main-menu">
     <div  class="sector header">
-      <mat-icon fontIcon="menu"></mat-icon>
+      <mat-icon fontIcon="menu" (click)="onToggleMenu()"></mat-icon>
     </div>
 
     <div  class="sector identifier">
       <img src="icon.svg" id="system-logo" alt="System logo">
 
-      <p>{{ routes.app.title }}</p>
-      <p>{{ routes.app.subtitle }}</p>
+      <p class="title">{{ routes.app.title }}</p>
+      <p class="subtitle">{{ routes.app.subtitle }}</p>
     </div>
 
     <div class="sector links">
@@ -23,7 +23,7 @@
              ariaCurrentWhenActive="page">
 
           <mat-icon [fontIcon]="link.icon"></mat-icon>
-          <div>{{link.label}}</div>
+          <div class="label">{{link.label}}</div>
 
         </div>
       </div>

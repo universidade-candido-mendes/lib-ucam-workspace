@@ -1,21 +1,41 @@
 :host {
   width: 75px;
   height: 100%;
-  padding: 15px 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-
-  box-sizing: border-box;
-
-  background-color: var(--primary-color, #1900AF);
-
-  color: var(--mat-app-background-color, #f1f3f5);
 
   .sidemenu-main-menu-wrapper {
     height: 100%;
+    padding: 15px 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    box-sizing: border-box;
+
+    background-color: var(--primary-color, #1900AF);
+
+    color: var(--mat-app-background-color, #f1f3f5);
+
+    &.open {
+      position: fixed;
+      width: 300px;
+      left: 0;
+      top: 0;
+      z-index: 999;
+
+      .main-menu {
+        .sector {
+          .title, .subtitle {
+            display: block;
+          }
+        }
+
+        .link .label {
+          display: block;
+        }
+      }
+    }
 
     .main-menu {
       height: 100%;
@@ -27,6 +47,38 @@
         width: 32px;
         height: 32px;
         font-size: 32px;
+      }
+
+      .sector {
+        &.identifier {
+          display: flex;
+          gap: 10px;
+
+          .title, .subtitle {
+            display: none;
+          }
+        }
+
+        &.links {
+          .links-wrapper {
+            .link {
+              &.active {
+                border-left: 10px solid white;
+                position: relative;
+                left: -16px;
+                padding-left: 6px;
+              }
+
+              display: flex;
+              flex-direction: row;
+              gap: 10px;
+
+              .label {
+                display: none;
+              }
+            }
+          }
+        }
       }
     }
   }

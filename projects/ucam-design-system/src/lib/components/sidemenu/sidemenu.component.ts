@@ -20,6 +20,8 @@ export class SidemenuComponent implements OnInit {
   @Input()
   routes!: MenuConfig;
 
+  isMenuOpen = false;
+
   constructor(
     private activedRoute: ActivatedRoute
   ) {
@@ -32,5 +34,9 @@ export class SidemenuComponent implements OnInit {
     this.activedRoute.url.subscribe(url => {
       console.log(url[0]?.path);
     });
+  }
+
+  onToggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }
