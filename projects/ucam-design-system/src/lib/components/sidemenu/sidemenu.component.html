@@ -1,5 +1,5 @@
 
-<div class="sidemenu-main-menu-wrapper" [ngClass]="{isMenuOpen: 'open'}">
+<div class="sidemenu-main-menu-wrapper" [ngClass]="{'open': isMenuOpen}">
   <div class="main-menu">
     <div  class="sector header">
       <mat-icon fontIcon="menu" (click)="onToggleMenu()"></mat-icon>
