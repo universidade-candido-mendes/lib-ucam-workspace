@@ -55,8 +55,10 @@
               }
 
               display: flex;
+              justify-content: center;
               flex-direction: row;
               gap: 10px;
+              width: 100%;
 
               .label {
                 display: none;
@@ -82,11 +84,16 @@
 
           .title, .subtitle {
             display: block !important;
+            margin: auto;
           }
         }
 
-        .link .label {
-          display: block !important;
+        .link {
+          justify-content: unset;
+
+          .label {
+            display: block !important;
+          }
         }
       }
     }
