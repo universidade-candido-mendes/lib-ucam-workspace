@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../public-api';
 
 @Component({
@@ -8,6 +8,8 @@ import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../publi
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     UcamSelectComponent
   ],
   templateUrl: './profile.component.html',
