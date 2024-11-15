@@ -22,7 +22,7 @@ export class UcamProfileComponent {
 
   profileMenuActive = false;
 
-  unidadesOption!: UcamOption[];
+  unidadesOption: UcamOption[] = [];
 
   form = new FormGroup({
     unidade: new FormControl(),
