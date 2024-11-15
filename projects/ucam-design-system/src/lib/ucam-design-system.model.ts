@@ -38,7 +38,7 @@ export class UcamUserProfile {
   public username = "Username";
   public email = "user@ucam.edu.br";
   public unidade?: Unidade;
-  public unidades?: Unidade[];
+  public unidades?: Unidade[] = [];
 
   constructor(private param: Partial<UcamUserProfile>) {
     Object.assign(this, this.param);
