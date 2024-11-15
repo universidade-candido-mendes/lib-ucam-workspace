@@ -38,6 +38,9 @@ export class UcamProfileComponent {
         id: u.oid,
         label: u.sigla,
       }));
+
+      console.log(this.unidadesOption);
+
     }
 
     this.form.controls.unidade.valueChanges.subscribe(
@@ -45,6 +48,8 @@ export class UcamProfileComponent {
         const unidade = this.form.controls.unidade.value;
         if (unidade) {
           this.unidade.emit(unidade);
+          console.log("UNID: ", unidade);
+
         }
       }
     );
