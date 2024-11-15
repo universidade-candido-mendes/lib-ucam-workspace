@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MenuConfig, UcamUserProfile } from '../../ucam-design-system.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MenuConfig, UcamUserProfile, Unidade } from '../../ucam-design-system.model';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidemenuComponent } from '../sidemenu/sidemenu.component';
 
@@ -20,5 +20,12 @@ export class PageComponent {
 
   @Input()
   routes!: MenuConfig;
+
+  @Output()
+  unidade = new EventEmitter();
+
+  emitUnidade(unidade: Unidade) {
+    this.unidade.emit(unidade);
+  }
 
 }

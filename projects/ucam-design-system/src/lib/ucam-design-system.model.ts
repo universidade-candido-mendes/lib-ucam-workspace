@@ -1,3 +1,22 @@
+// INTERFACE
+
+export interface Unidade {
+  oid: string;
+  sigla: string;
+  razaosocial: string;
+  oidUnidade: string;
+}
+
+export interface UsuarioLogado {
+  oid: string;
+  oidpessoa: string;
+  nome: string;
+  email: string;
+  foto?: string;
+  token: string;
+}
+
+// CLASSES
 
 export class UcamOption {
 
@@ -18,6 +37,8 @@ export class UcamUserProfile {
 
   public username = "Username";
   public email = "user@ucam.edu.br";
+  public unidade?: Unidade;
+  public unidades?: Unidade[];
 
   constructor(private param: Partial<UcamUserProfile>) {
     Object.assign(this, this.param);

@@ -75,7 +75,10 @@
   </div>
 </div>
 <div class="profile-hidden-menu" [ngClass]="{'active': profileMenuActive}">
+  Unidade: <br />
+  {{ userprofile?.unidade?.sigla }}
   <hr>
+  <ucam-select [options]="unidadesOption" label="Unidades"></ucam-select>
   <button>Sair</button>
 </div>
 <div class="profile-hidden-menu-backdrop"
