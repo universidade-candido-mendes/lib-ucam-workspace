@@ -33,15 +33,20 @@ export class UcamProfileComponent {
 
   constructor() {
 
-    if (this.userprofile && this.userprofile.unidades) {
-      this.unidadesOption = this.userprofile?.unidades?.map(u => new UcamOption({
+    if (this.userprofile && this.userprofile.unidades && !!this.userprofile.unidades.length) {
+      this.unidadesOption = this.userprofile.unidades.map(u => new UcamOption({
         id: u.oid,
         label: u.sigla,
       }));
     }
 
     this.form.controls.unidade.valueChanges.subscribe(
-      (_) => this.unidade.emit(this.form.controls.unidade.value)
+      (_) => {
+        const unidade = this.form.controls.unidade.value;
+        if (unidade) {
+          this.unidade.emit(unidade);
+        }
+      }
     );
   }
 

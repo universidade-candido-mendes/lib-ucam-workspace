@@ -78,8 +78,8 @@
   Unidade: <br />
   {{ userprofile?.unidade?.sigla }}
   <hr>
-    <form [formGroup]="form" style="display: contents;">
-      <ucam-select *ngIf="!!unidadesOption.length" [options]="unidadesOption" label="Unidades"></ucam-select>
+    <form [formGroup]="form" *ngIf="!!unidadesOption.length" style="display: contents;">
+      <ucam-select [options]="unidadesOption" label="Unidades"></ucam-select>
     </form>
     <button>Sair</button>
   </div>
