@@ -41,7 +41,7 @@ export class UcamProfileComponent {
     }
 
     this.form.controls.unidade.valueChanges.subscribe(
-      (_) => this.unidade.emit(this.form.controls.unidade.value.value)
+      (_) => this.unidade.emit(this.form.controls.unidade.value)
     );
   }
 
