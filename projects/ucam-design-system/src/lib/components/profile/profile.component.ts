@@ -22,7 +22,12 @@ export class UcamProfileComponent implements AfterViewInit {
 
   profileMenuActive = false;
 
-  unidadesOption: UcamOption[] = [];
+  unidadesOption: UcamOption[] = [
+    new UcamOption({
+      id: null,
+      label: 'Selecione',
+    })
+  ];
 
   form = new FormGroup({
     unidade: new FormControl(),
