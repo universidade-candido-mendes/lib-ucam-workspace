@@ -79,7 +79,10 @@
   {{ userprofile?.unidade?.sigla }}
   <hr>
   <form [formGroup]="form" style="display: contents;" *ngIf="!!unidadesOption.length">
-    <ucam-select label="Unidades" [options]="unidadesOption" formControlName="unidade"></ucam-select>
+    <label for="unidadesSelect">Unidades</label>
+    <select name="unidadesSelect" formControlName="unidade">
+      <option [value]="u" *ngFor="let u of unidadesOption">{{ u.label }}</option>
+    </select>
   </form>
   <button>Sair</button>
 </div>
