@@ -34,7 +34,12 @@ export class UcamProfileComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    console.log(this.userprofile);
+    if (this.userprofile?.unidade) {
+      this.form.controls.unidade.setValue(new UcamOption({
+        id: this.userprofile.unidade.oid,
+        label: this.userprofile.unidade.sigla,
+      }));
+    }
 
     if (this.userprofile && this.userprofile.unidades) {
       this.unidadesOption = this.userprofile.unidades.map(u => new UcamOption({
@@ -52,7 +57,6 @@ export class UcamProfileComponent implements AfterViewInit {
         if (unidade) {
           this.unidade.emit(unidade);
           console.log("UNID: ", unidade);
-
         }
       }
     );
