@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../public-api';
 
@@ -15,7 +15,7 @@ import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../publi
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class UcamProfileComponent {
+export class UcamProfileComponent implements AfterViewInit {
 
   @Input()
   userprofile?: UcamUserProfile;
@@ -31,8 +31,9 @@ export class UcamProfileComponent {
   @Output()
   unidade = new EventEmitter();
 
-  constructor() {
+  constructor() { }
 
+  ngAfterViewInit(): void {
     console.log(this.userprofile);
 
     if (this.userprofile && this.userprofile.unidades) {
