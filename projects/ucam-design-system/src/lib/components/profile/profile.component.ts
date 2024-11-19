@@ -55,7 +55,7 @@ export class UcamProfileComponent implements AfterViewInit {
 
     this.form.controls.unidade.valueChanges.subscribe(
       (_) => {
-        const unidade = this.form.controls.unidade.value;
+        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
         if (unidade) {
           this.unidade.emit(unidade);
           console.log("UNID: ", unidade);

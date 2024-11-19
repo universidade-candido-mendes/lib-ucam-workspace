@@ -81,7 +81,7 @@
   <form [formGroup]="form" style="display: contents;" *ngIf="!!unidadesOption.length">
     <label for="unidadesSelect">Unidades</label>
     <select name="unidadesSelect" formControlName="unidade">
-      <option [value]="u" *ngFor="let u of unidadesOption">{{ u.label }}</option>
+      <option [value]="u.id" *ngFor="let u of unidadesOption">{{ u.label }}</option>
     </select>
   </form>
   <button>Sair</button>
