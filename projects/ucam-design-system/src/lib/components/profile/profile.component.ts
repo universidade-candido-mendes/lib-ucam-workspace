@@ -33,7 +33,7 @@ export class UcamProfileComponent {
 
   constructor() {
 
-    if (this.userprofile && this.userprofile.unidades && !!this.userprofile.unidades.length) {
+    if (this.userprofile && this.userprofile.unidades) {
       this.unidadesOption = this.userprofile.unidades.map(u => new UcamOption({
         id: u.oid,
         label: u.sigla,
