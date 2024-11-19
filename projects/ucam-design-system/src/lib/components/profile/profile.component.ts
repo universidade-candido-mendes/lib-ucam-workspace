@@ -51,9 +51,6 @@ export class UcamProfileComponent implements AfterViewInit {
         id: u.oid,
         label: u.sigla,
       }));
-
-      console.log(this.unidadesOption);
-
     }
 
     this.form.controls.unidade.valueChanges.subscribe(
