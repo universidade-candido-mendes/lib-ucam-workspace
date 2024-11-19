@@ -48,8 +48,9 @@ export class UcamProfileComponent implements AfterViewInit {
 
     if (this.userprofile && this.userprofile.unidades) {
       this.unidadesOption = this.userprofile.unidades.map(u => new UcamOption({
-        id: u.oid,
+        id: u.oidUnidade,
         label: u.sigla,
+        value: u
       }));
     }
 
@@ -57,8 +58,8 @@ export class UcamProfileComponent implements AfterViewInit {
       (_) => {
         const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
         if (unidade) {
-          this.unidade.emit(unidade);
-          console.log("UNID: ", unidade);
+          this.unidade.emit(unidade.value);
+          console.log("PROFILE: ", unidade);
         }
       }
     );
