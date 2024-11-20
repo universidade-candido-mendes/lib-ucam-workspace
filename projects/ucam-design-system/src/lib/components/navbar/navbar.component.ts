@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { UcamUserProfile, Unidade } from '../../ucam-design-system.model';
+import { UcamUserProfile } from '../../ucam-design-system.model';
 import { UcamProfileComponent } from '../profile/profile.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class NavbarComponent {
   @Output()
   unidade = new EventEmitter();
 
-  emitUnidade(unidade: Unidade) {
+  emitUnidade(unidade: any) {
     this.unidade.emit(unidade);
     console.log("NAVBAR: ", unidade);
   }
