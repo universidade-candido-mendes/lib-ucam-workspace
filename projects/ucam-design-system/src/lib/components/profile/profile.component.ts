@@ -50,11 +50,19 @@ export class UcamProfileComponent implements AfterViewInit, AfterViewChecked {
       this.form.controls.unidade.setValue(new UcamOption({
         id: this.userprofile.unidade.oid,
         label: this.userprofile.unidade.sigla,
+        value: this.userprofile.unidade
       }));
     }
   }
 
   ngAfterViewInit(): void {
+    if (this.userprofile && this.userprofile.unidades) {
+      this.unidadesOption = this.userprofile.unidades.map(u => new UcamOption({
+        id: u.oidUnidade,
+        label: u.sigla,
+        value: u
+      }));
+    }
 
     this.form.controls.unidade.valueChanges.subscribe(
       (_) => {
