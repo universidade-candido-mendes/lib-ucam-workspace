@@ -21,7 +21,6 @@ export class NavbarComponent {
 
   emitUnidade(unidade: any) {
     this.unidade.emit(unidade);
-    console.log("NAVBAR: ", unidade);
   }
 
 }

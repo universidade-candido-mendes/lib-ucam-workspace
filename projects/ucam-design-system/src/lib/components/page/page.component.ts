@@ -26,7 +26,6 @@ export class PageComponent {
 
   emitUnidade(unidade: any) {
     this.unidade.emit(unidade);
-    console.log("PAGE: ", unidade);
   }
 
 }
