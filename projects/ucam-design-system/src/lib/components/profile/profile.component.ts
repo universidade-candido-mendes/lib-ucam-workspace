@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../public-api';
 
@@ -15,7 +15,7 @@ import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../publi
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class UcamProfileComponent implements AfterViewInit, AfterViewChecked {
+export class UcamProfileComponent implements AfterViewInit, AfterContentInit {
 
   @Input()
   userprofile?: UcamUserProfile;
@@ -45,7 +45,7 @@ export class UcamProfileComponent implements AfterViewInit, AfterViewChecked {
     }
   }
 
-  ngAfterViewChecked(): void {
+  ngAfterContentInit(): void {
     if (this.userprofile?.unidade) {
       this.form.controls.unidade.setValue(new UcamOption({
         id: this.userprofile.unidade.oid,
