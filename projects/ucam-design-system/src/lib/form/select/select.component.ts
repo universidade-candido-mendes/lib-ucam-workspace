@@ -216,20 +216,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   calculateContainerHeight(): string {
-    const numberOfItems = this.options.length;
-    const itemHeight = 40;
-    const visibleItems = 5;
-    const marginHeight = 32;
-
-    if (numberOfItems < 2) {
-      return `${itemHeight + marginHeight}px`;
-    }
-
-    if (numberOfItems <= visibleItems) {
-      return `${(itemHeight * numberOfItems) + marginHeight}px`;
-    }
-
-    return `${(itemHeight * visibleItems) + marginHeight}px`;
+    return `${this._calculateContainerHeight()}px`;
   }
 
   calculateContainerWidth(): string {
@@ -237,7 +224,31 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   calculateContainerTop(): string {
-    return `${this.inputElement.getBoundingClientRect().bottom}px`;
+    const bottom = this.inputElement.getBoundingClientRect().bottom;
+    const height = this.inputElement.getBoundingClientRect().height;
+    const outerHeight = this._calculateContainerHeight();
+
+    if ( bottom > (window.innerHeight / 2)){
+      return `${bottom - height - outerHeight}px`
+    }
+    return `${bottom}px`;
+  }
+
+  private _calculateContainerHeight(): number {
+    const numberOfItems = this.options.length;
+    const itemHeight = 40;
+    const visibleItems = 5;
+    const marginHeight = 32;
+
+    if (numberOfItems < 2) {
+      return itemHeight + marginHeight;
+    }
+
+    if (numberOfItems <= visibleItems) {
+      return (itemHeight * numberOfItems) + marginHeight;
+    }
+
+    return (itemHeight * visibleItems) + marginHeight;
   }
 
 }
