@@ -43,13 +43,11 @@ export class UcamProfileComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     this.updateUnidade();
 
-    if (this.userprofile && this.userprofile.unidades) {
-      this.unidadesOption = this.getUnidades().map(u => new UcamOption({
-        id: u.oidUnidade,
-        label: u.sigla,
-        value: u
-      }));
-    }
+    this.unidadesOption = this.getUnidades().map(u => new UcamOption({
+      id: u.oidUnidade,
+      label: u.sigla,
+      value: u
+    }));
 
     this.form.controls.unidade.valueChanges.subscribe(
       (_) => {
