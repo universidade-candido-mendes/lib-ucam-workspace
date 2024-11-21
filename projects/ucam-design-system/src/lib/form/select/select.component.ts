@@ -225,10 +225,11 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
 
   calculateContainerTop(): string {
     const bottom = this.inputElement.getBoundingClientRect().bottom;
-    const height = this.inputElement.getBoundingClientRect().height;
+    const height = 48;
     const outerHeight = this._calculateContainerHeight();
+    const winPart = (window.innerHeight / 4);
 
-    if ( bottom > (window.innerHeight / 2)){
+    if ( bottom > (3 * winPart)){
       return `${bottom - height - outerHeight}px`
     }
     return `${bottom}px`;
