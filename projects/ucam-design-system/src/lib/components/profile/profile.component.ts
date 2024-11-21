@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../public-api';
+import { UcamOption, UcamUserProfile } from '../../../public-api';
 
 @Component({
   selector: 'ucam-profile',
@@ -10,12 +10,11 @@ import { UcamOption, UcamSelectComponent, UcamUserProfile } from '../../../publi
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    UcamSelectComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class UcamProfileComponent implements AfterViewInit, AfterContentInit {
+export class UcamProfileComponent implements AfterContentInit {
 
   @Input()
   userprofile?: UcamUserProfile;
@@ -37,27 +36,15 @@ export class UcamProfileComponent implements AfterViewInit, AfterContentInit {
   unidade = new EventEmitter();
 
   constructor() {
-    if (this.userprofile?.unidade) {
-      this.form.controls.unidade.setValue(new UcamOption({
-        id: this.userprofile.unidade.oid,
-        label: this.userprofile.unidade.sigla,
-      }));
-    }
+    this.setListener();
+    this.updateUnidade();
   }
 
   ngAfterContentInit(): void {
-    if (this.userprofile?.unidade) {
-      this.form.controls.unidade.setValue(new UcamOption({
-        id: this.userprofile.unidade.oid,
-        label: this.userprofile.unidade.sigla,
-        value: this.userprofile.unidade
-      }));
-    }
-  }
+    this.updateUnidade();
 
-  ngAfterViewInit(): void {
     if (this.userprofile && this.userprofile.unidades) {
-      this.unidadesOption = this.userprofile.unidades.map(u => new UcamOption({
+      this.unidadesOption = this.getUnidades().map(u => new UcamOption({
         id: u.oidUnidade,
         label: u.sigla,
         value: u
@@ -76,6 +63,36 @@ export class UcamProfileComponent implements AfterViewInit, AfterContentInit {
 
   toggleMenu() {
     this.profileMenuActive = !this.profileMenuActive;
+  }
+
+  private setListener() {
+    window.addEventListener("storage", this.updateUnidade, false);
+  }
+
+  private updateUnidade() {
+    const authState = JSON.parse(localStorage.getItem('AuthState') ?? '');
+    if (authState === '') return;
+
+    const unidade = authState.unidadeSelecionada;
+    if (!unidade) return;
+
+    this.form.controls.unidade.setValue(new UcamOption({
+      id: unidade.oid,
+      label: unidade.sigla,
+      value: unidade
+    }));
+  }
+
+  private getUnidades(): any[] {
+    const authState = JSON.parse(localStorage.getItem('AuthState') ?? '');
+    if (authState === '') {
+      const unidades = authState.unidades;
+      if (!unidades) return [];
+
+      return unidades
+    }
+
+    return [];
   }
 
 }
