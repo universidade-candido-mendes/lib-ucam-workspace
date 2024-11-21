@@ -74,6 +74,9 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
     const unidade = authState.unidadeSelecionada;
     if (!unidade) return;
 
+    console.log("UPDT: ", unidade);
+
+
     this.form.controls.unidade.setValue(new UcamOption({
       id: unidade.oid,
       label: unidade.sigla,
@@ -83,6 +86,8 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
   private getUnidades(): any[] {
     const authState = JSON.parse(localStorage.getItem('AuthState') ?? '');
+    console.log(authState);
+
     if (authState === '') {
       const unidades = authState.unidades;
       if (!unidades) return [];
