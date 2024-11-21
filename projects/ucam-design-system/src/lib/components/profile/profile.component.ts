@@ -86,16 +86,12 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
   private getUnidades(): any[] {
     const authState = JSON.parse(localStorage.getItem('AuthState') ?? '');
-    console.log(authState);
+    if (authState === '') return [];
 
-    if (authState === '') {
-      const unidades = authState.unidades;
-      if (!unidades) return [];
+    const unidades = authState.unidades;
+    if (!unidades) return [];
 
-      return unidades
-    }
-
-    return [];
+    return unidades;
   }
 
 }
