@@ -54,7 +54,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
     this.form.controls.unidade.valueChanges.subscribe(
       (_) => {
-        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
+        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value.id)[0];
         if (unidade) this.unidade.emit(unidade.value);
       }
     );
@@ -81,7 +81,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
     this.selectedUnidade = unidade;
 
-    const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
+    const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value.id)[0];
     this.form.controls.unidade.setValue(unid);
 
     console.log("UPDT: ", this, unidade, unid, this.form.controls.unidade.value);
