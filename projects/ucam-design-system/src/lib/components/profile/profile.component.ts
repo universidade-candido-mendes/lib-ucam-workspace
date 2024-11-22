@@ -64,8 +64,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
   }
 
   private setListener() {
-    const self = this;
-    window.addEventListener("storage", () => self.updateUnidade(), false);
+    window.addEventListener("storage", this.updateUnidade.bind(this), false);
   }
 
   private updateUnidade() {
