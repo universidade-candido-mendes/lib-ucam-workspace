@@ -76,7 +76,7 @@
 </div>
 <div class="profile-hidden-menu" [ngClass]="{'active': profileMenuActive}">
   Unidade: <br />
-  {{ userprofile?.unidade?.sigla }}
+  {{ selectedUnidade?.sigla }}
   <hr>
   <form [formGroup]="form" style="display: contents;" *ngIf="!!unidadesOption.length">
     <label for="unidadesSelect">Unidades</label>

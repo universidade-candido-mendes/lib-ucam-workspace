@@ -20,6 +20,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
   userprofile?: UcamUserProfile;
 
   profileMenuActive = false;
+  selectedUnidade!: any;
 
   unidadesOption: UcamOption[] = [
     new UcamOption({
@@ -73,6 +74,8 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
     const unidade = authState.unidadeSelecionada;
     if (!unidade) return;
+
+    this.selectedUnidade = unidade;
 
     const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
     this.form.controls.unidade.setValue(unid);
