@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UcamOption, UcamUserProfile } from '../../../public-api';
 
@@ -14,7 +14,7 @@ import { UcamOption, UcamUserProfile } from '../../../public-api';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
+export class UcamProfileComponent implements AfterContentInit {
 
   @Input()
   userprofile?: UcamUserProfile;
@@ -42,9 +42,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
   ngAfterContentInit(): void {
     this.updateUnidade();
-  }
 
-  ngAfterViewInit(): void {
     this.unidadesOption = this.getUnidades().map(u => new UcamOption({
       id: u.oidUnidade,
       label: u.sigla,
@@ -64,7 +62,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
   }
 
   private setListener() {
-    window.addEventListener("storage", this.updateUnidade, false);
+    window.addEventListener("storage", () => { this.updateUnidade() }, false);
   }
 
   private updateUnidade() {
@@ -75,7 +73,6 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
     if (!unidade) return;
 
     console.log("UPDT: ", unidade);
-
 
     this.form.controls.unidade.setValue(new UcamOption({
       id: unidade.oid,
