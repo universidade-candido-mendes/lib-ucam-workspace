@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { UcamOption, UcamUserProfile } from '../../../public-api';
 
 @Component({
@@ -36,6 +37,8 @@ export class UcamProfileComponent implements AfterContentInit {
   @Output()
   unidade = new EventEmitter();
 
+  private subscriber = new Subscription();
+
   constructor() {
     this.setListener();
     this.updateUnidade();
@@ -50,12 +53,7 @@ export class UcamProfileComponent implements AfterContentInit {
       value: u
     }));
 
-    this.form.controls.unidade.valueChanges.subscribe(
-      (_) => {
-        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
-        if (unidade) this.unidade.emit(unidade.value);
-      }
-    );
+    this.setFormListener();
   }
 
   toggleMenu() {
@@ -79,8 +77,12 @@ export class UcamProfileComponent implements AfterContentInit {
 
     this.selectedUnidade = unidade;
 
+    this.removeFormListener();
+
     const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
     this.form.controls.unidade.setValue(unid.id);
+
+    this.setFormListener();
 
     console.log("UPDT: ", this, unidade, unid, this.form.controls.unidade.value);
   }
@@ -93,6 +95,19 @@ export class UcamProfileComponent implements AfterContentInit {
     if (!unidades) return [];
 
     return unidades;
+  }
+
+  private setFormListener() {
+    this.subscriber.add(this.form.controls.unidade.valueChanges.subscribe(
+      (_) => {
+        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
+        if (unidade) this.unidade.emit(unidade.value);
+      }
+    ));
+  }
+
+  private removeFormListener() {
+    this.subscriber.unsubscribe();
   }
 
 }
