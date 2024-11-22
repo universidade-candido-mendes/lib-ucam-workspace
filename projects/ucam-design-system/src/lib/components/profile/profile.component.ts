@@ -79,7 +79,7 @@ export class UcamProfileComponent implements AfterContentInit {
 
     let unid = this.unidadesOption.filter(u => (u.id === this.form.controls.unidade.value))[0];
 
-    if (!unid) unid = this.unidadesOption.filter(u => u.id === this.selectedUnidade.oidUnidade)[0];
+    if (!unid && unidade) unid = this.unidadesOption.filter(u => u.id === unidade.oidUnidade)[0]?.id;
 
     if (this.form.controls.unidade.value != this.selectedUnidade.oidUnidade) {
       this.form.controls.unidade.setValue(unid);
