@@ -42,6 +42,8 @@ export class UcamProfileComponent implements AfterContentInit {
   constructor() {
     this.setListener();
     this.updateUnidade();
+
+    this.setFormListener();
   }
 
   ngAfterContentInit(): void {
@@ -52,8 +54,6 @@ export class UcamProfileComponent implements AfterContentInit {
       label: u.sigla,
       value: u
     }));
-
-    this.setFormListener();
   }
 
   toggleMenu() {
