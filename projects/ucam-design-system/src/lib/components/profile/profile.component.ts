@@ -75,7 +75,7 @@ export class UcamProfileComponent implements AfterContentInit {
     console.log("UPDT: ", unidade);
 
     this.form.controls.unidade.setValue(new UcamOption({
-      id: unidade.oid,
+      id: unidade.oidUnidade,
       label: unidade.sigla,
       value: unidade
     }));
