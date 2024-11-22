@@ -42,18 +42,18 @@ export class UcamProfileComponent implements AfterContentInit {
   constructor() {
     this.setListener();
     this.updateUnidade();
-
-    this.setFormListener();
   }
 
   ngAfterContentInit(): void {
-    this.updateUnidade();
-
     this.unidadesOption = this.getUnidades().map(u => new UcamOption({
       id: u.oidUnidade,
       label: u.sigla,
       value: u
     }));
+
+    this.updateUnidade();
+
+    this.setFormListener();
   }
 
   toggleMenu() {
@@ -77,12 +77,10 @@ export class UcamProfileComponent implements AfterContentInit {
 
     this.selectedUnidade = unidade;
 
-    this.removeFormListener();
-
     const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
-    this.form.controls.unidade.setValue(unid.id);
-
-    this.setFormListener();
+    if (this.form.controls.unidade.value != unid.id) {
+      this.form.controls.unidade.setValue(unid.id);
+    }
 
     console.log("UPDT: ", this, unidade, unid, this.form.controls.unidade.value);
   }
@@ -104,10 +102,6 @@ export class UcamProfileComponent implements AfterContentInit {
         if (unidade) this.unidade.emit(unidade.value);
       }
     ));
-  }
-
-  private removeFormListener() {
-    this.subscriber.unsubscribe();
   }
 
 }
