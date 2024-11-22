@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UcamOption, UcamUserProfile } from '../../../public-api';
 
@@ -14,7 +14,7 @@ import { UcamOption, UcamUserProfile } from '../../../public-api';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
+export class UcamProfileComponent implements AfterContentInit {
 
   @Input()
   userprofile?: UcamUserProfile;
@@ -43,9 +43,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
   ngAfterContentInit(): void {
     this.updateUnidade();
-  }
 
-  ngAfterViewInit() {
     this.unidadesOption = this.getUnidades().map(u => new UcamOption({
       id: u.oidUnidade,
       label: u.sigla,
@@ -54,7 +52,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
     this.form.controls.unidade.valueChanges.subscribe(
       (_) => {
-        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value.id)[0];
+        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value?.id)[0];
         if (unidade) this.unidade.emit(unidade.value);
       }
     );
@@ -81,7 +79,7 @@ export class UcamProfileComponent implements AfterContentInit, AfterViewInit {
 
     this.selectedUnidade = unidade;
 
-    const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value.id)[0];
+    const unid = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value?.id)[0];
     this.form.controls.unidade.setValue(unid);
 
     console.log("UPDT: ", this, unidade, unid, this.form.controls.unidade.value);
