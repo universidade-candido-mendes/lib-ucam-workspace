@@ -102,6 +102,8 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
       } catch (error) {
         this.__innervalue = this.options.filter(option => option.id === value)[0];
       }
+      console.log(this.__innervalue);
+
       this.onTouch();
       this.onChange(this.__innervalue.value);
     } else {
