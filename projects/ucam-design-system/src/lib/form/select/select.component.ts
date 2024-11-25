@@ -64,7 +64,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   ) { }
 
   get value(): any {
-    return this.__innervalue;
+    return this.__innervalue?.value || this.__innervalue;
   }
 
   get selectLabel() {
