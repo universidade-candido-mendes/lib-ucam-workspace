@@ -204,7 +204,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   calculateContainerTop(): string {
-    const bottom = this.inputElement.getBoundingClientRect().bottom;
+    const bottom = this.inputElement?.getBoundingClientRect().bottom || 0;
     const height = 48;
     const outerHeight = this._calculateContainerHeight();
     const winPart = (window.innerHeight / 4);
