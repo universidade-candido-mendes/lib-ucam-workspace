@@ -74,12 +74,11 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   onInputChange: any = () => {
     const value = this.input.nativeElement.value;
     this.__originalvalue = value;
-    this.__innervalue = value;
-    // this.ngZone.run(() => {
-    //   this.__innervalue = this.clearInput(value);
-    //   this.applyMask();
-    //   this.writeValue(this.__formattedvalue || this.__innervalue);
-    // });
+    this.ngZone.run(() => {
+      this.__innervalue = this.clearInput(value);
+      this.applyMask();
+      this.writeValue(this.__formattedvalue || this.__innervalue);
+    });
   };
 
   constructor(
@@ -124,7 +123,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     if (value) {
       this.__innervalue = value;
       this.onTouch();
-      this.onChange(this.__innervalue);
+      this.onChange(this.__innervalue?.value || this.__innervalue);
     } else {
       this.__innervalue = null;
     }
@@ -279,6 +278,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
       return formatted.join('').substring(0, Math.min(v.length, this.mask.length)+1);
     }
+
     return v;
   }
 
