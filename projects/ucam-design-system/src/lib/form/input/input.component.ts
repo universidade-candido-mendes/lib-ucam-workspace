@@ -216,7 +216,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   private _calculateContainerHeight(): number {
-    const numberOfItems = this.datalist.length;
+    const numberOfItems = this.datalist?.length || 0;
     const itemHeight = 40;
     const visibleItems = 5;
     const marginHeight = 32;
