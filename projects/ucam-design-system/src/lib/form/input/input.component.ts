@@ -62,7 +62,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __formattedvalue: any = null;
   __disabled = false;
   __view!: EmbeddedViewRef<any>;
-  __datalist!: UcamOption[];
+  __datalist: UcamOption[] = [];
 
   __specialChars: { [key: string]: string } = {
     '0': '[0-9]',
