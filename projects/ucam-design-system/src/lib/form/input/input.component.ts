@@ -46,7 +46,12 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() mask?: string;
   @Input() maskChar: string = '';
 
-  @Input() datalist!: UcamOption[];
+  @ViewChild('dropdown') dropdown!: TemplateRef<any>;
+
+  @Input() set datalist(value: UcamOption[]) {
+    this.open(this.dropdown, this.elem.nativeElement);
+    this.__datalist = value;
+  }
 
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
@@ -55,6 +60,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __formattedvalue: any = null;
   __disabled = false;
   __view!: EmbeddedViewRef<any>;
+  __datalist!: UcamOption[];
 
   __specialChars: { [key: string]: string } = {
     '0': '[0-9]',
@@ -99,6 +105,10 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   get inputElement(): HTMLElement {
     return this.elem.nativeElement.querySelector('.input-ucam');
+  }
+
+  get datalist() {
+    return this.__datalist;
   }
 
   onChange = (_: any) => {
