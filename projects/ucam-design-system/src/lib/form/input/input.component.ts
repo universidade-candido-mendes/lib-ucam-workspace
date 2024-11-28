@@ -1,6 +1,8 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, forwardRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EmbeddedViewRef, forwardRef, Input, NgZone, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
+import { UcamOption } from '../../../public-api';
 
 @Component({
   selector: 'ucam-input',
@@ -9,6 +11,7 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_V
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ScrollingModule,
   ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
@@ -43,12 +46,15 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() mask?: string;
   @Input() maskChar: string = '';
 
+  @Input() datalist!: UcamOption[];
+
   @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
   __innervalue: any = null;
   __originalvalue: any = null;
   __formattedvalue: any = null;
   __disabled = false;
+  __view!: EmbeddedViewRef<any>;
 
   __specialChars: { [key: string]: string } = {
     '0': '[0-9]',
@@ -70,7 +76,9 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   };
 
   constructor(
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private elem: ElementRef,
+    private vcr: ViewContainerRef
   ) { }
 
   get value(): any {
@@ -83,6 +91,14 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       this.onChange(this.__innervalue);
       this.onTouch();
     }
+  }
+
+  get dropdownElement(): Element {
+    return this.elem.nativeElement.querySelector('.select-menu');
+  }
+
+  get inputElement(): HTMLElement {
+    return this.elem.nativeElement.querySelector('.input-ucam');
   }
 
   onChange = (_: any) => {
@@ -127,6 +143,81 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   hasError(errorType: string): boolean {
     return this.__innervalue === '' && errorType === 'required';
+  }
+
+  closeDropdown() {
+    this.dropdownElement ? this.dropdownElement.remove() : null;
+  }
+
+  selectByIndex(i: number) {
+    let value = this.datalist[i];
+    this.selectOption(value);
+  }
+
+  selectOption(value: UcamOption) {
+    this.onTouch();
+    this.onChange(value.value);
+    this.__formattedvalue = value.label;
+    this.__innervalue = value;
+    this.closeDropdown();
+  }
+
+  toggle(dropdownTpl: TemplateRef<any>, origin: HTMLElement) {
+    this.dropdownElement ? this.closeDropdown() : this.open(dropdownTpl, origin);
+  }
+
+  open(dropdownTpl: TemplateRef<any>, origin: HTMLElement) {
+    this.__view = this.vcr.createEmbeddedView(dropdownTpl);
+
+    this.dropdownElement ? this.dropdownElement.remove() : null;
+
+    const element = this.__view.rootNodes[0];
+
+    if (!this.dropdownElement && origin.parentElement) {
+      origin.parentElement.appendChild(element);
+    }
+
+  }
+
+  isActive(option: UcamOption) {
+    return this.__innervalue.id == option.id;
+  }
+
+  calculateContainerHeight(): string {
+    return `${this._calculateContainerHeight()}px`;
+  }
+
+  calculateContainerWidth(): string {
+    return `${this.elem.nativeElement.offsetWidth}px`;
+  }
+
+  calculateContainerTop(): string {
+    const bottom = this.inputElement.getBoundingClientRect().bottom;
+    const height = 48;
+    const outerHeight = this._calculateContainerHeight();
+    const winPart = (window.innerHeight / 4);
+
+    if ( bottom > (3 * winPart)){
+      return `${bottom - height - outerHeight}px`
+    }
+    return `${bottom}px`;
+  }
+
+  private _calculateContainerHeight(): number {
+    const numberOfItems = this.datalist.length;
+    const itemHeight = 40;
+    const visibleItems = 5;
+    const marginHeight = 32;
+
+    if (numberOfItems < 2) {
+      return itemHeight + marginHeight;
+    }
+
+    if (numberOfItems <= visibleItems) {
+      return (itemHeight * numberOfItems) + marginHeight;
+    }
+
+    return (itemHeight * visibleItems) + marginHeight;
   }
 
   private applyMask(): void {

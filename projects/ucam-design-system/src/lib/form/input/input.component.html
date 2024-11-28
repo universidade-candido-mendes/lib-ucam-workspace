@@ -19,3 +19,33 @@
     </strong>
   </small>
 </span>
+
+<ng-template #dropdown>
+  <div class="select-menu">
+    <div class="backdrop" (click)="closeDropdown()"></div>
+
+    <div class="select-menu-wrapper" [style.height]="calculateContainerHeight()" [style.width]="calculateContainerWidth()" [style.top]="calculateContainerTop()">
+      <cdk-virtual-scroll-viewport #scrollViewport itemSize="32">
+
+        <div *ngIf="!datalist.length" class="option">Nenhum resultado encontrado</div>
+
+        <div
+          *cdkVirtualFor="let option of datalist"
+          class="option"
+          [class.valid]="option.valid"
+          [class.active]="isActive(option)"
+          (click)="option.valid && selectOption(option)">
+          <span class="option-label">
+            {{ option.label }}
+          </span><br>
+          <span *ngIf="option.description" class="option-description">
+            {{ option.description }}
+          </span>
+        </div>
+
+
+      </cdk-virtual-scroll-viewport>
+    </div>
+
+  </div>
+</ng-template>
