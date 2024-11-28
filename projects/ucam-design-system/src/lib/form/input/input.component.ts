@@ -85,7 +85,9 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     private ngZone: NgZone,
     private elem: ElementRef,
     private vcr: ViewContainerRef
-  ) { }
+  ) {
+    this.closeDropdown();
+  }
 
   get value(): any {
     return this.__formattedvalue || this.__innervalue;
@@ -124,6 +126,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       this.__innervalue = value;
       this.onTouch();
       this.onChange(this.__innervalue?.value || this.__innervalue);
+      console.log(this.__innervalue);
+
     } else {
       this.__innervalue = null;
     }
