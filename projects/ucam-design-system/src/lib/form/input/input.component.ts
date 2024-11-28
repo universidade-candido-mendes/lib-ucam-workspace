@@ -49,9 +49,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @ViewChild('dropdown', { static: true }) dropdown!: TemplateRef<any>;
 
   @Input() set datalist(value: UcamOption[]) {
-    console.log(this.dropdown, this.elem.nativeElement);
-
-    this.open(this.dropdown, this.elem.nativeElement);
+    this.open(this.dropdown, this.input.nativeElement);
     this.__datalist = value;
   }
 
