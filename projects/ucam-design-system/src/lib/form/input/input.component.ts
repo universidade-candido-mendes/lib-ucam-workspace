@@ -55,7 +55,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     this.__datalist = value;
   }
 
-  @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+  @ViewChild('input', { static: true }) input!: ElementRef<HTMLInputElement>;
 
   __innervalue: any = null;
   __originalvalue: any = null;
@@ -106,7 +106,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   get inputElement(): HTMLElement {
-    return this.elem.nativeElement.querySelector('.input-ucam');
+    return this.input.nativeElement;
   }
 
   get datalist() {

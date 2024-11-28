@@ -32,4 +32,116 @@
       }
     }
   }
+
+  .select-menu {
+    position: relative;
+
+    .backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+    }
+
+    .select-menu-wrapper {
+      position: fixed;
+      padding-top: 5px;
+      box-shadow: 2px 2px 8px 0 #d2d2d2;
+      border-radius: 8px;
+      background: var(--mat-app-background-color, rgb(255, 255, 255));
+      z-index: 2;
+    }
+
+    .cdk-virtual-scroll-viewport {
+      z-index: 2;
+
+      height: 100%;
+      width: 100%;
+      border-radius: 8px;
+      background: var(--mat-app-background-color, rgb(255, 255, 255));
+
+      ::ng-deep .cdk-virtual-scroll-content-wrapper {
+        box-sizing: border-box;
+        min-width: 98%;
+        margin-left: 1%;
+
+        top: 5px;
+
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: 0;
+        font-family: 'Nexa Text', 'Nunito', sans-serif;
+        color: var(--mat-app-text-color, rgb(112, 118, 131));
+
+        .option {
+          padding: 8px;
+          font-family: 'Nexa Text', 'Nunito', sans-serif;
+          font-style: normal;
+          font-weight: 300;
+
+          .option-label {
+            font-size: 14px;
+            line-height: 24px;
+          }
+
+          .option-description {
+            font-size: 12px;
+            line-height: 16px;
+          }
+
+          &:not(.valid) {
+            cursor: not-allowed;
+          }
+
+          &.valid {
+            cursor: pointer;
+          }
+
+          &.valid:hover,
+          &.active {
+            .option-label {
+              color: var(--mat-app-on-primary, rgb(25, 0, 175));
+            }
+
+            .option-description {
+              color: var(--mat-app-on-primary, rgb(85, 85, 103));
+            }
+
+            background-color: var(--mat-stepper-header-selected-state-icon-background-color, rgb(238, 235, 255));
+            font-weight: bold;
+          }
+        }
+
+        .option:first-of-type {
+          margin-top: 8px;
+        }
+
+        .option:last-of-type {
+          margin-bottom: 8px;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 16px;
+        background: #f1f1f1;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 16px;
+        background: var(--accent-color, #1900AF);
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-darker-color, #160095);
+      }
+    }
+  }
 }
