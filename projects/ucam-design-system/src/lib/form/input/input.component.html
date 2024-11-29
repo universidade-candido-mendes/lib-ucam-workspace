@@ -21,13 +21,11 @@
 </span>
 
 <ng-template #dropdown>
-  <div class="select-menu">
+  <div class="select-menu" *ngIf="datalist?.length">
     <div class="backdrop" (click)="closeDropdown()"></div>
 
     <div class="select-menu-wrapper" [style.height]="calculateContainerHeight()" [style.width]="calculateContainerWidth()" [style.top]="calculateContainerTop()">
       <cdk-virtual-scroll-viewport #scrollViewport itemSize="32">
-
-        <div *ngIf="!datalist.length" class="option">Nenhum resultado encontrado</div>
 
         <div
           *cdkVirtualFor="let option of datalist"
