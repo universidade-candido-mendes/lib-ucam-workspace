@@ -29,11 +29,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.activedRoute.snapshot.url[0]?.path);
-
-    this.activedRoute.url.subscribe(url => {
-      console.log(url[0]?.path);
-    });
+    this.activedRoute.url.subscribe(url => { });
   }
 
   onToggleMenu() {

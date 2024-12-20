@@ -126,8 +126,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       this.__innervalue = value;
       this.onTouch();
       this.onChange(this.__innervalue?.value || this.__innervalue);
-      console.log(this.__innervalue);
-
     } else {
       this.__innervalue = null;
     }
