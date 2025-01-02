@@ -3,8 +3,9 @@
   height: 100%;
 
   .sidemenu-main-menu-wrapper {
+    width: 70px;
     height: 100%;
-    padding: 15px 0;
+    padding: 15px 15px;
 
     display: flex;
     flex-direction: column;
@@ -35,7 +36,12 @@
           justify-content: center;
         }
 
+        &.header {
+          padding: 0 5px;
+        }
+
         &.identifier {
+          padding: 0px 1px;
           display: flex;
           gap: 10px;
 
@@ -51,7 +57,7 @@
                 left: -16px;
                 border-left: 10px solid white;
                 position: relative;
-                padding-left: 6px;
+                padding-left: 3.5px;
               }
 
               display: flex;
@@ -71,7 +77,7 @@
 
     &.open {
       position: fixed;
-      width: 220px;
+      width: 230px;
       left: 0;
       top: 0;
       z-index: 999;
