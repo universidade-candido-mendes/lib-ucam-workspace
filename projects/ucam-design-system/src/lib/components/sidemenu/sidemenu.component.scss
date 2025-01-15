@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
 
     box-sizing: border-box;
 
@@ -56,6 +55,11 @@
                 left: -16px;
                 border-left: 10px solid white;
                 position: relative;
+                padding-left: 12px;
+              }
+
+              mat-icon {
+                min-width: 40px;
               }
 
               display: flex;
@@ -63,7 +67,7 @@
               flex-direction: row;
               gap: 10px;
               width: 100%;
-              padding-left: 12px;
+              padding-left: 6px;
               padding-top: 4px;
               padding-bottom: 4px;
 
