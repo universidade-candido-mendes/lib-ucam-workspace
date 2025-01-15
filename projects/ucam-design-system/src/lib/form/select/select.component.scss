@@ -34,7 +34,7 @@
   }
 
   .select-ucam-btn {
-    background: var(--mat-app-background-color, rgb(255, 255, 255));
+    background: var(--mdc-dialog-container-color, rgb(255, 255, 255));
     color: var(--mat-app-text-color, rgb(62, 65, 72));
   }
 
@@ -50,7 +50,7 @@
     padding: 0px 4px;
     z-index: 1;
     font-weight: 400;
-    font-size: 14px;
+    // font-size: 14px;
     line-height: 22px;
     letter-spacing: 0px;
     font-family: 'Nexa Text', 'Nunito', sans-serif;
@@ -209,14 +209,16 @@
           &.valid:hover,
           &.active {
             .option-label {
-              color: var(--mat-app-on-primary, rgb(25, 0, 175));
+              color: #415260;
+              font-weight: 500;
             }
 
             .option-description {
-              color: var(--mat-app-on-primary, rgb(85, 85, 103));
+              color: #415260;
+              font-weight: 400;
             }
 
-            background-color: var(--mat-stepper-header-selected-state-icon-background-color, rgb(238, 235, 255));
+            background-color: #E2E6E9;
             font-weight: bold;
           }
         }
