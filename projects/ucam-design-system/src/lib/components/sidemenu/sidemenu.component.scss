@@ -33,7 +33,6 @@
       .sector {
         &.header, &.identifier {
           display: flex;
-          justify-content: center;
         }
 
         &.header {
@@ -57,14 +56,16 @@
                 left: -16px;
                 border-left: 10px solid white;
                 position: relative;
-                padding-left: 3.5px;
               }
 
               display: flex;
-              justify-content: center;
+              // justify-content: center;
               flex-direction: row;
               gap: 10px;
               width: 100%;
+              padding-left: 12px;
+              padding-top: 4px;
+              padding-bottom: 4px;
 
               .label {
                 display: none;
