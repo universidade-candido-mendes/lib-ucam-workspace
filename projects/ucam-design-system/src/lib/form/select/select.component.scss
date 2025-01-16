@@ -17,17 +17,23 @@
   .select-ucam-wrapper {
     position: relative;
 
-    &.disabled .select-ucam-class {
-      border-color: var(--ucam-disabled-color, rgb(230, 230, 240));
-      color: var(--ucam-disabled-color, rgb(230, 230, 240));
+    &.disabled {
       background-color: transparent;
       opacity: 1;
 
-      + .select-ucam-font-icon {
+      .select-ucam-btn {
+        border-color: var(--ucam-disabled-color, rgb(230, 230, 240));
+      }
+
+      .select-ucam-label {
         color: var(--ucam-disabled-color, rgb(230, 230, 240));
       }
 
-      + .select-ucam-icon {
+      .select-ucam-font-icon {
+        color: var(--ucam-disabled-color, rgb(230, 230, 240));
+      }
+
+      .select-ucam-icon {
         fill: var(--ucam-disabled-color, rgb(230, 230, 240));
       }
     }
