@@ -2,7 +2,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EmbeddedViewRef, forwardRef, Input, NgZone, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
-import { UcamOption } from '../../../public-api';
+import { UcamOption } from '../../../../../public-api';
 
 @Component({
   selector: 'ucam-input',
