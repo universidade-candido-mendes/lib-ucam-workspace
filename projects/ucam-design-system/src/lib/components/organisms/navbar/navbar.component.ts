@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { UcamUserProfile } from '../../ucam-design-system.model';
+import { UcamUserProfile } from '../../../ucam-design-system.model';
 import { UcamProfileComponent } from '../profile/profile.component';
 
 @Component({

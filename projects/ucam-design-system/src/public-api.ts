@@ -3,16 +3,19 @@
  */
 
 // COMPONENTES (ESTRUTURAIS)
-export * from './lib/components/navbar/navbar.component';
-export * from './lib/components/page/page.component';
-export * from './lib/components/profile/profile.component';
-export * from './lib/components/sidemenu/sidemenu.component';
+export * from './lib/components/organisms/navbar/navbar.component';
+export * from './lib/components/organisms/profile/profile.component';
+export * from './lib/components/organisms/sidemenu/sidemenu.component';
+export * from './lib/components/templates/page/page.component';
 
 // COMPONENTES (FORM)
-export * from './lib/form/input/input.component';
-export * from './lib/form/select/select.component';
+export * from './lib/components/atoms/form/input/input.component';
+export * from './lib/components/atoms/form/select/select.component';
 
 // MODELOS
 export * from './lib/ucam-design-system.model';
+
+// EventListeners
+export * from './lib/ucam-design-system.events';
 
 

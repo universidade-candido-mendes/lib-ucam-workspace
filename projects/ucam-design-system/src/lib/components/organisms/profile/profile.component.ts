@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UcamOption, UcamUserProfile } from '../../../public-api';
+import { UcamOption, UcamUserProfile } from '../../../../public-api';
 
 @Component({
   selector: 'ucam-profile',

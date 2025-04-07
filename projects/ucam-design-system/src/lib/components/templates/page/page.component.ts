@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MenuConfig, UcamUserProfile } from '../../ucam-design-system.model';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { SidemenuComponent } from '../sidemenu/sidemenu.component';
+import { ChangeUnidadeListener } from '../../../ucam-design-system.events';
+import { MenuConfig, UcamUserProfile } from '../../../ucam-design-system.model';
+import { NavbarComponent } from '../../organisms/navbar/navbar.component';
+import { SidemenuComponent } from '../../organisms/sidemenu/sidemenu.component';
 
 @Component({
   selector: 'ucam-page',
@@ -26,6 +27,7 @@ export class PageComponent {
 
   emitUnidade(unidade: any) {
     this.unidade.emit(unidade);
+    ChangeUnidadeListener.getInstance().emit(unidade);
   }
 
 }

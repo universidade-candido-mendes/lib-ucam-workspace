@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { MenuConfig } from '../../ucam-design-system.model';
+import { MenuConfig } from '../../../ucam-design-system.model';
 
 @Component({
   selector: 'ucam-sidemenu',
