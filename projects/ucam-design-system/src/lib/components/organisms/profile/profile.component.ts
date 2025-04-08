@@ -47,6 +47,8 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
+    this.startSelectedUnidade();
+
     this.unidadesOption = this.getUnidades().map(u => new UcamOption({
       id: u.oidUnidade,
       label: u.sigla,
@@ -105,12 +107,38 @@ export class UcamProfileComponent implements AfterContentInit {
   private setUnidade(unidade: Unidade) {
     this.selectedUnidade = unidade;
 
+    this.updateSelectedUnidade(unidade);
+
     let unid = this.unidadesOption.filter(u => (u.id === this.form.controls.unidade.value))[0];
     if (!unid && unidade) unid = this.unidadesOption.filter(u => u.id === (unidade.oidUnidade || unidade.oid))[0]?.id;
 
     if (this.form.controls.unidade.value != this.selectedUnidade.oidUnidade) {
       this.form.controls.unidade.setValue(unid);
     }
+  }
+
+  private updateSelectedUnidade(unidade: Unidade) {
+    const authStateString = localStorage.getItem('AuthState');
+
+    if (!authStateString) return ;
+
+    const authState = JSON.parse(authStateString);
+
+    authState.unidadeSelecionada = unidade;
+
+    localStorage.setItem('AuthState', authState);
+  }
+
+  private startSelectedUnidade() {
+    const authStateString = localStorage.getItem('AuthState');
+
+    if (!authStateString) return ;
+
+    const authState = JSON.parse(authStateString);
+    const unidadeSelecionada = authState.unidadeSelecionada;
+
+    ChangeUnidadeListener.getInstance()
+            .emit(unidadeSelecionada);
   }
 
 }
