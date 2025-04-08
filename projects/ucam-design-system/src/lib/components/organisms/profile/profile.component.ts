@@ -96,7 +96,7 @@ export class UcamProfileComponent implements AfterContentInit {
         tap((unidade: String) => {
           ChangeUnidadeListener.getInstance()
             .emit(this.getUnidades()
-              .filter((u: Unidade) => u.oid === unidade)[0]);
+              .filter((u: Unidade) => u.oidUnidade === unidade)[0]);
         })
       ).subscribe()
     );
