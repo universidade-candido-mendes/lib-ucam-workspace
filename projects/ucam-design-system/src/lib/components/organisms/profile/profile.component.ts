@@ -126,7 +126,7 @@ export class UcamProfileComponent implements AfterContentInit {
 
     authState.unidadeSelecionada = unidade;
 
-    localStorage.setItem('AuthState', authState);
+    localStorage.setItem('AuthState', JSON.stringify(authState));
   }
 
   private startSelectedUnidade() {
