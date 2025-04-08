@@ -18,7 +18,7 @@ import { MenuConfig } from '../../../ucam-design-system.model';
 export class SidemenuComponent implements OnInit {
 
   @Input()
-  routes!: MenuConfig;
+  routes?: MenuConfig;
 
   isMenuOpen = false;
 

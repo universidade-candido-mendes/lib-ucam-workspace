@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { UcamOption, UcamUserProfile } from '../../../../public-api';
+import { Subscription, tap } from 'rxjs';
+import { ChangeUnidadeListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
 
 @Component({
   selector: 'ucam-profile',
@@ -21,7 +21,7 @@ export class UcamProfileComponent implements AfterContentInit {
   userprofile?: UcamUserProfile;
 
   profileMenuActive = false;
-  selectedUnidade!: any;
+  selectedUnidade?: any;
 
   unidadesOption: UcamOption[] = [
     new UcamOption({
@@ -97,12 +97,14 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   private setFormListener() {
-    this.subscriber.add(this.form.controls.unidade.valueChanges.subscribe(
-      (_) => {
-        const unidade = this.unidadesOption.filter(u => u.id === this.form.controls.unidade.value)[0];
-        if (unidade) this.unidade.emit(unidade.value);
-      }
-    ));
+    this.subscriber.add(
+      this.form.controls.unidade.valueChanges.pipe(
+        tap((unidade: Unidade) => {
+          ChangeUnidadeListener.getInstance()
+            .emit(unidade);
+        })
+      ).subscribe()
+    );
   }
 
 }

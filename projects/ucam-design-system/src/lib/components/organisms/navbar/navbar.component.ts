@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UcamUserProfile } from '../../../ucam-design-system.model';
 import { UcamProfileComponent } from '../profile/profile.component';
 
@@ -15,12 +15,5 @@ export class NavbarComponent {
 
   @Input()
   userprofile?: UcamUserProfile;
-
-  @Output()
-  unidade = new EventEmitter();
-
-  emitUnidade(unidade: any) {
-    this.unidade.emit(unidade);
-  }
 
 }
