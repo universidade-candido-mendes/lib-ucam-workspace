@@ -1,7 +1,7 @@
 
 <ucam-sidemenu [routes]="routes"></ucam-sidemenu>
 <div class="page-main-content-wrapper">
-  <ucam-navbar [userprofile]="userprofile" (unidade)="emitUnidade($event)">
+  <ucam-navbar [userprofile]="userprofile">
     <ng-content select="header,[header]"></ng-content>
   </ucam-navbar>
   <div class="page-main-content"><ng-content></ng-content></div>
