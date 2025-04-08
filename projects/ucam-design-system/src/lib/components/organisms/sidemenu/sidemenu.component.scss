@@ -101,6 +101,11 @@
             display: block !important;
             margin: auto;
           }
+
+          .subtitle {
+            font-size: smaller;
+            margin: 0;
+          }
         }
 
         .link {
@@ -111,6 +116,14 @@
           }
         }
       }
+    }
+  }
+
+  .flex {
+    display: flex;
+
+    &.col {
+      flex-direction: column;
     }
   }
 }
