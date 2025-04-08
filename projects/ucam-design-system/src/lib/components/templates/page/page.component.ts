@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { MenuConfig, UcamUserProfile } from '../../../ucam-design-system.model';
+import { Component } from '@angular/core';
 import { NavbarComponent } from '../../organisms/navbar/navbar.component';
 import { SidemenuComponent } from '../../organisms/sidemenu/sidemenu.component';
 
@@ -14,11 +13,5 @@ import { SidemenuComponent } from '../../organisms/sidemenu/sidemenu.component';
   styleUrl: './page.component.scss'
 })
 export class PageComponent {
-
-  @Input()
-  userprofile?: UcamUserProfile;
-
-  @Input()
-  routes!: MenuConfig;
 
 }

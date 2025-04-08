@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MenuConfig } from '../../../ucam-design-system.model';
+import { UcamDesignSystemService } from '../../../ucam-design-system.service';
 
 @Component({
   selector: 'ucam-sidemenu',
@@ -17,15 +18,15 @@ import { MenuConfig } from '../../../ucam-design-system.model';
 })
 export class SidemenuComponent implements OnInit {
 
-  @Input()
   routes?: MenuConfig;
 
   isMenuOpen = false;
 
   constructor(
-    private activedRoute: ActivatedRoute
+    private activedRoute: ActivatedRoute,
+    private service: UcamDesignSystemService
   ) {
-
+    this.routes = service.routes;
   }
 
   ngOnInit() {

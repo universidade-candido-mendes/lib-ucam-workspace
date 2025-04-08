@@ -18,4 +18,7 @@ export * from './lib/ucam-design-system.model';
 // EventListeners
 export * from './lib/ucam-design-system.events';
 
+// Services
+export * from './lib/ucam-design-system.service';
+
 
