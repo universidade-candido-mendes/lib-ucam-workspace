@@ -4,6 +4,7 @@ import { unmaskValue, valueToFormat } from './mask';
 
 @Directive({
   selector: '[mask]',
+  standalone: true,
 })
 export class MaskDirective implements OnInit {
 
