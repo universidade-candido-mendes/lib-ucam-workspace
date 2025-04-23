@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit } from '@angular/core';
-import { UcamInputComponent } from 'ucam-design-system';
+import { UcamInputComponent } from '../../../public-api';
 import { unmaskValue, valueToFormat } from './mask';
 
 @Directive({
