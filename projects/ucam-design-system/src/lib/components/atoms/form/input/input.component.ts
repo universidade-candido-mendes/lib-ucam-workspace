@@ -1,6 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EmbeddedViewRef, forwardRef, Input, NgZone, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, EmbeddedViewRef, forwardRef, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { UcamOption } from '../../../../../public-api';
 
@@ -60,12 +60,10 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __datalist: UcamOption[] = [];
 
   onInputChange: any = () => {
-    const value = this.input.nativeElement.value || null;
-    this.writeValue(value);
+    this.writeValue(this.input.nativeElement.value);
   };
 
   constructor(
-    private ngZone: NgZone,
     private elem: ElementRef,
     private vcr: ViewContainerRef
   ) {
