@@ -1,4 +1,4 @@
-import { Directive, inject, Input, OnInit } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { UcamInputComponent } from 'ucam-design-system';
 import { unmaskValue, valueToFormat } from './mask';
 
@@ -9,11 +9,11 @@ export class MaskDirective implements OnInit {
 
   @Input() mask!: string;
 
-  private control = inject(UcamInputComponent)
-
   private _lastMaskedValue = '';
 
-  constructor() { }
+  constructor(
+    private control: UcamInputComponent
+  ) { }
 
   ngOnInit() {
     if (!this.control || !this.control) {
