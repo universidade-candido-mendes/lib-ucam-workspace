@@ -55,20 +55,13 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @ViewChild('input', { static: true }) input!: ElementRef<HTMLInputElement>;
 
   __innervalue: any = null;
-  __originalvalue: any = null;
-  __formattedvalue: any = null;
   __disabled = false;
   __view!: EmbeddedViewRef<any>;
   __datalist: UcamOption[] = [];
 
   onInputChange: any = () => {
     const value = this.input.nativeElement.value;
-    this.__originalvalue = value;
-    this.ngZone.run(() => {
-      this.__innervalue = this.clearInput(value);
-      this.applyMask();
-      this.writeValue(this.__formattedvalue || this.__innervalue);
-    });
+    this.writeValue(value);
   };
 
   constructor(
@@ -80,7 +73,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   get value(): any {
-    return this.__formattedvalue || this.__innervalue;
+    return this.__innervalue;
   }
 
   set value(value: any) {
@@ -159,7 +152,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   selectOption(value: UcamOption) {
     this.onTouch();
     this.onChange(value.value);
-    this.__formattedvalue = value.label;
     this.__innervalue = value;
     this.closeDropdown();
   }
@@ -220,31 +212,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
     }
 
     return (itemHeight * visibleItems) + marginHeight;
-  }
-
-  private applyMask(): void {
-    if (!this.mask || !this.__innervalue) {
-      this.__formattedvalue = this.__innervalue;
-      return;
-    }
-  }
-
-
-  private clearInput(v: string) {
-
-    if (this.mask) {
-      let idx = 0;
-      let val = '';
-      const formatted = this.mask.split('').map((value) => {
-        val = v[idx];
-        idx++;
-        return val;
-      });
-
-      return formatted.join('').substring(0, Math.min(v.length, this.mask.length)+1);
-    }
-
-    return v;
   }
 
 }
