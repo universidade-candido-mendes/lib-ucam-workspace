@@ -10,7 +10,7 @@
     [value]="__innervalue"
     [disabled]="__disabled"
     class="input-ucam {{ class }}"
-    (keydown)="onInputChange()">
+    (keypress)="onInputChange()">
 
 <span *ngIf="hasError('required')">
   <small>
