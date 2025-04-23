@@ -58,6 +58,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __disabled = false;
   __view!: EmbeddedViewRef<any>;
   __datalist: UcamOption[] = [];
+  __control!: AbstractControl;
 
   onInputChange: any = () => {
     this.writeValue(this.input.nativeElement.value);
@@ -125,13 +126,14 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
+    this.__control = control;
     return (control.value && control.value.valid) || !this.__disabled ? null : { invalid: true };
   }
 
   ngOnInit() { }
 
   hasError(errorType: string): boolean {
-    return this.__innervalue === '' && errorType === 'required';
+    return !this.__control.value.valid && this.__control.hasError(errorType);
   }
 
   closeDropdown() {

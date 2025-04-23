@@ -12,38 +12,12 @@
     class="input-ucam {{ class }}"
     (keyup)="onInputChange()">
 
-<span *ngIf="hasError('required')">
-  <small>
-    <strong>
-      Campo obrigatório
-    </strong>
-  </small>
-</span>
-
-<ng-template #dropdown>
-  <div class="select-menu" *ngIf="datalist?.length">
-    <div class="backdrop" (click)="closeDropdown()"></div>
-
-    <div class="select-menu-wrapper" [style.height]="calculateContainerHeight()" [style.width]="calculateContainerWidth()" [style.top]="calculateContainerTop()">
-      <cdk-virtual-scroll-viewport #scrollViewport itemSize="32">
-
-        <div
-          *cdkVirtualFor="let option of datalist"
-          class="option"
-          [class.valid]="option.valid"
-          [class.active]="isActive(option)"
-          (click)="option.valid && selectOption(option)">
-          <span class="option-label">
-            {{ option.label }}
-          </span><br>
-          <span *ngIf="option.description" class="option-description">
-            {{ option.description }}
-          </span>
-        </div>
-
-
-      </cdk-virtual-scroll-viewport>
-    </div>
-
-  </div>
-</ng-template>
+<div style="position: relative;">
+  <span *ngIf="!optional && hasError('required')" style="position: absolute;">
+    <small>
+      <strong>
+        Campo obrigatório
+      </strong>
+    </small>
+  </span>
+</div>
