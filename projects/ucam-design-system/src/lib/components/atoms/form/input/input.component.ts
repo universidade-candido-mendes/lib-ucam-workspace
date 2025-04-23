@@ -44,7 +44,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   @Input() icon_class?: string;
 
   @Input() mask?: string;
-  @Input() maskChar: string = '';
 
   @ViewChild('dropdown', { static: true }) dropdown!: TemplateRef<any>;
 
@@ -61,15 +60,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __disabled = false;
   __view!: EmbeddedViewRef<any>;
   __datalist: UcamOption[] = [];
-
-  __specialChars: { [key: string]: string } = {
-    '0': '[0-9]',
-    '9': '[0-9]?',
-    'A': '[A-Z]',
-    'S': '[a-zA-Z]',
-    'U': '[A-Z]',
-    'L': '[a-z]',
-  };
 
   onInputChange: any = () => {
     const value = this.input.nativeElement.value;
@@ -237,32 +227,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       this.__formattedvalue = this.__innervalue;
       return;
     }
-
-    this.formatRegExpMask();
   }
 
-  private formatRegExpMask(): void {
-    if (this.mask) {
-      const formatted: any[] = [];
-      const maskArray = this.mask.substring(0, this.__innervalue.length).split('');
-
-      let valueIdx = 0
-      for (let idx = 0; idx < maskArray.length; idx++) {
-        let val = '';
-        const value = this.mask[idx];
-        if (!Object.keys(this.__specialChars).includes(value)) {
-          formatted.push(this.mask?.split('')[idx]);
-        } else {
-          const rgx = new RegExp(this.__specialChars[value]);
-          val = rgx.test(this.__innervalue[valueIdx]) ? this.__innervalue[valueIdx] : value;
-          formatted.push(val);
-          valueIdx++;
-        }
-      };
-
-      this.__formattedvalue = formatted.join('').substring(0, Math.min(this.__innervalue.length, this.mask.length)+1);
-    }
-  }
 
   private clearInput(v: string) {
 
@@ -270,9 +236,6 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
       let idx = 0;
       let val = '';
       const formatted = this.mask.split('').map((value) => {
-        if (!(value in this.__specialChars)) {
-          return;
-        }
         val = v[idx];
         idx++;
         return val;
