@@ -60,7 +60,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   __datalist: UcamOption[] = [];
 
   onInputChange: any = () => {
-    const value = this.input.nativeElement.value;
+    const value = this.input.nativeElement.value || null;
     this.writeValue(value);
   };
 
