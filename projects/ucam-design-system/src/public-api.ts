@@ -12,6 +12,8 @@ export * from './lib/components/templates/page/page.component';
 export * from './lib/components/atoms/form/input/input.component';
 export * from './lib/components/atoms/form/select/select.component';
 
+export * from './lib/directives/form/mask.directive';
+
 // MODELOS
 export * from './lib/ucam-design-system.model';
 
