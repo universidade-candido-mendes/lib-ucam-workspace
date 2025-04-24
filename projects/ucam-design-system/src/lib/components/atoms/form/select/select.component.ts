@@ -1,6 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, forwardRef, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { UcamOption } from '../../../../ucam-design-system.model';
 
@@ -54,9 +54,13 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   __currentIndex = -1;
   __dropdownOpen = false;
   __filteredValues: UcamOption[] = [];
+  __control!: AbstractControl;
 
   __view?: any;
   __is_open = false;
+
+  @HostBinding('class')
+  __hostClass = '';
 
   constructor(
     private elem: ElementRef,
@@ -107,6 +111,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
     } catch {
       this.__innervalue = this.__selecione;
     }
+    this.setHostClass();
   }
 
   registerOnChange(fn: any): void {
@@ -126,7 +131,12 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
+    this.__control = control;
     return (control.value && control.value.valid) || !this.__disabled ? null : { invalid: true };
+  }
+
+  setHostClass() {
+    this.__hostClass = this.__control.invalid ? 'invalid' : '';
   }
 
   ngOnInit() { }

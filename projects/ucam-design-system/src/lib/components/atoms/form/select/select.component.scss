@@ -258,7 +258,7 @@
     }
   }
 
-  &.ng-touched.ng-dirty:not(:focus-within) {
+  &.invalid.ng-touched.ng-dirty:not(:focus-within) {
     &.ng-invalid {
 
       .select-ucam-label,
