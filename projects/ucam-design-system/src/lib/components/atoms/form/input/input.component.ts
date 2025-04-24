@@ -135,7 +135,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   setHostClass() {
-    this.__hostClass = this.__control.invalid ? 'invalid' : '';
+    this.__hostClass = this.__control?.invalid ? 'invalid' : '';
   }
 
   ngOnInit() { }
