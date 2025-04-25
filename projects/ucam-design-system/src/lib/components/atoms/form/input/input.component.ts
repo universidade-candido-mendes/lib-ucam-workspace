@@ -141,7 +141,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   ngOnInit() { }
 
   hasError(errorType: string): boolean {
-    return !this.__control.value.valid && this.__control.hasError(errorType);
+    return this.__control.value.invalid && this.__control.hasError(errorType);
   }
 
   closeDropdown() {
