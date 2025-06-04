@@ -1,5 +1,6 @@
 :host {
   min-width: 280px;
+  position: relative;
 
   .profile-wrapper {
     .profile {
@@ -34,7 +35,7 @@
 
   .profile-hidden-menu {
     position: absolute;
-    top: -100%;
+    top: -1000%;
 
     z-index: 99;
 
@@ -76,13 +77,14 @@
       height: 100vh;
       background-color: #00000001;
       z-index: 9;
+      position: fixed;
     }
   }
 
   .profile-chevron {
     position: absolute;
     right: 16px;
-    top: 17px;
+    top: 8px;
     fill: var(--mat-app-text-color, rgb(112, 118, 131));
     transition: transform 0.1s;
 
