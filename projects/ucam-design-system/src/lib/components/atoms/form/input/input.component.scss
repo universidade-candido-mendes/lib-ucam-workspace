@@ -5,6 +5,17 @@
 
   gap: 5px;
 
+  .input-ucam-container {
+    position: relative;
+
+    .input-ucam-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
   input{
     &[type="text"] {
       width: 100%;

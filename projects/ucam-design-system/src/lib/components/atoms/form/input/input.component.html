@@ -3,14 +3,17 @@
     [for]="'input-' + id"
     class="input-ucam-label {{ label_class }}">{{ label }}</label>
 
-<input
-    #input
-    [id]="'input-' + id"
-    [type]="'text'"
-    [value]="__innervalue"
-    [disabled]="__disabled"
-    class="input-ucam {{ class }}"
-    (keyup)="onInputChange()">
+<div class="input-ucam-container">
+  <i *ngIf="icon" class="material-icons {{icon}}"></i>
+  <input
+      #input
+      [id]="'input-' + id"
+      [type]="'text'"
+      [value]="__innervalue"
+      [disabled]="__disabled"
+      class="input-ucam {{ class }}"
+      (keyup)="onInputChange()">
+</div>
 
 <div style="position: relative;">
   <span *ngIf="!optional && hasError('required')" style="position: absolute;">
