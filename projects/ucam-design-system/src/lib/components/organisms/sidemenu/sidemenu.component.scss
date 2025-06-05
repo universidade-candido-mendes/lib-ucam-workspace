@@ -55,7 +55,7 @@
                 left: -16px;
                 border-left: 10px solid white;
                 position: relative;
-                padding-left: 12px;
+                padding-left: 15px;
               }
 
               mat-icon {
@@ -63,12 +63,12 @@
               }
 
               display: flex;
-              justify-content: center;
+              // justify-content: center;
               align-items: center;
               flex-direction: row;
               gap: 10px;
               width: 100%;
-              padding-left: 6px;
+              padding-left: 12px;
               padding-top: 4px;
               padding-bottom: 4px;
               margin-bottom: 5px;
