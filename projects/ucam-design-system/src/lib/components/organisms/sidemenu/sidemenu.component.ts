@@ -26,7 +26,7 @@ export class SidemenuComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private service: UcamDesignSystemService
   ) {
-    this.routes = service.routes;
+    this.routes = this.service.routes;
   }
 
   ngOnInit() {

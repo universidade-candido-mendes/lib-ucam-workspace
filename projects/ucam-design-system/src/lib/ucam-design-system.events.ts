@@ -1,4 +1,4 @@
-import { Unidade } from "./ucam-design-system.model";
+import { UcamUserProfile, Unidade } from "./ucam-design-system.model";
 
 export class ChangeUnidadeListener {
   private static _instance: ChangeUnidadeListener;
@@ -20,5 +20,28 @@ export class ChangeUnidadeListener {
 
   public emit(unidade: Unidade) {
     this.listeners.forEach((fn: Function) => fn(unidade));
+  }
+}
+
+export class ChangeProfileListener {
+  private static _instance: ChangeProfileListener;
+  listeners: Function[] = [];
+
+  private constructor() { }
+
+  public static getInstance() {
+    if (!ChangeProfileListener._instance) {
+      ChangeProfileListener._instance = new ChangeProfileListener()
+    }
+
+    return ChangeProfileListener._instance;
+  }
+
+  public addListener(fn: Function) {
+    this.listeners.push(fn);
+  }
+
+  public emit(profile: UcamUserProfile) {
+    this.listeners.forEach((fn: Function) => fn(profile));
   }
 }

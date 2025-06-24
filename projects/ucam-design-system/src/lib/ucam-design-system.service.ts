@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ChangeProfileListener } from '../public-api';
 import { MenuConfig, UcamUserProfile } from './ucam-design-system.model';
 
 @Injectable({
@@ -13,6 +14,7 @@ export class UcamDesignSystemService {
 
   setProfile(profile: UcamUserProfile) {
     this.userProfile = profile;
+    ChangeProfileListener.getInstance().emit(profile);
   }
 
   setMenuConfig(menu: MenuConfig) {

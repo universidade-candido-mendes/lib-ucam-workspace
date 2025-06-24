@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, tap } from 'rxjs';
-import { ChangeUnidadeListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
+import { ChangeProfileListener, ChangeUnidadeListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
 
 @Component({
   selector: 'ucam-profile',
@@ -44,6 +44,8 @@ export class UcamProfileComponent implements AfterContentInit {
     this.updateUnidade();
     ChangeUnidadeListener.getInstance()
       .addListener((u: Unidade) => this.setUnidade(u));
+    ChangeProfileListener.getInstance()
+      .addListener((p: UcamUserProfile) => this.userprofile = p);
   }
 
   ngAfterContentInit(): void {
