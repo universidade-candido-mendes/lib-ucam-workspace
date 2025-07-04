@@ -192,6 +192,12 @@
           align-items: center;
           gap: 10px;
 
+          &:hover .option-radio {
+            &:not(:checked):hover {
+              background: #B4365B;
+            }
+          }
+
           .option-radio {
             pointer-events: none;
             position: relative;

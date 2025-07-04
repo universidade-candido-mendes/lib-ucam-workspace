@@ -78,6 +78,10 @@
       width: 100%;
       border-color: #E2E6E9;
       border-style: solid;
+
+      &.mb-0 {
+        margin-bottom: 0;
+      }
     }
 
     .option-wrapper {
@@ -85,6 +89,10 @@
       overflow-x: hidden;
 
       max-height: 400px;
+
+      box-shadow: inset 0px 0px 6px 0px #00000015;
+      margin-top: -10px;
+      padding-top: 10px;
 
       &::-webkit-scrollbar {
         width: 10px;
@@ -114,15 +122,16 @@
     .option-label {
       height: 30px;
 
-      display: flex;
+      display: grid;
+      grid-template-columns: 25px 1fr;
       flex-direction: row;
       align-items: center;
       padding: 0 5px;
-      gap: 10px;
+      gap: 5px;
 
       cursor: pointer;
 
-      font-size: 14px;
+      font-size: 12px;
       line-height: 24px;
       font-weight: 300 !important;
 

@@ -37,7 +37,7 @@
       <path d="M6 9L12 15L18 9" stroke="#939EAA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <hr>
+  <hr class="mb-0">
   <div class="option-wrapper" *ngIf="selectorOpen">
     <div *ngFor="let u of unidadesOption" >
       <div class="option-label" (click)="onSetUnidade(u.value)">
@@ -46,7 +46,7 @@
           {{ u.label }}
         </label>
       </div>
-      <hr>
+      <hr class="mb-0">
     </div>
   </div>
   <button (click)="onExit()">
