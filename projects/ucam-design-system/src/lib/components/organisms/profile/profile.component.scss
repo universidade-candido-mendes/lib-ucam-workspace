@@ -97,28 +97,26 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     box-sizing: border-box;
-    min-width: 64px;
     border: none;
     outline: none;
     line-height: inherit;
-    appearance: none;
-    -webkit-appearance: none;
     overflow: visible;
     vertical-align: middle;
-    padding: 10px 10px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 10px;
+    font-weight: 700;
     cursor: pointer;
-
-    border: 1px solid #E2E4E9;
     border-radius: 10px;
-    box-shadow: 0px 1px 2px 0px rgba(82, 88, 102, 0.0588235294);
     min-width: 110px;
     min-height: 40px;
+    color: inherit;
+    background-color: transparent;
 
-    color: var(--mdc-filled-button-label-text-color, var(--mat-app-on-primary));
-    background-color: var(--mdc-filled-button-container-color, var(--mat-app-primary));
+    font-family: Open Sans;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0px;
+
   }
 }

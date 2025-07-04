@@ -123,7 +123,7 @@
     position: absolute;
     right: 10px;
     top: 35px;
-    fill: var(--mat-app-text-color, rgb(112, 118, 131));
+    fill: #758493;
     transition: transform 0.1s;
   }
 
@@ -162,7 +162,7 @@
     .select-menu-wrapper {
       position: fixed;
       padding-top: 5px;
-      box-shadow: 2px 2px 8px 0 #d2d2d2;
+      box-shadow: 0px 0px 3px #d1d1d1;
       border-radius: 8px;
       background: var(--mat-app-background-color, rgb(255, 255, 255));
       z-index: 2;
@@ -187,14 +187,57 @@
         font-size: 14px;
         line-height: 22px;
         letter-spacing: 0;
-        font-family: 'Nexa Text', 'Nunito', sans-serif;
         color: var(--mat-app-text-color, rgb(112, 118, 131));
 
         .option {
           padding: 8px;
-          font-family: 'Nexa Text', 'Nunito', sans-serif;
           font-style: normal;
           font-weight: 300;
+
+          .option-radio {
+            pointer-events: none;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            appearance: none;
+            outline: none;
+            border-radius: 10px;
+            box-shadow: 0px 2px 2px 0px #1B1C1D1F;
+            border: 2px solid #E2E4E9;
+            transition: .5s;
+
+            &:hover, &:checked {
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    top: 50%;
+                    left: 50%;
+                    transition: .5s;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            &:not(:checked):hover {
+                &:before {
+                  background: var(--primary-color);
+                }
+            }
+
+            &:checked {
+              background: var(--primary-color);
+              border: 2px solid var(--primary-color);
+
+              &:before {
+                  background-color: #fff;
+              }
+            }
+
+
+          }
 
           .option-label {
             font-size: 14px;
@@ -214,8 +257,7 @@
             cursor: pointer;
           }
 
-          &.valid:hover,
-          &.active {
+          &.valid:hover {
             .option-label {
               color: #415260;
               font-weight: 500;
@@ -246,16 +288,16 @@
 
       &::-webkit-scrollbar-track {
         border-radius: 16px;
-        background: #f1f1f1;
+        background: #F1F3F5;
       }
 
       &::-webkit-scrollbar-thumb {
         border-radius: 16px;
-        background: var(--accent-color, #1900AF);
+        background: #C6CED5;
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: var(--accent-darker-color, #160095);
+        background: #b7bcc1;
       }
     }
   }
@@ -291,7 +333,7 @@
 
   &.inline {
     .select-ucam-btn {
-      border: 1.5px solid rgb(112, 118, 131);
+      border: 1.5px solid #B6CCD9;
       border-radius: 8px;
       display: flex;
       background-color: #fff;

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, tap } from 'rxjs';
-import { ChangeProfileListener, ChangeUnidadeListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
+import { ChangeProfileListener, ChangeUnidadeListener, ExitListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
 
 @Component({
   selector: 'ucam-profile',
@@ -34,6 +34,8 @@ export class UcamProfileComponent implements AfterContentInit {
     unidade: new FormControl(),
   });
 
+  selectorOpen = false;
+
   @Output()
   unidade = new EventEmitter();
 
@@ -64,6 +66,19 @@ export class UcamProfileComponent implements AfterContentInit {
 
   toggleMenu() {
     this.profileMenuActive = !this.profileMenuActive;
+  }
+
+  toggleUnidadeSelect() {
+    this.selectorOpen = !this.selectorOpen;
+  }
+
+  onExit() {
+    ExitListener.getInstance().emit();
+  }
+
+  onSetUnidade(unidade: Unidade) {
+    ChangeUnidadeListener.getInstance().emit(unidade);
+    this.toggleUnidadeSelect();
   }
 
   private setListener() {

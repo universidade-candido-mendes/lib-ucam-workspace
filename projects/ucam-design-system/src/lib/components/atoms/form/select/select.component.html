@@ -41,6 +41,7 @@
             [class.valid]="option.valid"
             [class.active]="isActive(option)"
             (click)="option.valid && selectOption(option)">
+            <input type="radio" class="option-radio" [checked]="isActive(option)">
             <span class="option-label">
               {{ option.label }}
             </span><br>

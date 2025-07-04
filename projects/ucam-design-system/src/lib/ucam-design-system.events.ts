@@ -45,3 +45,26 @@ export class ChangeProfileListener {
     this.listeners.forEach((fn: Function) => fn(profile));
   }
 }
+
+export class ExitListener {
+  private static _instance: ExitListener;
+  listeners: Function[] = [];
+
+  private constructor() { }
+
+  public static getInstance() {
+    if (!ExitListener._instance) {
+      ExitListener._instance = new ExitListener()
+    }
+
+    return ExitListener._instance;
+  }
+
+  public addListener(fn: Function) {
+    this.listeners.push(fn);
+  }
+
+  public emit() {
+    this.listeners.forEach((fn: Function) => fn());
+  }
+}
