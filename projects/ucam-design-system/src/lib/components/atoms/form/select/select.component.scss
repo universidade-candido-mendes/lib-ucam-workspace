@@ -200,38 +200,36 @@
             appearance: none;
             outline: none;
             border-radius: 10px;
-            box-shadow: 0px 2px 2px 0px #1B1C1D1F;
-            border: 2px solid #E2E4E9;
-            transition: .5s;
+            border: 3px solid #E2E4E9;
+            transition: .05s;
 
             &:hover, &:checked {
-              &:before {
-                  content: '';
-                  position: absolute;
-                  width: 10px;
-                  height: 10px;
-                  top: 50%;
-                  left: 50%;
-                  transition: .5s;
-                  background-color: #fff;
-                  border-radius: 5px;
-                  transform: translate(-50%, -50%);
-              }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    top: 50%;
+                    left: 50%;
+                    transition: .05s;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    transform: translate(-50%, -50%);
+                }
             }
 
             &:not(:checked):hover {
-                background: var(--primary-color);
+                background: #B4365B;
             }
 
             &:checked {
-              background: var(--primary-color);
-              border: 2px solid var(--primary-color);
+              background: #B4365B;
+              border: 2px solid #B4365B;
 
               &:before {
                   background-color: #fff;
               }
             }
-
 
           }
 
