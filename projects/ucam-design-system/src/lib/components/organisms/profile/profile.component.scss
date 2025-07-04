@@ -79,6 +79,31 @@
       margin-left: -4%;
     }
 
+    .option-wrapper {
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      max-height: 400px;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        border-radius: 16px;
+        background: #F1F3F5;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 16px;
+        background: #C6CED5;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #b7bcc1;
+      }
+    }
+
     select {
       padding: 10px 5px;
       outline: none;
@@ -86,7 +111,7 @@
     }
 
     .option-label {
-      height: 40px;
+      height: 30px;
 
       display: flex;
       flex-direction: row;
@@ -97,7 +122,6 @@
 
       font-size: 14px;
       line-height: 24px;
-      padding-top: 5px;
       font-weight: 300 !important;
 
       .option-radio {
@@ -142,6 +166,11 @@
           }
         }
 
+      }
+
+      label {
+        margin-top: 5px;
+        pointer-events: none;
       }
 
     }

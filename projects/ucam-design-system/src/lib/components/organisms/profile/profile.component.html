@@ -31,15 +31,15 @@
       <path d="M19.1668 17.5007H0.833496" stroke="#939EAA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <label>
-      {{ selectedUnidade?.label || 'Unidade' }}
+      {{ selectedUnidade?.sigla || 'Unidade' }}
     </label>
     <svg class="toggler" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M6 9L12 15L18 9" stroke="#939EAA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
   <hr>
-  <div *ngIf="selectorOpen">
-    <div class="option-wrapper" *ngFor="let u of unidadesOption" >
+  <div class="option-wrapper" *ngIf="selectorOpen">
+    <div *ngFor="let u of unidadesOption" >
       <div class="option-label" (click)="onSetUnidade(u.value)">
         <input type="radio" class="option-radio" [checked]="selectedUnidade.oid === u.id">
         <label>

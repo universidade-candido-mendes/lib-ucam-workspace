@@ -61,7 +61,6 @@
     // font-size: 14px;
     line-height: 22px;
     letter-spacing: 0px;
-    font-family: 'Nexa Text', 'Nunito', sans-serif;
     // color: var(--mat-app-text-color, rgb(112, 118, 131));
   }
 
@@ -129,15 +128,9 @@
 
   .is-open {
     .select-ucam-btn {
-      color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
-
       .select-ucam-class {
         border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
         outline: none;
-      }
-
-      .select-ucam-icon {
-        fill: var(--mat-select-focused-arrow-color, rgb(25, 0, 175)) !important;
       }
     }
 
@@ -212,18 +205,18 @@
             transition: .5s;
 
             &:hover, &:checked {
-                &:before {
-                    content: '';
-                    position: absolute;
-                    width: 10px;
-                    height: 10px;
-                    top: 50%;
-                    left: 50%;
-                    transition: .5s;
-                    background-color: #fff;
-                    border-radius: 5px;
-                    transform: translate(-50%, -50%);
-                }
+              &:before {
+                  content: '';
+                  position: absolute;
+                  width: 10px;
+                  height: 10px;
+                  top: 50%;
+                  left: 50%;
+                  transition: .5s;
+                  background-color: #fff;
+                  border-radius: 5px;
+                  transform: translate(-50%, -50%);
+              }
             }
 
             &:not(:checked):hover {

@@ -77,6 +77,7 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   onSetUnidade(unidade: Unidade) {
+    this.selectedUnidade = unidade;
     ChangeUnidadeListener.getInstance().emit(unidade);
     this.toggleUnidadeSelect();
   }
