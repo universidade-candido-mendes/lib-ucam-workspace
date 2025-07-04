@@ -193,8 +193,9 @@
           gap: 10px;
 
           &:hover .option-radio {
-            &:not(:checked):hover {
+            &:not(:checked) {
               background: #B4365B;
+              border-color: #B4365B;
             }
           }
 

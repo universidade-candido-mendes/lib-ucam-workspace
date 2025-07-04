@@ -138,6 +138,7 @@
       &:hover .option-radio {
         &:not(:checked) {
           background: #B4365B;
+          border-color: #B4365B;
         }
 
         &:checked {
