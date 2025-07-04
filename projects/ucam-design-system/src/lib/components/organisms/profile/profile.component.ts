@@ -65,6 +65,10 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   toggleMenu() {
+    if (this.profileMenuActive) {
+      this.selectorOpen = false;
+    }
+
     this.profileMenuActive = !this.profileMenuActive;
   }
 
@@ -77,7 +81,7 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   onSetUnidade(unidade: Unidade) {
-    this.selectedUnidade = unidade;
+    this.setUnidade(unidade);
     ChangeUnidadeListener.getInstance().emit(unidade);
     this.toggleUnidadeSelect();
   }

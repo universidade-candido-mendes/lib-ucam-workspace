@@ -102,6 +102,29 @@
       &::-webkit-scrollbar-thumb:hover {
         background: #b7bcc1;
       }
+
+      &:hover .option-label .option-radio {
+        &:not(:checked) {
+          &:before {
+            background: var(--primary-color);
+          }
+        }
+
+        &:checked {
+          &:before {
+              content: '';
+              position: absolute;
+              width: 10px;
+              height: 10px;
+              top: 50%;
+              left: 50%;
+              transition: .5s;
+              background-color: #fff;
+              border-radius: 5px;
+              transform: translate(-50%, -50%);
+          }
+        }
+      }
     }
 
     select {

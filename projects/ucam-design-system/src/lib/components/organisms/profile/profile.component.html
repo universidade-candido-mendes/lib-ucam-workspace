@@ -41,7 +41,7 @@
   <div class="option-wrapper" *ngIf="selectorOpen">
     <div *ngFor="let u of unidadesOption" >
       <div class="option-label" (click)="onSetUnidade(u.value)">
-        <input type="radio" class="option-radio" [checked]="selectedUnidade.oid === u.id">
+        <input type="radio" class="option-radio" [checked]="selectedUnidade.oid === u.value.oid">
         <label>
           {{ u.label }}
         </label>
