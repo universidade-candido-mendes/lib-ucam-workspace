@@ -245,7 +245,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
 
   private _calculateContainerHeight(): number {
     const numberOfItems = this.options.length;
-    const itemHeight = 40;
+    const itemHeight = 47;
     const visibleItems = 5;
     const marginHeight = 32;
 

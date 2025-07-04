@@ -194,6 +194,11 @@
           font-style: normal;
           font-weight: 300;
 
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+
           .option-radio {
             pointer-events: none;
             position: relative;
@@ -242,6 +247,8 @@
           .option-label {
             font-size: 14px;
             line-height: 24px;
+            padding-top: 5px;
+            font-weight: 300 !important;
           }
 
           .option-description {
@@ -260,7 +267,6 @@
           &.valid:hover {
             .option-label {
               color: #415260;
-              font-weight: 500;
             }
 
             .option-description {
