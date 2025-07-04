@@ -128,9 +128,7 @@
 
       &:hover .option-radio {
         &:not(:checked) {
-          &:before {
-            background: var(--primary-color);
-          }
+          background: var(--primary-color);
         }
 
         &:checked {

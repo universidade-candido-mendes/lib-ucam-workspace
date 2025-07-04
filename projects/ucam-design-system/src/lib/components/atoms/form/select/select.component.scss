@@ -220,9 +220,7 @@
             }
 
             &:not(:checked):hover {
-                &:before {
-                  background: var(--primary-color);
-                }
+                background: var(--primary-color);
             }
 
             &:checked {
@@ -267,7 +265,7 @@
               font-weight: 400;
             }
 
-            background-color: #E2E6E9;
+            // background-color: #E2E6E9;
             font-weight: bold;
           }
         }
