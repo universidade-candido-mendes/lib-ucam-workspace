@@ -1,0 +1,220 @@
+:host {
+  position: relative;
+  width: auto;
+  max-width: fit-content;
+
+  details {
+    width: auto;
+    min-height: 40px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 13px;
+
+
+    > summary {
+      list-style: none;
+      height: 40px;
+      width: 250px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid var(--stroke-strong-900, #E2E4E9);
+      box-shadow: 0px 0px 0px 4px #fbfbfb, 0px 0px 0px 2px #FFFFFF;
+
+      gap: 10px;
+      padding: 10px 10px 10px 12px;
+    }
+  }
+
+  .ucam-calendar-input {
+    all: unset;
+    padding: 5px;
+    border-radius: 8px;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    label {
+      width: 100%;
+    }
+
+    .help {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .ucam-calendar-wrapper {
+    display: block;
+    width: min-content;
+    padding: 10px;
+    position: absolute;
+    background-color: #fff;
+    z-index: 2;
+    box-shadow: 0px 16px 32px -12px #585C5F1A;
+    min-height: 190px;
+    width: 368px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 10px;
+
+    .pointer {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #F6F8FA;
+        border-radius: 8px;
+      }
+    }
+
+    .month, .year {
+      all: unset;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      margin: auto;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      border-radius: 8px;
+      background-color: #F6F8FA;
+      padding: 6px;
+
+      font-family: Inter;
+      font-weight: 500;
+      font-style: Medium;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.6%;
+      text-align: center;
+
+      .label {
+        width: 166px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .btn {
+        all: unset;
+      }
+
+      .btn-next,
+      .btn-previous {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 6px;
+      }
+    }
+
+    .day {
+      text-align: center;
+      color: #0A0D14;
+    }
+
+    .other-month {
+      color: #CDD0D5;
+    }
+
+    .today {
+      background-color: #e1e1e1 !important;
+      border-radius: 8px;
+    }
+
+    .selected {
+      background-color: var(--secondary-color) !important;
+      color: #fff !important;
+    }
+
+    .view {
+      display: flex;
+      flex-direction: column;
+
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .ucam-calendar {
+      font-family: Inter;
+      font-weight: 500;
+      font-style: Medium;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: -0.6%;
+      text-align: center;
+
+
+      th, td {
+        width: 40px;
+        height: 40px;
+      }
+
+      th {
+        font-family: Inter;
+        font-weight: 500;
+        font-style: Medium;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.6%;
+        text-align: center;
+
+        color: #868C98;
+      }
+
+      td {
+        border-radius: 8px;
+      }
+
+    }
+
+    &.full-width {
+      table {
+        table-layout: fixed;
+        width: 80vw;
+
+        td.day {
+          text-align: start;
+          width: 100px;
+          height: 100px;
+          vertical-align: super;
+          padding: 10px;
+          border: 1px solid;
+
+          &.selected:hover {
+            position: absolute;
+            width: 296px;
+            display: flex;
+            height: 224px;
+            transition: width .5s, height .5s;
+          }
+
+          &.other-month {
+            color: var(--calendar-other-month, black);
+            background-color: lightgray;
+          }
+        }
+      }
+    }
+  }
+
+  .ucam-calendar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: all;
+    background-color: rgba(0, 0, 0, 0.01);
+    z-index: 1;
+  }
+
+}
