@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, forwardRef, Input } from "@angular/core";
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from "@angular/forms";
-import { UcamOption } from "ucam-design-system";
+import { UcamOption } from "../../../../ucam-design-system.model";
 
 
 /**
