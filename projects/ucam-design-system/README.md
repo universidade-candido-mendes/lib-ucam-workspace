@@ -113,7 +113,7 @@ cd dist/ucam-design-system && npm publish --access public && cd ../..
 
 ## Versionamento
 
-Versão atual: 0.0.41.0
+Versão atual: 20.0.1
 
 ## Autores
 
