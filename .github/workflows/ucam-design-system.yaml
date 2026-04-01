@@ -1,6 +1,7 @@
 name: Publish package ucam-design-system to Github Package Registry
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
