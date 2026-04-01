@@ -50,14 +50,32 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
     {  acronym: 'Dez', label: 'Dezembro' },
   ]
 
+  layers = {
+    "year": {
+      view: "PERIOD",
+      format: 'YYYY'
+    },
+    "month": {
+      view: "YEAR",
+      format: 'MM/YYYY'
+    },
+    "date": {
+      view: "MONTH",
+      format: 'dd/MM/YYYY'
+    }
+  }
+
   @Input()
   date = new Date(Date.now());
 
   @Input()
-  format = 'dd/MM/yyyy';
+  format!: string;
 
   @Input()
   selected!: Date;
+
+  @Input()
+  type: 'year' | 'month' | 'date' = "date";
 
   @Output()
   selectedChange = new EventEmitter<Date>();
@@ -88,11 +106,13 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
   days!: Date[];
   calendar!: any[];
 
-  view: String = 'MONTH';
+  view!: String;
 
   years = Array.from({length: 12}, (_, i) => i + 1 + (this.year - 6));
 
   ngOnInit(): void {
+    this.view = this.layers[this.type].view;
+    if (!this.format) this.format = this.layers[this.type].format;
     this.update();
   }
 
@@ -231,15 +251,25 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
 
   @Input()
   selectYear(year: any) {
-    this.month = year;
+    this.year = year;
     this.date.setFullYear(year);
     this.update();
     this.changeView('YEAR');
   }
 
   @Input()
-  changeView(view: String) {
+  changeView(view: string) {
+    const limit = Object.keys(this.layers).indexOf(this.type);
+    const current = Object.values(this.layers).findIndex(v => v.view === view);
+
     this.view = view;
+
+    if (current > limit) {
+      const s = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
+      this.selectDay(s);
+      this.view = this.layers[this.type].view;
+      this.open = false;
+    }
   }
 
 }

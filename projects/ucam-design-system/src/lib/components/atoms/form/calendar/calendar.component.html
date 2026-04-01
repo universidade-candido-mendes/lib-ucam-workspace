@@ -27,7 +27,11 @@
       </div>
       <div aria-describedby="calendar">
         <div style="display: grid; grid-template-columns: repeat(4, auto);">
-          <button  *ngFor="let year of years" class="year pointer" [ngClass]="{'today': today.getFullYear() === year}"
+          <button  *ngFor="let year of years" class="year pointer"
+            [ngClass]="{
+              'today': today.getFullYear() === year,
+              'selected': selected.getFullYear() === year
+            }"
             (click)="selectYear(year)">
             {{ year }}
           </button>
@@ -53,7 +57,11 @@
       </div>
       <div aria-describedby="calendar">
         <div style="display: grid; grid-template-columns: repeat(4, auto);">
-          <button *ngFor="let month of months; let i = index" class="month pointer" [ngClass]="{'today': today.getFullYear() === date.getFullYear() && today.getMonth() === i}"
+          <button *ngFor="let month of months; let i = index" class="month pointer"
+            [ngClass]="{
+              'today': today.getFullYear() === date.getFullYear() && today.getMonth() === i,
+              'selected': date.getFullYear() === selected.getFullYear() && date.getMonth() === i
+            }"
             (click)="selectMonth(month)">
             {{ month.acronym }}
           </button>

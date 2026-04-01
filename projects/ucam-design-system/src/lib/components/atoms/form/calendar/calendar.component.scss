@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
 :host {
   position: relative;
   width: auto;
   max-width: fit-content;
+
+  font-size: 14px;
+  color: light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
 
   details {
     width: auto;
@@ -133,6 +139,7 @@
     .selected {
       background-color: var(--secondary-color) !important;
       color: #fff !important;
+      border-radius: 8px;
     }
 
     .view {

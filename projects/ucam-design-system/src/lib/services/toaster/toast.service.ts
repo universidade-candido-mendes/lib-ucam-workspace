@@ -1,90 +1,181 @@
-import { Injectable } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentRef, createComponent, ElementRef, EnvironmentInjector, HostBinding, inject, Injectable, Input } from "@angular/core";
+
+@Component({
+  selector: 'ucam-toast-wrapper',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule
+  ],
+  template: `
+   <ng-content></ng-content>
+  `,
+  styles: [
+    `
+      :host {
+        top: 0;
+        right: 0;
+        z-index: 99;
+        width: fit-content;
+        height: 100vh;
+        display: flex;
+        position: fixed;
+        overflow: hidden;
+        pointer-events: none;
+        flex-direction: column;
+        transition: all 1s ease-in-out;
+      }
+    `
+  ],
+})
+export class ToastWrapperComponent {}
+
+@Component({
+  selector: 'ucam-toast',
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
+  template: `
+    <div>
+      <span class="material-symbols-outlined toaster-icon">
+        {{ icon }}
+      </span>
+      <p>{{ message }}</p>
+      <span class="material-symbols-outlined close-icon" (click)="close()">
+        close_small
+      </span>
+    </div>
+  `,
+  styles: [
+    `
+      :host {
+        gap: 10px;
+        margin: 10px 10px 0;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        grid-column: 12;
+        min-width: 350px;
+        min-height: 50px;
+        width: fit-content;
+        border-radius: 8px;
+        height: fit-content;
+        pointer-events: all;
+        box-sizing: border-box;
+        background-color: #FFFFFF;
+        border: 1px solid #a5a5a585;
+        transition: 0.5s ease-in-out;
+        box-shadow: 0px 18px 30px 2px #7D868E1F, 0px 1px 2px 0px #F6F8FA;
+        padding: 15px 20px;
+
+        div {
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          position: relative;
+          height: 100%;
+          line-height: 25px;
+
+          h3, p {
+            margin: 0;
+          }
+
+          .close-icon {
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+          }
+        }
+
+        p {
+          margin: 0;
+          max-width: 270px;
+        }
+
+        &.toaster-alert {
+          background-color: #e9f7f2;
+
+          .toaster-icon {
+            color: green;
+          }
+        }
+
+        &.toaster-error {
+          background-color: #ffcece;
+
+          .toaster-icon {
+            color: red;
+          }
+        }
+
+        &.toaster-fade {
+          animation: fadeOutToast 1s ease-in-out forwards;
+        }
+
+        &:not(:hover).list {
+          margin-top: -4rem;
+          z-index: 1;
+        }
+
+        @keyframes fadeOutToast {
+          0% {
+            opacity: 1;
+          }
+
+          100% {
+            opacity: 0;
+          }
+        }
+      }
+  `],
+  host: {
+    '[class]': 'klass',
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ToastComponent {
+  @Input() title: string = "Alerta";
+  @Input() message: string = "Mensagem de alerta";
+  @Input() klass: string[] = [];
+  @Input() icon: string = "info";
+  @Input() duration: number = 5;
+
+  @HostBinding('class.toaster-fade') fade = false;
+  @HostBinding('class.list') list = false;
+
+  constructor(
+    private elRef:ElementRef,
+    private _change: ChangeDetectorRef
+  ) {
+    setTimeout(() => {
+      this.close();
+    }, this.duration * 1000);
+  }
+
+  close() {
+    this.fade = true;
+    this._change.markForCheck();
+
+    setTimeout(() => {
+      this.elRef.nativeElement.remove();
+    }, .5 * 1000);
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
 
-  private _wrapper!: HTMLElement;
+  private _wrapper!: ComponentRef<ToastWrapperComponent>;
 
-  private _right!: HTMLElement;
+  private _injector = inject(EnvironmentInjector);
 
-  private _style = `
-      .toaster-wrapper {
-            z-index: 10;
-            position: fixed;
-            top: 0px;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            gap: 20px;
-            padding: 0 20px;
-            box-sizing: border-box;
-            display: grid;
-            grid-template-columns: 1fr 50% 1fr;
-        }
-
-        .toaster-wrapper .toaster-wrapper-right {
-            grid-column: 3;
-            display: flex;
-            flex-direction: column;
-            padding-top: 80px;
-        }
-
-        .toaster {
-            background-color: #FFFFFF;
-            min-height: 100px;
-            height: fit-content;
-            border-radius: 16px;
-            margin: 10px;
-            box-sizing: border-box;
-            padding: 10px;
-            pointer-events: all;
-            box-shadow: 0px 18px 30px 2px #7D868E1F, 0px 1px 2px 0px #F6F8FA;
-        }
-
-        .toaster-alert {
-            background-color: #e9f7f2;
-        }
-
-        .toaster-error {
-            background-color: #ffcece;
-        }
-
-        .toaster-fade {
-            animation: fadeOutToast 1s ease-in-out forwards;
-        }
-
-        .toast-title {
-          display: flex;
-          justify-content: flex-start;
-        }
-
-        .toast-message {
-          display: flex;
-          justify-content: flex-start;
-        }
-
-        @keyframes fadeOutToast {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-  `;
-
-
-  constructor() {
-    const style = document.createElement('style');
-
-    style.innerHTML = this._style;
-
-    document.head.appendChild(style);
-
+  constructor(
+    private appRef: ApplicationRef,
+  ) {
     this.createWrapper();
   }
 
@@ -97,49 +188,27 @@ export class ToastService {
   }
 
   private addToast(title: string, message: string, _class: string[], duration = 5) {
-    const element = document.createElement('div');
-    element.classList.add('toaster', ..._class);
+    const toastComponent = createComponent(ToastComponent, {
+      environmentInjector: this._injector,
+    });
 
-    const _title = document.createElement('span');
-    _title.classList.add('toast-title');
-    _title.innerHTML = title;
+    toastComponent.setInput('title', title);
+    toastComponent.setInput('message', message);
+    toastComponent.setInput('duration', duration);
+    toastComponent.setInput('klass', _class)
 
-    element.appendChild(_title);
+    this.appRef.attachView(toastComponent.hostView);
+    toastComponent.changeDetectorRef.detectChanges();
 
-    const _message = document.createElement('span');
-    _message.classList.add('toast-message');
-    _message.innerHTML = message;
-
-    element.appendChild(_message);
-
-    element.onclick = () => {
-      element.classList.add('toaster-fade');
-      setTimeout(() => this._right.removeChild(element), .4 * 1000);
-    };
-
-    setTimeout(() => {
-      element.classList.add('toaster-fade');
-      setTimeout(() => this._right.removeChild(element), .4 * 1000);
-    }, (duration - 1) * 1000);
-
-    this._right.prepend(element);
-
-    return this;
+    this._wrapper.location.nativeElement.prepend(toastComponent.location.nativeElement);
   }
 
   private createWrapper() {
-    this._wrapper = document.createElement('div');
-    this._wrapper.classList.add('toaster-wrapper');
+    this._wrapper = createComponent(ToastWrapperComponent, {
+      environmentInjector: this._injector,
+    });
 
-    this._right = document.createElement('div');
-    this._right.classList.add('toaster-wrapper-right');
-    this._wrapper.appendChild(this._right);
-
-    return document.body.appendChild(this._wrapper);
+    document.body.appendChild(this._wrapper.location.nativeElement);
   }
 
 }
-
-
-
-

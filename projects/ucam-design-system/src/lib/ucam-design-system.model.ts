@@ -61,7 +61,8 @@ export class MenuLink {
 
   public icon!: string;
   public label!: string;
-  public address!: string;
+  public address?: string;
+  public children?: MenuLink[];
 
   constructor(private param: Partial<MenuLink>) {
     Object.assign(this, this.param);

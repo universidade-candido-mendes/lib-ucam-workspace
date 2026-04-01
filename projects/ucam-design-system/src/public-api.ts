@@ -11,6 +11,7 @@ export * from './lib/components/templates/page/page.component';
 // COMPONENTES (FORM)
 export * from './lib/components/atoms/form/calendar/calendar.component';
 export * from './lib/components/atoms/form/input/input.component';
+export * from './lib/components/atoms/form/multiselect/multiselect.component';
 export * from './lib/components/atoms/form/select/select.component';
 
 // DIRETIVAS
