@@ -39,7 +39,7 @@
 
     input{
       &[type="text"] {
-        border-color: var(--mdc-filled-text-field-error-active-indicator-color, var(--mat-app-error));
+        border-color: var(--mat-form-field-filled-error-active-indicator-color, var(--mat-app-error));
       }
     }
   }
