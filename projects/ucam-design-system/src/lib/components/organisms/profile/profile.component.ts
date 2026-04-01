@@ -5,15 +5,14 @@ import { Subscription, tap } from 'rxjs';
 import { ChangeProfileListener, ChangeUnidadeListener, ExitListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
 
 @Component({
-  selector: 'ucam-profile',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+    selector: 'ucam-profile',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss'
 })
 export class UcamProfileComponent implements AfterContentInit {
 

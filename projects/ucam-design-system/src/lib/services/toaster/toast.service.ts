@@ -2,17 +2,16 @@ import { CommonModule } from "@angular/common";
 import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentRef, createComponent, ElementRef, EnvironmentInjector, HostBinding, inject, Injectable, Input } from "@angular/core";
 
 @Component({
-  selector: 'ucam-toast-wrapper',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule
-  ],
-  template: `
+    selector: 'ucam-toast-wrapper',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule
+    ],
+    template: `
    <ng-content></ng-content>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         top: 0;
         right: 0;
@@ -27,17 +26,16 @@ import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, 
         transition: all 1s ease-in-out;
       }
     `
-  ],
+    ]
 })
 export class ToastWrapperComponent {}
 
 @Component({
-  selector: 'ucam-toast',
-  standalone: true,
-  imports: [
-    CommonModule
-  ],
-  template: `
+    selector: 'ucam-toast',
+    imports: [
+        CommonModule
+    ],
+    template: `
     <div>
       <span class="material-symbols-outlined toaster-icon">
         {{ icon }}
@@ -48,8 +46,8 @@ export class ToastWrapperComponent {}
       </span>
     </div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         gap: 10px;
         margin: 10px 10px 0;
@@ -129,11 +127,12 @@ export class ToastWrapperComponent {}
           }
         }
       }
-  `],
-  host: {
-    '[class]': 'klass',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  `
+    ],
+    host: {
+        '[class]': 'klass',
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToastComponent {
   @Input() title: string = "Alerta";

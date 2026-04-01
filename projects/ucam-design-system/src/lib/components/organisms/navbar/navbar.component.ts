@@ -4,13 +4,12 @@ import { UcamDesignSystemService } from '../../../ucam-design-system.service';
 import { UcamProfileComponent } from '../profile/profile.component';
 
 @Component({
-  selector: 'ucam-navbar',
-  standalone: true,
-  imports: [
-    UcamProfileComponent
-  ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+    selector: 'ucam-navbar',
+    imports: [
+        UcamProfileComponent
+    ],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
 

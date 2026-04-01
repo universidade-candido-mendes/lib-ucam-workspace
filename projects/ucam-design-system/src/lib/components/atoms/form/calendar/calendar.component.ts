@@ -3,25 +3,24 @@ import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/cor
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from "@angular/forms";
 
 @Component({
-  selector: 'ucam-calendar',
-  standalone: true,
-  imports: [
-    CommonModule,
-  ],
-  templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.scss',
-  providers: [
-    {
-      multi: true,
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CalendarComponent)
-    },
-    {
-      multi: true,
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => CalendarComponent),
-    }
-  ]
+    selector: 'ucam-calendar',
+    imports: [
+        CommonModule,
+    ],
+    templateUrl: './calendar.component.html',
+    styleUrl: './calendar.component.scss',
+    providers: [
+        {
+            multi: true,
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CalendarComponent)
+        },
+        {
+            multi: true,
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => CalendarComponent),
+        }
+    ]
 })
 export class CalendarComponent implements Validator, ControlValueAccessor {
 

@@ -6,15 +6,14 @@ import { MenuConfig } from '../../../ucam-design-system.model';
 import { UcamDesignSystemService } from '../../../ucam-design-system.service';
 
 @Component({
-  selector: 'ucam-sidemenu',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    RouterModule,
-  ],
-  templateUrl: './sidemenu.component.html',
-  styleUrl: './sidemenu.component.scss'
+    selector: 'ucam-sidemenu',
+    imports: [
+        CommonModule,
+        MatIconModule,
+        RouterModule,
+    ],
+    templateUrl: './sidemenu.component.html',
+    styleUrl: './sidemenu.component.scss'
 })
 export class SidemenuComponent implements OnInit {
 

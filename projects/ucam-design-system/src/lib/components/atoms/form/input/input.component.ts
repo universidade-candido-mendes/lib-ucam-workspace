@@ -5,28 +5,27 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_V
 import { UcamOption } from '../../../../../public-api';
 
 @Component({
-  selector: 'ucam-input',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ScrollingModule,
-  ],
-  templateUrl: './input.component.html',
-  styleUrl: './input.component.scss',
-  providers: [
-    {
-      multi: true,
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => UcamInputComponent)
-    },
-    {
-      multi: true,
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => UcamInputComponent),
-    }
-  ]
+    selector: 'ucam-input',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ScrollingModule,
+    ],
+    templateUrl: './input.component.html',
+    styleUrl: './input.component.scss',
+    providers: [
+        {
+            multi: true,
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => UcamInputComponent)
+        },
+        {
+            multi: true,
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => UcamInputComponent),
+        }
+    ]
 })
 export class UcamInputComponent implements OnInit, Validator, ControlValueAccessor  {
 

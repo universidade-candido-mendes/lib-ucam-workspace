@@ -11,26 +11,25 @@ import { UcamOption } from "../../../../ucam-design-system.model";
  * @styleUrls ./multiselect.component.scss
  */
 @Component({
-  selector: 'ucam-multiselect',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-],
-  templateUrl: './multiselect.component.html',
-  styleUrl: './multiselect.component.scss',
-  providers: [
-    {
-      multi: true,
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MultiSelectComponent)
-    },
-    {
-      multi: true,
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => MultiSelectComponent),
-    }
-  ]
+    selector: 'ucam-multiselect',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './multiselect.component.html',
+    styleUrl: './multiselect.component.scss',
+    providers: [
+        {
+            multi: true,
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => MultiSelectComponent)
+        },
+        {
+            multi: true,
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => MultiSelectComponent),
+        }
+    ]
 })
 export class MultiSelectComponent implements Validator, ControlValueAccessor {
 

@@ -5,28 +5,27 @@ import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_V
 import { UcamOption } from '../../../../ucam-design-system.model';
 
 @Component({
-  selector: 'ucam-select',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ScrollingModule
-  ],
-  templateUrl: './select.component.html',
-  styleUrl: './select.component.scss',
-  providers: [
-    {
-      multi: true,
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => UcamSelectComponent)
-    },
-    {
-      multi: true,
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => UcamSelectComponent),
-    }
-  ]
+    selector: 'ucam-select',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ScrollingModule
+    ],
+    templateUrl: './select.component.html',
+    styleUrl: './select.component.scss',
+    providers: [
+        {
+            multi: true,
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => UcamSelectComponent)
+        },
+        {
+            multi: true,
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => UcamSelectComponent),
+        }
+    ]
 })
 export class UcamSelectComponent implements OnInit, Validator, ControlValueAccessor {
 
