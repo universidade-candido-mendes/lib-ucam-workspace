@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          node-version: 18
+          node-version: 20
           registry-url: https://npm.pkg.github.com/
           scope: "@universidade-candido-mendes"
       - name: Install npm Packages
