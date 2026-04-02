@@ -99,7 +99,7 @@
               }
             }
 
-            summary.link:has(.active) {
+            details:has(.active) > summary.link {
               left: -16px;
               border-left: 10px solid white;
               position: relative;
