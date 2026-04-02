@@ -28,7 +28,7 @@
 
           </div>
 
-          <detail *ngIf="link?.children">
+          <details *ngIf="link?.children">
             <summary>
               <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
               <div class="label">{{link.label}}</div>
@@ -44,7 +44,7 @@
                 <div class="label">{{child.label}}</div>
 
               </div>
-          </detail>
+          </details>
         </div>
       </div>
     </div>
