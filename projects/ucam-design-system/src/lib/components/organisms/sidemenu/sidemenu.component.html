@@ -17,26 +17,34 @@
       <p>MENU</p>
 
       <div class="links-wrapper">
-        <div class="link"
-             *ngFor="let link of routes?.links"
+        <div class="link" *ngFor="let link of routes?.links">
+          <div *ngIf="!link?.children" 
              [routerLink]="link.address"
              routerLinkActive="active"
              ariaCurrentWhenActive="page">
 
-          <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
-          <div class="label">{{link.label}}</div>
+            <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
+            <div class="label">{{link.label}}</div>
 
-          <div *ngIf="link?.children">
-            <div class="link"
-             *ngFor="let child of link?.children"
-             [routerLink]="child.address"
-             routerLinkActive="active"
-             ariaCurrentWhenActive="page">
-
-            <mat-icon [fontIcon]="child.icon" title="{{child.label}}"></mat-icon>
-            <div class="label">{{child.label}}</div>
           </div>
 
+          <detail *ngIf="link?.children">
+            <summary>
+              <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
+              <div class="label">{{link.label}}</div>
+            </summary>
+
+              <div class="link"
+                *ngFor="let child of link?.children"
+                [routerLink]="child.address"
+                routerLinkActive="active"
+                ariaCurrentWhenActive="page">
+
+                <mat-icon [fontIcon]="child.icon" title="{{child.label}}"></mat-icon>
+                <div class="label">{{child.label}}</div>
+
+              </div>
+          </detail>
         </div>
       </div>
     </div>
