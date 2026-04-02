@@ -98,6 +98,13 @@
                 line-height: 31px;
               }
             }
+
+            summary.link:has(+ .active) {
+              left: -16px;
+              border-left: 10px solid white;
+              position: relative;
+              padding-left: 15px;
+            }
           }
         }
       }
