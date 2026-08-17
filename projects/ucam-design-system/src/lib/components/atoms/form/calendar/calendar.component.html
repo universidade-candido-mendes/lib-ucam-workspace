@@ -11,89 +11,102 @@
     </svg>
   </summary>
   <div class="ucam-calendar-wrapper">
-    <div class="year-view view" *ngIf="view === 'PERIOD'">
-      <div class="calendar-header">
-        <button class="btn pointer btn-previous" (click)="minusYear(-12)">
-          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.20437 4.99956L5.91687 8.71206L4.85637 9.77256L0.083374 4.99956L4.85637 0.226562L5.91687 1.28706L2.20437 4.99956Z" fill="#525866"/>
-          </svg>
-        </button>
-        <div class="btn label">Periodo</div>
-        <button class="btn pointer btn-next" (click)="plusYear(12)">
-          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.79587 4.99956L0.083374 1.28706L1.14387 0.226562L5.91687 4.99956L1.14387 9.77256L0.083374 8.71206L3.79587 4.99956Z" fill="#525866"/>
-          </svg>
-        </button>
-      </div>
-      <div aria-describedby="calendar">
-        <div style="display: grid; grid-template-columns: repeat(4, auto);">
-          <button  *ngFor="let year of years" class="year pointer"
+    @if (view === 'PERIOD') {
+      <div class="year-view view">
+        <div class="calendar-header">
+          <button class="btn pointer btn-previous" (click)="minusYear(-12)">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.20437 4.99956L5.91687 8.71206L4.85637 9.77256L0.083374 4.99956L4.85637 0.226562L5.91687 1.28706L2.20437 4.99956Z" fill="#525866"/>
+            </svg>
+          </button>
+          <div class="btn label">Periodo</div>
+          <button class="btn pointer btn-next" (click)="plusYear(12)">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.79587 4.99956L0.083374 1.28706L1.14387 0.226562L5.91687 4.99956L1.14387 9.77256L0.083374 8.71206L3.79587 4.99956Z" fill="#525866"/>
+            </svg>
+          </button>
+        </div>
+        <div aria-describedby="calendar">
+          <div style="display: grid; grid-template-columns: repeat(4, auto);">
+            @for (year of years; track year) {
+              <button  class="year pointer"
             [ngClass]="{
               'today': today.getFullYear() === year,
               'selected': selected.getFullYear() === year
             }"
-            (click)="selectYear(year)">
-            {{ year }}
-          </button>
+                (click)="selectYear(year)">
+                {{ year }}
+              </button>
+            }
+          </div>
         </div>
       </div>
-    </div>
+    }
 
-    <div class="month-view view" *ngIf="view === 'YEAR'">
-      <div class="calendar-header">
-        <button class="btn pointer btn-previous" (click)="minusYear()">
-          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.20437 4.99956L5.91687 8.71206L4.85637 9.77256L0.083374 4.99956L4.85637 0.226562L5.91687 1.28706L2.20437 4.99956Z" fill="#525866"/>
-          </svg>
-        </button>
-        <button class="btn label pointer" (click)="changeView('PERIOD')" >
-          {{ date.getFullYear() }}
-        </button>
-        <button class="btn pointer btn-next" (click)="plusYear()">
-          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.79587 4.99956L0.083374 1.28706L1.14387 0.226562L5.91687 4.99956L1.14387 9.77256L0.083374 8.71206L3.79587 4.99956Z" fill="#525866"/>
-          </svg>
-        </button>
-      </div>
-      <div aria-describedby="calendar">
-        <div style="display: grid; grid-template-columns: repeat(4, auto);">
-          <button *ngFor="let month of months; let i = index" class="month pointer"
+    @if (view === 'YEAR') {
+      <div class="month-view view">
+        <div class="calendar-header">
+          <button class="btn pointer btn-previous" (click)="minusYear()">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.20437 4.99956L5.91687 8.71206L4.85637 9.77256L0.083374 4.99956L4.85637 0.226562L5.91687 1.28706L2.20437 4.99956Z" fill="#525866"/>
+            </svg>
+          </button>
+          <button class="btn label pointer" (click)="changeView('PERIOD')" >
+            {{ date.getFullYear() }}
+          </button>
+          <button class="btn pointer btn-next" (click)="plusYear()">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.79587 4.99956L0.083374 1.28706L1.14387 0.226562L5.91687 4.99956L1.14387 9.77256L0.083374 8.71206L3.79587 4.99956Z" fill="#525866"/>
+            </svg>
+          </button>
+        </div>
+        <div aria-describedby="calendar">
+          <div style="display: grid; grid-template-columns: repeat(4, auto);">
+            @for (month of months; track month; let i = $index) {
+              <button class="month pointer"
             [ngClass]="{
               'today': today.getFullYear() === date.getFullYear() && today.getMonth() === i,
               'selected': date.getFullYear() === selected.getFullYear() && date.getMonth() === i
             }"
-            (click)="selectMonth(month)">
-            {{ month.acronym }}
-          </button>
+                (click)="selectMonth(month)">
+                {{ month.acronym }}
+              </button>
+            }
+          </div>
         </div>
       </div>
-    </div>
+    }
 
-    <div class="date-view view" *ngIf="view === 'MONTH'">
-      <div class="calendar-header">
-        <button class="pointer btn btn-previous" (click)="minusMonth()">
-          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.20437 4.99956L5.91687 8.71206L4.85637 9.77256L0.083374 4.99956L4.85637 0.226562L5.91687 1.28706L2.20437 4.99956Z" fill="#525866"/>
-          </svg>
-        </button>
-        <button class="label btn pointer" (click)="changeView('YEAR')" >
-          {{ months[date.getMonth()].label }}, {{ date.getFullYear() }}
-        </button>
-        <button class="pointer btn btn-next" (click)="plusMonth()">
-          <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.79587 4.99956L0.083374 1.28706L1.14387 0.226562L5.91687 4.99956L1.14387 9.77256L0.083374 8.71206L3.79587 4.99956Z" fill="#525866"/>
-          </svg>
-        </button>
-      </div>
-      <table class="ucam-calendar" aria-describedby="calendar">
-        <thead>
-          <th *ngFor="let weekday of weekdays">
-            {{ weekday.letter }}
-          </th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let week of calendar">
-            <td *ngFor="let day of week" class="day pointer"
+    @if (view === 'MONTH') {
+      <div class="date-view view">
+        <div class="calendar-header">
+          <button class="pointer btn btn-previous" (click)="minusMonth()">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.20437 4.99956L5.91687 8.71206L4.85637 9.77256L0.083374 4.99956L4.85637 0.226562L5.91687 1.28706L2.20437 4.99956Z" fill="#525866"/>
+            </svg>
+          </button>
+          <button class="label btn pointer" (click)="changeView('YEAR')" >
+            {{ months[date.getMonth()].label }}, {{ date.getFullYear() }}
+          </button>
+          <button class="pointer btn btn-next" (click)="plusMonth()">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.79587 4.99956L0.083374 1.28706L1.14387 0.226562L5.91687 4.99956L1.14387 9.77256L0.083374 8.71206L3.79587 4.99956Z" fill="#525866"/>
+            </svg>
+          </button>
+        </div>
+        <table class="ucam-calendar" aria-describedby="calendar">
+          <thead>
+            @for (weekday of weekdays; track weekday) {
+              <th>
+                {{ weekday.letter }}
+              </th>
+            }
+          </thead>
+          <tbody>
+            @for (week of calendar; track week) {
+              <tr>
+                @for (day of week; track day) {
+                  <td class="day pointer"
               [ngClass]="{
                 'other-month': day.getMonth() != date.getMonth(),
                 'current-month': day.getMonth() == date.getMonth(),
@@ -106,13 +119,16 @@
                 'today': dateEquals(day, today),
                 'selected': dateEquals(day, selected)
               }"
-              (click)="selectDay(day)">
-              {{ day.getDate() }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                    (click)="selectDay(day)">
+                    {{ day.getDate() }}
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
   </div>
 
   <div class="ucam-calendar-backdrop" (click)="open = !open"></div>

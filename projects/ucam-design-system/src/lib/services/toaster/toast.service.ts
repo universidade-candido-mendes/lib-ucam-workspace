@@ -1,12 +1,10 @@
-import { CommonModule } from "@angular/common";
+
 import { ApplicationRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentRef, createComponent, ElementRef, EnvironmentInjector, HostBinding, inject, Injectable, Input } from "@angular/core";
 
 @Component({
     selector: 'ucam-toast-wrapper',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule
-    ],
+    imports: [],
     template: `
    <ng-content></ng-content>
   `,
@@ -32,9 +30,7 @@ export class ToastWrapperComponent {}
 
 @Component({
     selector: 'ucam-toast',
-    imports: [
-        CommonModule
-    ],
+    imports: [],
     template: `
     <div>
       <span class="material-symbols-outlined toaster-icon">

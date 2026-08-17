@@ -17,34 +17,35 @@
       <p>MENU</p>
 
       <div class="links-wrapper">
-        <div *ngFor="let link of routes?.links">
-          <div class="link" *ngIf="!link?.children" 
-             [routerLink]="link.address"
-             routerLinkActive="active"
-             ariaCurrentWhenActive="page">
-
-            <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
-            <div class="label">{{link.label}}</div>
-
-          </div>
-
-          <details *ngIf="link?.children">
-            <summary class="link">
-              <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
-              <div class="label">{{link.label}}</div>
-            </summary>
-
+        @for (link of routes?.links; track link) {
+          <div>
+            @if (!link?.children) {
               <div class="link"
-                *ngFor="let child of link?.children"
-                [routerLink]="child.address"
+                [routerLink]="link.address"
                 routerLinkActive="active"
                 ariaCurrentWhenActive="page">
-
-                <div class="label">{{child.label}}</div>
-
+                <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
+                <div class="label">{{link.label}}</div>
               </div>
-          </details>
-        </div>
+            }
+            @if (link?.children) {
+              <details>
+                <summary class="link">
+                  <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
+                  <div class="label">{{link.label}}</div>
+                </summary>
+                @for (child of link?.children; track child) {
+                  <div class="link"
+                    [routerLink]="child.address"
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page">
+                    <div class="label">{{child.label}}</div>
+                  </div>
+                }
+              </details>
+            }
+          </div>
+        }
       </div>
     </div>
 
