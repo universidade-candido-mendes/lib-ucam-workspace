@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, forwardRef, Input } from "@angular/core";
+import { Component, forwardRef, Input, ChangeDetectionStrategy } from "@angular/core";
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from "@angular/forms";
 import { UcamOption } from "../../../../ucam-design-system.model";
 
@@ -18,6 +18,7 @@ import { UcamOption } from "../../../../ucam-design-system.model";
     ],
     templateUrl: './multiselect.component.html',
     styleUrl: './multiselect.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [
         {
             multi: true,

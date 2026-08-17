@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MenuConfig } from '../../../ucam-design-system.model';
@@ -13,6 +13,7 @@ import { UcamDesignSystemService } from '../../../ucam-design-system.service';
         RouterModule,
     ],
     templateUrl: './sidemenu.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './sidemenu.component.scss'
 })
 export class SidemenuComponent implements OnInit {

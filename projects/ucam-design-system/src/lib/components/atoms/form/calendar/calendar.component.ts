@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output, ChangeDetectionStrategy } from "@angular/core";
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from "@angular/forms";
 
 @Component({
@@ -9,6 +9,7 @@ import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR
     ],
     templateUrl: './calendar.component.html',
     styleUrl: './calendar.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [
         {
             multi: true,

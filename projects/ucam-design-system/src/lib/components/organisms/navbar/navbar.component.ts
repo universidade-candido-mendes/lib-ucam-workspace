@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { UcamUserProfile } from '../../../ucam-design-system.model';
 import { UcamDesignSystemService } from '../../../ucam-design-system.service';
 import { UcamProfileComponent } from '../profile/profile.component';
@@ -9,6 +9,7 @@ import { UcamProfileComponent } from '../profile/profile.component';
         UcamProfileComponent
     ],
     templateUrl: './navbar.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {

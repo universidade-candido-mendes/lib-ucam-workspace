@@ -1,6 +1,6 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
-import { Component, ElementRef, EmbeddedViewRef, forwardRef, HostBinding, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, EmbeddedViewRef, forwardRef, HostBinding, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { UcamOption } from '../../../../../public-api';
 
@@ -13,6 +13,7 @@ import { UcamOption } from '../../../../../public-api';
 ],
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [
         {
             multi: true,

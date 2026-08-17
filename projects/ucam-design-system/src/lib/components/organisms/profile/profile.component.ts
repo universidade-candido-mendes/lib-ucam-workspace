@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, tap } from 'rxjs';
 import { ChangeProfileListener, ChangeUnidadeListener, ExitListener, UcamOption, UcamUserProfile, Unidade } from '../../../../public-api';
@@ -12,6 +12,7 @@ import { ChangeProfileListener, ChangeUnidadeListener, ExitListener, UcamOption,
         ReactiveFormsModule,
     ],
     templateUrl: './profile.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './profile.component.scss'
 })
 export class UcamProfileComponent implements AfterContentInit {
