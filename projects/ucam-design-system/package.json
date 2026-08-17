@@ -1,9 +1,9 @@
 {
   "name": "@universidade-candido-mendes/ucam-design-system",
-  "version": "18.2.2",
+  "version": "22.1.2",
   "peerDependencies": {
-    "@angular/common": "^18.2.0",
-    "@angular/core": "^18.2.0"
+    "@angular/common": "^22.1.0",
+    "@angular/core": "^22.1.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
