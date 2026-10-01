@@ -1,19 +1,19 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
-import { Component, ElementRef, EmbeddedViewRef, forwardRef, HostBinding, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, EmbeddedViewRef, forwardRef, HostBinding, OnInit, TemplateRef, ViewChild, ViewContainerRef, ChangeDetectionStrategy, input, effect, computed, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { UcamOption } from '../../../../../public-api';
+import { unmaskValue, valueToFormat } from '../../../../directives/form/mask';
 
 @Component({
     selector: 'ucam-input',
     imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    ScrollingModule
-],
+        FormsModule,
+        ReactiveFormsModule,
+        ScrollingModule
+    ],
     templateUrl: './input.component.html',
     styleUrl: './input.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             multi: true,
@@ -27,74 +27,75 @@ import { UcamOption } from '../../../../../public-api';
         }
     ]
 })
-export class UcamInputComponent implements OnInit, Validator, ControlValueAccessor  {
+export class UcamInputComponent implements OnInit, Validator, ControlValueAccessor {
 
-  @Input() id: string = (Math.random() + 1).toString(36).substring(7);
-  @Input() label?: string;
-  @Input() class: string = "";
-  @Input() optional = true;
-  @Input() placeholder = "Selecione";
+  id = input<string>((Math.random() + 1).toString(36).substring(7));
+  label = input<string>();
+  className = input<string>("", { alias: 'class' });
+  optional = input<boolean>(true);
+  placeholder = input<string>("Selecione");
 
-  @Input() label_class?: string;
-  @Input() wrapper_class?: string;
+  label_class = input<string>();
+  wrapper_class = input<string>();
 
-  @Input() icon?: string;
-  @Input() icon_type = "";
-  @Input() icon_class?: string;
+  icon = input<string>();
+  icon_type = input<string>("");
+  icon_class = input<string>();
 
-  @Input() mask?: string;
+  mask = input<string>();
+
+  datalist = input<UcamOption[]>([]);
 
   @ViewChild('dropdown', { static: true }) dropdown!: TemplateRef<any>;
-
-  @Input() set datalist(value: UcamOption[]) {
-    this.open(this.dropdown, this.input.nativeElement);
-    this.__datalist = value;
-  }
-
-  @ViewChild('input', { static: true }) input!: ElementRef<HTMLInputElement>;
+  @ViewChild('input', { static: true }) inputRef!: ElementRef<HTMLInputElement>;
 
   __innervalue: any = null;
   __disabled = false;
   __view!: EmbeddedViewRef<any>;
-  __datalist: UcamOption[] = [];
   __control!: AbstractControl;
 
   @HostBinding('class')
   __hostClass = '';
 
-  onInputChange: any = () => {
-    this.writeValue(this.input.nativeElement.value);
-  };
-
   constructor(
     private elem: ElementRef,
-    private vcr: ViewContainerRef
+    private vcr: ViewContainerRef,
+    private cdr: ChangeDetectorRef
   ) {
     this.closeDropdown();
+    
+    // Watch for datalist changes and open dropdown if needed
+    effect(() => {
+      const list = this.datalist();
+      if (list && list.length > 0) {
+        this.open(this.dropdown, this.inputRef.nativeElement);
+      } else {
+        this.closeDropdown();
+      }
+    });
   }
 
-  get value(): any {
-    return this.__innervalue;
-  }
-
-  set value(value: any) {
-    if (value !== undefined && this.__innervalue !== value) {
-      this.__innervalue = value
-      this.onChange(this.__innervalue);
-      this.onTouch();
+  onInputChange: any = () => {
+    let rawValue = this.inputRef.nativeElement.value;
+    
+    // Apply mask logic on input
+    const maskFormat = this.mask();
+    if (maskFormat) {
+       const unmasked = unmaskValue(rawValue);
+       const masked = valueToFormat(unmasked, maskFormat, false, this.__innervalue || '');
+       this.inputRef.nativeElement.value = masked;
+       this.__innervalue = masked;
+       this.onChange(unmasked);
+    } else {
+       this.__innervalue = rawValue;
+       this.onChange(rawValue);
     }
-  }
+    
+    this.setHostClass();
+  };
 
   get dropdownElement(): Element {
     return this.elem.nativeElement.querySelector('.select-menu');
-  }
-
-  get inputElement(): HTMLElement {
-    return this.input.nativeElement;
-  }
-
-  get datalist() {
-    return this.__datalist;
   }
 
   onChange = (_: any) => {
@@ -106,10 +107,20 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   onValidationChange = (_: any) => { }
 
   writeValue(value: any): void {
-    this.__innervalue = value;
+    const maskFormat = this.mask();
+    if (maskFormat && value) {
+      this.__innervalue = valueToFormat(value.toString(), maskFormat, false, '');
+    } else {
+      this.__innervalue = value;
+    }
+    
+    if (this.inputRef?.nativeElement) {
+       this.inputRef.nativeElement.value = this.__innervalue || '';
+    }
+    
     this.onTouch();
-    this.onChange(this.__innervalue);
     this.setHostClass();
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: any): void {
@@ -122,6 +133,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   setDisabledState?(isDisabled: boolean): void {
     this.__disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   registerOnValidatorChange?(fn: () => void): void {
@@ -129,18 +141,22 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    this.__control = control;
-    return (control.value && control.value.valid) || !this.__disabled ? null : { invalid: true };
+    if (this.__control !== control) {
+       this.__control = control;
+    }
+    this.cdr.markForCheck();
+    return null;
   }
 
   setHostClass() {
-    this.__hostClass = this.__control?.value?.invalid ? 'invalid' : '';
+    this.__hostClass = this.__control?.invalid ? 'invalid' : '';
+    this.cdr.markForCheck();
   }
 
   ngOnInit() { }
 
   hasError(errorType: string): boolean {
-    return this.__control.value.invalid && this.__control.hasError(errorType);
+    return !!this.__control?.invalid && this.__control?.hasError(errorType);
   }
 
   closeDropdown() {
@@ -148,14 +164,20 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   selectByIndex(i: number) {
-    let value = this.datalist[i];
-    this.selectOption(value);
+    const list = this.datalist();
+    if (list && list.length > i) {
+      let value = list[i];
+      this.selectOption(value);
+    }
   }
 
   selectOption(value: UcamOption) {
     this.onTouch();
     this.onChange(value.value);
     this.__innervalue = value;
+    if (this.inputRef?.nativeElement) {
+      this.inputRef.nativeElement.value = value.label || value.value || '';
+    }
     this.closeDropdown();
   }
 
@@ -165,19 +187,15 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
 
   open(dropdownTpl: TemplateRef<any>, origin: HTMLElement) {
     this.__view = this.vcr.createEmbeddedView(dropdownTpl);
-
     this.dropdownElement ? this.dropdownElement.remove() : null;
-
     const element = this.__view.rootNodes[0];
-
     if (!this.dropdownElement && origin.parentElement) {
       origin.parentElement.appendChild(element);
     }
-
   }
 
   isActive(option: UcamOption) {
-    return this.__innervalue.id == option.id;
+    return this.__innervalue && option && this.__innervalue.id == option.id;
   }
 
   calculateContainerHeight(): string {
@@ -189,7 +207,7 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   calculateContainerTop(): string {
-    const bottom = this.inputElement?.getBoundingClientRect().bottom || 0;
+    const bottom = this.inputRef?.nativeElement?.getBoundingClientRect().bottom || 0;
     const height = 48;
     const outerHeight = this._calculateContainerHeight();
     const winPart = (window.innerHeight / 4);
@@ -201,7 +219,8 @@ export class UcamInputComponent implements OnInit, Validator, ControlValueAccess
   }
 
   private _calculateContainerHeight(): number {
-    const numberOfItems = this.datalist?.length || 0;
+    const list = this.datalist();
+    const numberOfItems = list?.length || 0;
     const itemHeight = 40;
     const visibleItems = 5;
     const marginHeight = 32;

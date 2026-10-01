@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MenuConfig } from '../../../ucam-design-system.model';
 import { UcamDesignSystemService } from '../../../ucam-design-system.service';
 
@@ -9,31 +8,34 @@ import { UcamDesignSystemService } from '../../../ucam-design-system.service';
     selector: 'ucam-sidemenu',
     imports: [
         CommonModule,
-        MatIconModule,
         RouterModule,
     ],
     templateUrl: './sidemenu.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrl: './sidemenu.component.scss'
 })
-export class SidemenuComponent implements OnInit {
+export class SidemenuComponent {
+  private dsService = inject(UcamDesignSystemService);
 
-  routes?: MenuConfig;
+  routes = signal<MenuConfig | undefined>(undefined);
+  openState = signal<Record<string, boolean>>({});
 
-  isMenuOpen = false;
-
-  constructor(
-    private activedRoute: ActivatedRoute,
-    private service: UcamDesignSystemService
-  ) {
-    this.routes = this.service.routes;
+  constructor() {
+    this.routes.set(this.dsService.routes);
   }
 
-  ngOnInit() {
-    this.activedRoute.url.subscribe(url => { });
+  toggleNav() {
+    this.dsService.toggleNav();
   }
 
-  onToggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+  closeNav() {
+    this.dsService.closeNav();
+  }
+
+  toggleBranch(label: string) {
+    this.openState.update(state => ({
+      ...state,
+      [label]: !state[label]
+    }));
   }
 }

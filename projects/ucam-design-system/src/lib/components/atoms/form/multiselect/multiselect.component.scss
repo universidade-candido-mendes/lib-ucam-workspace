@@ -1,67 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import '../../../../styles/tokens';
 
 :host {
   position: relative;
   width: auto;
   max-width: fit-content;
+  @include ucam-typography-base;
+  color: var(--ucam-color-text-main);
 
-  font-family: "Inter", "Nunito", "Helvetica Neue", sans-serif;
-  font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-
-  font-size: 14px;
-  color: light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
-
-  &:has(details.disabled) {
-    cursor: not-allowed;
-  }
-
-  details {
+  .ucam-multiselect-wrapper {
     width: auto;
     min-height: 40px;
     padding: 5px 0;
-    background-color: #fff;
-    border-radius: 13px;
     pointer-events: none;
-    user-select: none;;
+    user-select: none;
 
     &.enabled {
-      > summary {
+      > .ucam-select-input {
         pointer-events: all;
       }
       cursor: pointer;
     }
 
-    > summary {
+    &.disabled {
+      cursor: not-allowed;
+      > .ucam-select-input {
+        opacity: 0.7;
+      }
+    }
+
+    > .ucam-select-input {
+      @include ucam-control-base;
       list-style: none;
       height: 40px;
       width: 250px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-sizing: border-box;
-      border-radius: 8px;
-      border: 1px solid var(--stroke-strong-900, #E2E4E9);
-      box-shadow: 0px 0px 0px 4px #fbfbfb, 0px 0px 0px 2px #FFFFFF;
-
       gap: 10px;
       padding: 10px 10px 10px 12px;
-    }
-  }
 
-  details[open] > summary {
-    .select-ucam-icon {
-      transform: rotate(180deg);
+      &.is-open {
+        border-color: var(--ucam-color-primary);
+
+        .select-ucam-icon {
+          transform: rotate(180deg);
+        }
+      }
     }
   }
 
   .ucam-select-input {
     all: unset;
     padding: 5px;
-    border-radius: 8px;
+    border-radius: var(--ucam-radius-sm);
 
     label {
       width: 100%;
@@ -70,7 +63,7 @@
     .select-ucam-icon {
       right: 10px;
       top: 35px;
-      fill: #758493;
+      fill: var(--ucam-color-text-muted);
       transition: transform 0.1s;
     }
   }
@@ -84,9 +77,9 @@
     width: 248px;
     box-sizing: border-box;
     padding-top: 5px;
-    box-shadow: 0 0 3px #d1d1d1;
-    border-radius: 8px;
-    background: var(--mat-app-background-color, rgb(255, 255, 255));
+    box-shadow: var(--ucam-shadow-md);
+    border-radius: var(--ucam-radius-sm);
+    background: var(--ucam-color-surface);
     z-index: 2;
     pointer-events: all;
 
@@ -105,10 +98,10 @@
         width: 16px;
         height: 16px;
         appearance: none;
-        background: #FFFFFF;
+        background: var(--ucam-color-surface);
         outline: none;
         border-radius: 4px;
-        box-shadow: 0 0 0px 3px #1B1C1D1F;
+        box-shadow: var(--ucam-shadow-sm);
         transition: .05s;
         margin: 4px;
         top: 2px;
@@ -147,7 +140,7 @@
             &:before {
               content: '';
               position: absolute;
-              background-color: var(--secondary-color);
+              background-color: var(--ucam-color-secondary);
               width: 10px;
               height: 15px;
               top: -2px;
@@ -160,7 +153,7 @@
         }
 
         &.checked, &.some, &:hover {
-          background: var(--secondary-color);
+          background: var(--ucam-color-secondary);
           transition: .05s;
         }
       }
@@ -169,8 +162,6 @@
         &::-webkit-search-cancel-button{
           position:relative;
           right:20px;
-
-          // -webkit-appearance: none;
           height: 20px;
           width: 20px;
           border-radius:10px;
@@ -181,16 +172,10 @@
     .ucam-select-option-list {
       overflow-y: auto;
       overflow-x: hidden;
-
       box-sizing: border-box;
       min-width: 98%;
       max-height: 400px;
-
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 22px;
-      letter-spacing: 0;
-      color: var(--mat-app-text-color, rgb(112, 118, 131));
+      color: var(--ucam-color-text-muted);
 
       .ucam-select-option {
         cursor: pointer;
@@ -211,10 +196,10 @@
             width: 16px;
             height: 16px;
             appearance: none;
-            background: #FFFFFF;
+            background: var(--ucam-color-surface);
             outline: none;
             border-radius: 4px;
-            box-shadow: 0 0 0px 3px #1B1C1D1F;
+            box-shadow: var(--ucam-shadow-sm);
             transition: .05s;
             margin: 4px;
             min-width: 16px;
@@ -240,7 +225,7 @@
                 &:before {
                   content: '';
                   position: absolute;
-                  background-color: var(--secondary-color);
+                  background-color: var(--ucam-color-secondary);
                   width: 10px;
                   height: 15px;
                   top: -2px;
@@ -253,7 +238,7 @@
             }
 
             &:checked, &:hover {
-              background: var(--secondary-color);
+              background: var(--ucam-color-secondary);
               transition: .05s;
             }
           }
@@ -265,8 +250,8 @@
             appearance: none;
             outline: none;
             border-radius: 10px;
-            box-shadow: 0px 2px 2px 0px #1B1C1D1F;
-            border: 2px solid #E2E4E9;
+            box-shadow: var(--ucam-shadow-sm);
+            border: 2px solid var(--ucam-color-border);
             transition: .5s;
             top: 3px;
             min-width: 20px;
@@ -280,7 +265,7 @@
                     top: 50%;
                     left: 50%;
                     transition: .5s;
-                    background-color: #fff;
+                    background-color: var(--ucam-color-surface);
                     border-radius: 5px;
                     transform: translate(-50%, -50%);
                 }
@@ -288,16 +273,16 @@
 
             &:not(:checked):hover {
                 &:before {
-                  background: var(--secondary-color);
+                  background: var(--ucam-color-secondary);
                 }
             }
 
             &:checked {
-              background: var(--secondary-color);
-              border: 2px solid var(--secondary-color);
+              background: var(--ucam-color-secondary);
+              border: 2px solid var(--ucam-color-secondary);
 
               &:before {
-                  background-color: #fff;
+                  background-color: var(--ucam-color-surface);
               }
             }
         }
@@ -321,16 +306,16 @@
 
         &.valid:hover {
           .ucam-select-option-check {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
+            background-color: var(--ucam-color-secondary);
+            border-color: var(--ucam-color-secondary);
           }
 
           .ucam-select-option-label {
-            color: #415260;
+            color: var(--ucam-color-text-main);
           }
 
           .ucam-select-option-description {
-            color: #415260;
+            color: var(--ucam-color-text-main);
             font-weight: 400;
           }
 
@@ -346,7 +331,6 @@
         margin-bottom: 8px;
       }
     }
-
   }
 
   .ucam-select-backdrop {
@@ -359,5 +343,4 @@
     background-color: rgba(0, 0, 0, 0.01);
     z-index: 1;
   }
-
 }

@@ -1,54 +1,45 @@
 
-<div class="sidemenu-main-menu-wrapper" [ngClass]="{'open': isMenuOpen}">
-  <div class="main-menu">
-    <div  class="sector header">
-      <mat-icon fontIcon="menu" (click)="onToggleMenu()"></mat-icon>
-    </div>
+<nav class="ucam-nav" aria-label="Navegação principal">
+  <div class="ucam-nav__recolher-barra">
+    <button class="ucam-nav__recolher" type="button" aria-label="Recolher navegação" (click)="toggleNav()">
+      <svg class="ic" aria-hidden="true"><use href="#i-chevronLeft"></use></svg>
+    </button>
+  </div>
+  <div class="ucam-nav__gaveta">
+    <span class="ucam-nav__gaveta-id">
+      <span class="ucam-nav__gaveta-sistema">{{ routes()?.app?.title }}</span>
+    </span>
+    <p class="ucam-nav__gaveta-campus">{{ routes()?.app?.subtitle }}</p>
+  </div>
 
-    <div  class="sector identifier">
-      <img src="icon.svg" id="system-logo" alt="System logo">
-      <div class="flex col">
-        <p class="title">{{ routes?.app?.title }}</p>
-        <p class="subtitle">{{ routes?.app?.subtitle }}</p>
-      </div>
-    </div>
-
-    <div class="sector links">
-      <p>MENU</p>
-
-      <div class="links-wrapper">
-        @for (link of routes?.links; track link) {
-          <div>
-            @if (!link?.children) {
-              <div class="link"
-                [routerLink]="link.address"
-                routerLinkActive="active"
-                ariaCurrentWhenActive="page">
-                <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
-                <div class="label">{{link.label}}</div>
-              </div>
-            }
-            @if (link?.children) {
-              <details>
-                <summary class="link">
-                  <mat-icon [fontIcon]="link.icon" title="{{link.label}}"></mat-icon>
-                  <div class="label">{{link.label}}</div>
-                </summary>
-                @for (child of link?.children; track child) {
-                  <div class="link"
-                    [routerLink]="child.address"
-                    routerLinkActive="active"
-                    ariaCurrentWhenActive="page">
-                    <div class="label">{{child.label}}</div>
-                  </div>
-                }
-              </details>
-            }
+  <div class="ucam-nav__scroll">
+    <div class="ucam-nav__group">
+      @for (link of routes()?.links; track link) {
+        @if (!link?.children) {
+          <a class="ucam-nav__item" [routerLink]="link.address" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <svg class="ic ucam-nav__icone" aria-hidden="true"><use [attr.href]="'#i-' + link.icon"></use></svg>
+            {{ link.label }}
+          </a>
+        }
+        @if (link?.children) {
+          <div class="ucam-nav__branch">
+            <button class="ucam-nav__item ucam-nav__item--ramo" type="button" [attr.aria-expanded]="openState()[link.label] ? 'true' : 'false'" (click)="toggleBranch(link.label)">
+              <svg class="ic ucam-nav__icone" aria-hidden="true"><use [attr.href]="'#i-' + link.icon"></use></svg>
+              {{ link.label }}
+              <svg class="ic ucam-nav__chevron" aria-hidden="true"><use href="#i-chevronDown"></use></svg>
+            </button>
+            <div class="ucam-nav__sub" [hidden]="!openState()[link.label]">
+              @for (child of link?.children; track child) {
+                <a class="ucam-nav__subitem" [routerLink]="child.address" routerLinkActive="active" ariaCurrentWhenActive="page">
+                  {{ child.label }}
+                </a>
+              }
+            </div>
           </div>
         }
-      </div>
+      }
     </div>
-
   </div>
-</div>
+</nav>
+<div class="ucam-nav-scrim" (click)="closeNav()"></div>
 

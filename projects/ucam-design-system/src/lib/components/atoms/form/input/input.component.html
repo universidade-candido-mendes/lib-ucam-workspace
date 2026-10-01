@@ -1,25 +1,25 @@
-@if (label) {
+@if (label()) {
   <label
-    [for]="'input-' + id"
-  class="input-ucam-label {{ label_class }}">{{ label }}</label>
+    [for]="'input-' + id()"
+  class="input-ucam-label {{ label_class() }}">{{ label() }}</label>
 }
 
 <div class="input-ucam-container">
-  @if (icon) {
-    <i class="material-icons {{icon}}"></i>
+  @if (icon()) {
+    <i class="material-icons {{icon()}}"></i>
   }
   <input
     #input
-    [id]="'input-' + id"
+    [id]="'input-' + id()"
     [type]="'text'"
     [value]="__innervalue"
     [disabled]="__disabled"
-    class="input-ucam {{ class }}"
-    (keyup)="onInputChange()">
+    class="input-ucam {{ className() }}"
+    (input)="onInputChange()">
 </div>
 
 <div style="position: relative;">
-  @if (!optional && hasError('required')) {
+  @if (!optional() && hasError('required')) {
     <span style="position: absolute;">
       <small>
         <strong>

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { UcamUserProfile } from '../../../ucam-design-system.model';
 import { UcamDesignSystemService } from '../../../ucam-design-system.service';
 import { UcamProfileComponent } from '../profile/profile.component';
@@ -9,15 +9,19 @@ import { UcamProfileComponent } from '../profile/profile.component';
         UcamProfileComponent
     ],
     templateUrl: './navbar.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  private dsService = inject(UcamDesignSystemService);
 
-  userprofile?: UcamUserProfile;
+  userprofile = signal<UcamUserProfile | undefined>(undefined);
 
-  constructor(service: UcamDesignSystemService) {
-    this.userprofile = service.userProfile;
+  constructor() {
+    this.userprofile.set(this.dsService.userProfile);
   }
 
+  toggleNav() {
+    this.dsService.toggleNav();
+  }
 }

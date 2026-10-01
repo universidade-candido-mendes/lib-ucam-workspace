@@ -1,19 +1,20 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
-import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit, TemplateRef, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { Component, ElementRef, forwardRef, HostBinding, OnInit, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, input, signal, computed, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { UcamOption } from '../../../../ucam-design-system.model';
 
 @Component({
     selector: 'ucam-select',
     imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    ScrollingModule
-],
+        FormsModule,
+        ReactiveFormsModule,
+        ScrollingModule,
+        OverlayModule
+    ],
     templateUrl: './select.component.html',
     styleUrl: './select.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             multi: true,
@@ -29,21 +30,21 @@ import { UcamOption } from '../../../../ucam-design-system.model';
 })
 export class UcamSelectComponent implements OnInit, Validator, ControlValueAccessor {
 
-  @Input() id: string = (Math.random() + 1).toString(36).substring(7);
-  @Input() label?: string;
-  @Input() class: string = "";
-  @Input() optional = true;
-  @Input() search = false;
-  @Input() placeholder = "Selecione";
+  id = input<string>((Math.random() + 1).toString(36).substring(7));
+  label = input<string>();
+  className = input<string>("", { alias: 'class' });
+  optional = input<boolean>(true);
+  search = input<boolean>(false);
+  placeholder = input<string>("Selecione");
 
-  @Input() label_class?: string;
-  @Input() wrapper_class?: string;
+  label_class = input<string>();
+  wrapper_class = input<string>();
 
-  @Input() options: UcamOption[] = [];
+  options = input<UcamOption[]>([]);
 
-  @Input() icon?: string;
-  @Input() icon_type = "fa-regular";
-  @Input() icon_class?: string;
+  icon = input<string>();
+  icon_type = input<string>("fa-regular");
+  icon_class = input<string>();
 
   private __selecione = new UcamOption({ label: "Selecione", valid: false })
 
@@ -52,18 +53,28 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
 
   __currentIndex = -1;
   __dropdownOpen = false;
-  __filteredValues: UcamOption[] = [];
-  __control!: AbstractControl;
-
-  __view?: any;
   __is_open = false;
+  
+  searchTerm = signal('');
+
+  __filteredValues = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    const opts = this.options() || [];
+    if (!term) return opts;
+    return opts.filter(option => option?.label?.toLowerCase().includes(term));
+  });
+
+  __control!: AbstractControl;
+  __view?: any;
 
   @HostBinding('class')
   __hostClass = '';
+  
+  @ViewChild('select', { static: false }) selectRef!: ElementRef<HTMLInputElement>;
 
   constructor(
     private elem: ElementRef,
-    private vcr: ViewContainerRef
+    private cdr: ChangeDetectorRef
   ) { }
 
   get value(): any {
@@ -74,17 +85,13 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
     return this.__innervalue ? this.__innervalue.label : null;
   }
 
-  get dropdownElement(): Element {
-    return this.elem.nativeElement.querySelector('.select-menu');
-  }
-
   get inputElement(): HTMLElement {
     return this.elem.nativeElement.querySelector('.select-ucam-class');
   }
 
   set value(value: any) {
     if (value !== undefined && this.__innervalue !== value) {
-      this.__innervalue = value
+      this.__innervalue = value;
       this.onChange(value.value);
       this.onTouch();
     }
@@ -103,7 +110,12 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
       if (value instanceof UcamOption) {
         this.__innervalue = value;
       } else {
-        this.__innervalue = this.options.filter(option => option.value === value || option.id === value)[0];
+        const match = this.options().find(option => option.value === value || option.id === value);
+        if (match) {
+           this.__innervalue = match;
+        } else {
+           this.__innervalue = this.__selecione;
+        }
       }
       this.onTouch();
       this.onChange(this.__innervalue.value);
@@ -111,6 +123,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
       this.__innervalue = this.__selecione;
     }
     this.setHostClass();
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: any): void {
@@ -123,6 +136,7 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
 
   setDisabledState?(isDisabled: boolean): void {
     this.__disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   registerOnValidatorChange?(fn: () => void): void {
@@ -130,12 +144,16 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    this.__control = control;
-    return (control.value && control.value.valid) || !this.__disabled ? null : { invalid: true };
+    if (this.__control !== control) {
+       this.__control = control;
+    }
+    this.cdr.markForCheck();
+    return null;
   }
 
   setHostClass() {
-    this.__hostClass = this.__control?.errors && this.__control?.value?.invalid ? 'invalid' : '';
+    this.__hostClass = this.__control?.invalid ? 'invalid' : '';
+    this.cdr.markForCheck();
   }
 
   ngOnInit() { }
@@ -147,15 +165,16 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
       return;
     }
 
+    const opts = this.options();
     switch ($event.code) {
       case 'ArrowUp':
         this.__currentIndex < 0 ? this.__currentIndex = 0 : this.__currentIndex--;
-        this.elem.nativeElement.querySelectorAll('li').item(this.__currentIndex).focus();
+        this.elem.nativeElement.querySelectorAll('.option').item(this.__currentIndex)?.scrollIntoView();
         break;
 
       case 'ArrowDown':
-        this.__currentIndex < this.options.length - 1 ? this.__currentIndex++ : this.__currentIndex = this.options.length - 1;
-        this.elem.nativeElement.querySelectorAll('li').item(this.__currentIndex).focus();
+        this.__currentIndex < opts.length - 1 ? this.__currentIndex++ : this.__currentIndex = opts.length - 1;
+        this.elem.nativeElement.querySelectorAll('.option').item(this.__currentIndex)?.scrollIntoView();
         break;
 
       case 'Enter':
@@ -174,76 +193,51 @@ export class UcamSelectComponent implements OnInit, Validator, ControlValueAcces
 
   closeDropdown() {
     this.__currentIndex = -1;
-    this.dropdownElement ? this.dropdownElement.remove() : null;
-
     this.__is_open = false;
-
     this.__dropdownOpen = false;
+    this.cdr.markForCheck();
   }
 
   selectByIndex(i: number) {
-    let value = this.options[i];
-    this.selectOption(value);
+    const opts = this.options();
+    if (i >= 0 && i < opts.length) {
+      let value = opts[i];
+      this.selectOption(value);
+    }
   }
 
   selectOption(value: UcamOption) {
     this.onTouch();
     this.onChange(value.value);
     this.__innervalue = value;
+    if (this.selectRef?.nativeElement) {
+      this.selectRef.nativeElement.value = value.label || '';
+    }
     this.closeDropdown();
   }
 
-  toggle(dropdownTpl: TemplateRef<any>, origin: HTMLElement) {
-    this.dropdownElement ? this.closeDropdown() : this.open(dropdownTpl, origin);
+  toggle() {
+    this.__is_open ? this.closeDropdown() : this.open();
   }
 
-  open(dropdownTpl: TemplateRef<any>, origin: HTMLElement) {
-    this.__view = this.vcr.createEmbeddedView(dropdownTpl);
-
-    this.__filteredValues = this.options;
-
-    this.dropdownElement ? this.dropdownElement.remove() : null;
-
-    const element = this.__view.rootNodes[0];
-
+  open() {
+    this.searchTerm.set('');
     this.__is_open = true;
-
-    if (!this.dropdownElement && origin.parentElement) {
-      origin.parentElement.appendChild(element);
-    }
-
+    this.__dropdownOpen = true;
+    this.cdr.markForCheck();
   }
 
   isActive(option: UcamOption) {
-    return this.__innervalue.id == option.id;
+    return this.__innervalue && option && this.__innervalue.id == option.id;
   }
 
-  onSearch() {
-    this.__filteredValues = this.options.filter(option => option?.label?.includes(this.__innervalue.value), this.options);
+  onSearch(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm.set(target.value);
   }
 
-  calculateContainerHeight(): string {
-    return `${this._calculateContainerHeight()}px`;
-  }
-
-  calculateContainerWidth(): string {
-    return `${this.elem.nativeElement.offsetWidth}px`;
-  }
-
-  calculateContainerTop(): string {
-    const bottom = this.inputElement.getBoundingClientRect().bottom;
-    const height = 48;
-    const outerHeight = this._calculateContainerHeight();
-    const winPart = (window.innerHeight / 4);
-
-    if ( bottom > (3 * winPart)){
-      return `${bottom - height - outerHeight}px`
-    }
-    return `${bottom}px`;
-  }
-
-  private _calculateContainerHeight(): number {
-    const numberOfItems = this.options.length;
+  calculateContainerHeight(): number {
+    const numberOfItems = this.options().length;
     const itemHeight = 47;
     const visibleItems = 5;
     const marginHeight = 32;

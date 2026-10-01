@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ChangeProfileListener } from '../public-api';
 import { MenuConfig, UcamUserProfile } from './ucam-design-system.model';
 
@@ -9,6 +9,8 @@ export class UcamDesignSystemService {
 
   userProfile!: UcamUserProfile;
   routes!: MenuConfig;
+  
+  readonly navState = signal<'open' | 'closed'>('closed');
 
   constructor() { }
 
@@ -20,4 +22,13 @@ export class UcamDesignSystemService {
   setMenuConfig(menu: MenuConfig) {
     this.routes = menu;
   }
+  
+  toggleNav() {
+    this.navState.update(s => s === 'open' ? 'closed' : 'open');
+  }
+  
+  closeNav() {
+    this.navState.set('closed');
+  }
 }
+

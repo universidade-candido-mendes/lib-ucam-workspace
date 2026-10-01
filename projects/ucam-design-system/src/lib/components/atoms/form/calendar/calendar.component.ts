@@ -1,15 +1,17 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, Input, Output, ChangeDetectionStrategy } from "@angular/core";
+import { Component, forwardRef, ChangeDetectionStrategy, input, model, signal, computed, effect, ChangeDetectorRef } from "@angular/core";
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from "@angular/forms";
 
 @Component({
     selector: 'ucam-calendar',
     imports: [
         CommonModule,
+        OverlayModule
     ],
     templateUrl: './calendar.component.html',
     styleUrl: './calendar.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             multi: true,
@@ -51,73 +53,82 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
   ]
 
   layers = {
-    "year": {
-      view: "PERIOD",
-      format: 'YYYY'
-    },
-    "month": {
-      view: "YEAR",
-      format: 'MM/YYYY'
-    },
-    "date": {
-      view: "MONTH",
-      format: 'dd/MM/YYYY'
-    }
+    "year": { view: "PERIOD", format: 'YYYY' },
+    "month": { view: "YEAR", format: 'MM/YYYY' },
+    "date": { view: "MONTH", format: 'dd/MM/YYYY' }
   }
 
-  @Input()
-  date = new Date(Date.now());
+  date = input<Date>(new Date(Date.now()));
+  format = input<string>();
+  type = input<'year' | 'month' | 'date'>("date");
+  
+  selected = model<Date>();
+  
+  resolvedFormat = computed(() => {
+    return this.format() || this.layers[this.type()].format;
+  });
 
-  @Input()
-  format!: string;
-
-  @Input()
-  selected!: Date;
-
-  @Input()
-  type: 'year' | 'month' | 'date' = "date";
-
-  @Output()
-  selectedChange = new EventEmitter<Date>();
-
-  open = false;
+  open = signal<boolean>(false);
 
   __disabled = false;
   __control!: AbstractControl;
 
-  day = this.date.getDate();
-  month = this.date.getMonth();
-  year = this.date.getFullYear();
-
-  start = new Date(this.year, this.month, 1);
-  end = new Date(this.year, this.month + 1, 0);
-
-  length = this.end.getDate();
-
+  currentViewDate = signal<Date>(new Date());
+  view = signal<string>('MONTH');
+  
   today = new Date(Date.now());
+  
+  calendarState = computed(() => {
+    const cd = this.currentViewDate();
+    const day = cd.getDate();
+    const month = cd.getMonth();
+    const year = cd.getFullYear();
 
-  offset = {
-    start: this.start.getDay(),
-    end: 7 - this.end.getDay(),
-  };
+    const start = new Date(year, month, 1);
+    const end = new Date(year, month + 1, 0);
 
-  before = new Date(this.year, this.month, 0).getDate();
+    const length = end.getDate();
 
-  days!: Date[];
-  calendar!: any[];
+    const offset = {
+      start: start.getDay(),
+      end: 7 - end.getDay(),
+    };
 
-  view!: String;
+    const before = new Date(year, month, 0).getDate();
 
-  years = Array.from({length: 12}, (_, i) => i + 1 + (this.year - 6));
+    const buildArray = (size: number) => Array(...Array(size));
+    const monthSize = new Date(year, month + 1, 0).getDate();
 
-  ngOnInit(): void {
-    this.view = this.layers[this.type].view;
-    if (!this.format) this.format = this.layers[this.type].format;
-    this.update();
+    const monthOffsetStart = buildArray(offset.start).map((_, i) => new Date(year, month - 1, before - i) ).reverse();
+    const monthDays = buildArray(monthSize).map((_, i) => new Date(year, month, i + 1) );
+    const monthOffsetEnd = buildArray(offset.end - 1).map((_, i) => new Date(year, month + 1, i + 1) );
+
+    const days = [...monthOffsetStart, ...monthDays, ...monthOffsetEnd];
+
+    const calendar = [];
+    for (let i = 0; i <= offset.start + days.length + offset.end; i += 7) {
+      if (days.slice(i, i + 7).length > 0) {
+        calendar.push(days.slice(i, i + 7));
+      }
+    }
+
+    const years = Array.from({length: 12}, (_, i) => i + 1 + (year - 6));
+    
+    return { day, month, year, calendar, years };
+  });
+
+  constructor(private cdr: ChangeDetectorRef) {
+    effect(() => {
+      this.currentViewDate.set(new Date(this.date().getTime()));
+    }, { allowSignalWrites: true });
+    
+    effect(() => {
+      this.view.set(this.layers[this.type()].view);
+    }, { allowSignalWrites: true });
   }
 
   onInputChange: any = () => {
-    this.writeValue(this.selected);
+    this.writeValue(this.selected());
   };
 
   onChange = (_: any) => {
@@ -129,9 +140,13 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
   onValidationChange = (_: any) => { }
 
   writeValue(value: any): void {
-    this.selected = value;
+    if (value) {
+      this.selected.set(value);
+      this.currentViewDate.set(new Date(value.getTime()));
+    }
     this.onTouch();
-    this.onChange(this.selected);
+    this.onChange(this.selected());
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: any): void {
@@ -144,19 +159,19 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
 
   setDisabledState?(isDisabled: boolean): void {
     this.__disabled = isDisabled;
-  }
-
-  registerOnValidatorChange?(fn: () => void): void {
-    this.onValidationChange = fn;
+    this.cdr.markForCheck();
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    this.__control = control;
-    return (control.value && control.value.valid) || !this.__disabled ? null : { invalid: true };
+    if (this.__control !== control) {
+       this.__control = control;
+    }
+    this.cdr.markForCheck();
+    return null;
   }
 
   hasError(errorType: string): boolean {
-    return this.__control.value.invalid && this.__control.hasError(errorType);
+    return !!this.__control?.invalid && this.__control?.hasError(errorType);
   }
 
   minusYear(ammount = -1) {
@@ -175,101 +190,60 @@ export class CalendarComponent implements Validator, ControlValueAccessor {
     this.updateMonth(ammount);
   }
 
-  dateEquals(day: Date, reference: Date) {
+  dateEquals(day: Date, reference: Date | undefined) {
     if (!day || !reference) return false;
-
     return reference.getDate() === day.getDate() &&
            reference.getMonth() === day.getMonth() &&
            reference.getFullYear() === day.getFullYear();
   }
 
   private updateMonth(ammount: number) {
-    this.date.setMonth(this.date.getMonth() + ammount);
-    this.update();
+    const next = new Date(this.currentViewDate().getTime());
+    next.setMonth(next.getMonth() + ammount);
+    this.currentViewDate.set(next);
   }
 
   private updateYear(ammount: number) {
-    this.date.setFullYear(this.date.getFullYear() + ammount);
-    this.update();
+    const next = new Date(this.currentViewDate().getTime());
+    next.setFullYear(next.getFullYear() + ammount);
+    this.currentViewDate.set(next);
   }
 
-  private update() {
-    this.day = this.date.getDate();
-    this.month = this.date.getMonth();
-    this.year = this.date.getFullYear();
-
-    this.start = new Date(this.year, this.month, 1);
-    this.end = new Date(this.year, this.month + 1, 0);
-
-    length = this.end.getDate();
-
-    this.offset = {
-      start: this.start.getDay(),
-      end: 7 - this.end.getDay(),
-    };
-
-    this.before = new Date(this.year, this.month, 0).getDate();
-
-    const buildArray = (size: number) => Array(...Array(size));
-    const monthSize = new Date(this.year, this.month + 1, 0).getDate();
-
-    const monthOffsetStart = buildArray(this.offset.start).map((_, i) => new Date(this.year, this.month - 1, this.before - i) ).reverse();
-    const monthDays = buildArray(monthSize).map((_, i) => new Date(this.year, this.month, i + 1) );
-    const monthOffsetEnd = buildArray(this.offset.end - 1).map((_, i) => new Date(this.year, this.month + 1, i + 1) );
-
-    this.days = [...monthOffsetStart, ...monthDays, ...monthOffsetEnd];
-
-    this.calendar = [];
-
-    this.splitDates();
-
-    this.years = Array.from({length: 12}, (_, i) => i + 1 + (this.year - 6))
-  }
-
-  private splitDates() {
-    for (let i = 0; i <= this.offset.start + this.days.length + this.offset.end; i += 7) {
-      this.calendar.push(this.days.slice(i, i + 7));
-    }
-  }
-
-  @Input()
   selectDay(day: Date) {
-    this.selected = day;
-    this.selectedChange.emit(day);
+    this.selected.set(day);
     this.onChange(day);
     this.onTouch();
-    this.open = false;
+    this.open.set(false);
   }
 
-  @Input()
   selectMonth(month: any) {
-    this.month = this.months.findIndex(v => v.acronym === month.acronym);
-    this.date.setMonth(this.month);
-    this.update();
+    const m = this.months.findIndex(v => v.acronym === month.acronym);
+    const next = new Date(this.currentViewDate().getTime());
+    next.setMonth(m);
+    this.currentViewDate.set(next);
     this.changeView('MONTH');
   }
 
-  @Input()
   selectYear(year: any) {
-    this.year = year;
-    this.date.setFullYear(year);
-    this.update();
+    const next = new Date(this.currentViewDate().getTime());
+    next.setFullYear(year);
+    this.currentViewDate.set(next);
     this.changeView('YEAR');
   }
 
-  @Input()
   changeView(view: string) {
-    const limit = Object.keys(this.layers).indexOf(this.type);
+    const type = this.type();
+    const limit = Object.keys(this.layers).indexOf(type);
     const current = Object.values(this.layers).findIndex(v => v.view === view);
 
-    this.view = view;
+    this.view.set(view);
 
     if (current > limit) {
-      const s = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
+      const cd = this.currentViewDate();
+      const s = new Date(cd.getFullYear(), cd.getMonth(), 1);
       this.selectDay(s);
-      this.view = this.layers[this.type].view;
-      this.open = false;
+      this.view.set(this.layers[type].view);
+      this.open.set(false);
     }
   }
-
 }

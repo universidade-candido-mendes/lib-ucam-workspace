@@ -8,6 +8,12 @@ export * from './lib/components/organisms/profile/profile.component';
 export * from './lib/components/organisms/sidemenu/sidemenu.component';
 export * from './lib/components/templates/page/page.component';
 
+// COMPONENTES (MOLECULES/ATOMS)
+export * from './lib/components/molecules/card/card.component';
+export * from './lib/components/molecules/description-list/description-list.component';
+export * from './lib/components/molecules/stat/stat.component';
+export * from './lib/components/molecules/table/table.component';
+
 // COMPONENTES (FORM)
 export * from './lib/components/atoms/form/calendar/calendar.component';
 export * from './lib/components/atoms/form/input/input.component';

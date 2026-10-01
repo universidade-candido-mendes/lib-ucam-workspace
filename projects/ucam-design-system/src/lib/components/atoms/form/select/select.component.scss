@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import '../../../../styles/tokens';
 
 :host {
   min-width: 200px;
   display: block;
   padding: 16px 0;
-
   font-size: 14px;
 
   button {
@@ -24,26 +24,23 @@
       opacity: 1;
 
       .select-ucam-btn {
-        border-color: var(--ucam-disabled-color, rgb(230, 230, 240));
+        border-color: var(--ucam-color-disabled);
       }
 
       .select-ucam-label, .select-ucam-class {
-        color: var(--ucam-disabled-color, rgb(230, 230, 240));
+        color: var(--ucam-color-disabled);
       }
 
-      .select-ucam-font-icon {
-        color: var(--ucam-disabled-color, rgb(230, 230, 240));
-      }
-
-      .select-ucam-icon {
-        fill: var(--ucam-disabled-color, rgb(230, 230, 240));
+      .select-ucam-font-icon, .select-ucam-icon {
+        color: var(--ucam-color-disabled);
+        fill: var(--ucam-color-disabled);
       }
     }
   }
 
   .select-ucam-btn {
-    background: var(--mat-dialog-container-color, rgb(255, 255, 255));
-    color: var(--mat-app-text-color, rgb(62, 65, 72));
+    background: var(--ucam-color-surface);
+    color: var(--ucam-color-text-main);
   }
 
   .select-ucam-label {
@@ -52,69 +49,53 @@
     word-break: break-word;
     cursor: default;
     -webkit-tap-highlight-color: transparent;
-    // position: absolute;
-    // top: -10px;
-    // left: 12px;
     padding: 0px 4px;
     z-index: 1;
     font-weight: 400;
-    // font-size: 14px;
     line-height: 22px;
     letter-spacing: 0px;
-    // color: var(--mat-app-text-color, rgb(112, 118, 131));
   }
 
   .select-ucam-class {
-    border: 1.5px solid #e2e4e9;
-    transition: border-color 100ms ease 0s;
+    @include ucam-control-base;
     -webkit-tap-highlight-color: transparent;
-    appearance: none;
     resize: none;
-    box-sizing: border-box;
     width: 100%;
     display: block;
     text-align: left;
     min-height: 36px;
-    border-radius: 8px;
     padding-right: 42px;
     padding-left: 14px;
     height: 40px;
-    font-family: 'Nexa Text', 'Nunito', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: 0px;
-    background: #ffffff;
-    // color: var(--mat-app-text-color, rgb(62, 65, 72));
 
     &:focus-visible {
-      border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
+      border-color: var(--ucam-color-primary);
       outline: none;
 
       +.select-ucam-font-icon {
-        color: var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
+        color: var(--ucam-color-primary);
       }
 
       + .select-ucam-icon {
-        fill: var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
+        fill: var(--ucam-color-primary);
       }
     }
   }
 
   .select-ucam-overlay {
-    position:absolute;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    border-radius: 30px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: var(--ucam-radius-sm);
   }
 
   .select-ucam-font-icon {
     position: absolute;
     right: 16px;
     top: 13px;
-    color: var(--mat-app-text-color, #415260);
+    color: var(--ucam-color-text-muted);
     font-size: 24px;
   }
 
@@ -122,14 +103,14 @@
     position: absolute;
     right: 10px;
     top: 35px;
-    fill: #758493;
+    fill: var(--ucam-color-text-muted);
     transition: transform 0.1s;
   }
 
   .is-open {
     .select-ucam-btn {
       .select-ucam-class {
-        border: 1.5px solid var(--mat-select-focused-arrow-color, rgb(25, 0, 175));
+        border-color: var(--ucam-color-primary);
         outline: none;
       }
     }
@@ -155,48 +136,38 @@
     .select-menu-wrapper {
       position: fixed;
       padding-top: 5px;
-      box-shadow: 0px 0px 3px #d1d1d1;
-      border-radius: 8px;
-      background: var(--mat-app-background-color, rgb(255, 255, 255));
+      box-shadow: var(--ucam-shadow-md);
+      border-radius: var(--ucam-radius-sm);
+      background: var(--ucam-color-surface);
       z-index: 2;
     }
 
     .cdk-virtual-scroll-viewport {
       z-index: 2;
-
       height: 100%;
       width: 100%;
-      border-radius: 8px;
-      background: var(--mat-app-background-color, rgb(255, 255, 255));
+      border-radius: var(--ucam-radius-sm);
+      background: var(--ucam-color-surface);
 
       ::ng-deep .cdk-virtual-scroll-content-wrapper {
         box-sizing: border-box;
         min-width: 98%;
         margin-left: 1%;
-
         top: 5px;
-
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 22px;
-        letter-spacing: 0;
-        color: var(--mat-app-text-color, rgb(112, 118, 131));
+        @include ucam-typography-base;
+        color: var(--ucam-color-text-muted);
 
         .option {
           padding: 8px;
-          font-style: normal;
           font-weight: 300;
-
           display: flex;
           flex-direction: row;
           align-items: center;
           gap: 10px;
 
-          &:hover .option-radio {
-            &:not(:checked) {
-              background: #B4365B;
-              border-color: #B4365B;
-            }
+          &:hover .option-radio:not(:checked) {
+            background: var(--ucam-color-secondary);
+            border-color: var(--ucam-color-secondary);
           }
 
           .option-radio {
@@ -207,7 +178,7 @@
             appearance: none;
             outline: none;
             border-radius: 10px;
-            border: 3px solid #E2E4E9;
+            border: 3px solid var(--ucam-color-border);
             transition: .05s;
 
             &:hover, &:checked {
@@ -219,25 +190,24 @@
                     top: 50%;
                     left: 50%;
                     transition: .05s;
-                    background-color: #fff;
+                    background-color: var(--ucam-color-surface);
                     border-radius: 5px;
                     transform: translate(-50%, -50%);
                 }
             }
 
             &:not(:checked):hover {
-                background: #B4365B;
+                background: var(--ucam-color-secondary);
             }
 
             &:checked {
-              background: #B4365B;
-              border: 2px solid #B4365B;
+              background: var(--ucam-color-secondary);
+              border: 2px solid var(--ucam-color-secondary);
 
               &:before {
-                  background-color: #fff;
+                  background-color: var(--ucam-color-surface);
               }
             }
-
           }
 
           .option-label {
@@ -262,15 +232,14 @@
 
           &.valid:hover {
             .option-label {
-              color: #415260;
+              color: var(--ucam-color-text-main);
             }
 
             .option-description {
-              color: #415260;
+              color: var(--ucam-color-text-main);
               font-weight: 400;
             }
 
-            // background-color: #E2E6E9;
             font-weight: bold;
           }
         }
@@ -290,66 +259,58 @@
 
       &::-webkit-scrollbar-track {
         border-radius: 16px;
-        background: #F1F3F5;
+        background: var(--ucam-color-hover);
       }
 
       &::-webkit-scrollbar-thumb {
         border-radius: 16px;
-        background: #C6CED5;
+        background: var(--ucam-color-border-hover);
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: #b7bcc1;
+        background: var(--ucam-color-primary);
       }
     }
   }
 
   &.invalid.ng-touched.ng-dirty:not(:focus-within) {
     &.ng-invalid {
-
       .select-ucam-label,
       .select-ucam-class,
       .select-ucam-font-icon {
-        color: var(--warn-color, rgb(189, 7, 0));
+        color: var(--ucam-color-error);
       }
 
       .select-ucam-class {
-        border: 1.5px solid var(--warn-color, rgb(189, 7, 0));
+        border-color: var(--ucam-color-error);
       }
     }
 
     &.ng-valid {
       .select-ucam-class {
-        border: 1.5px solid var(--ucam-validated-color, rgb(9, 133, 0));
+        border-color: var(--ucam-color-success);
 
         +.select-ucam-font-icon {
-          color: var(--ucam-validated-color, rgb(9, 133, 0));
+          color: var(--ucam-color-success);
         }
-
-        // +.select-ucam-icon {
-        //   fill: var(--ucam-validated-color, rgb(9, 133, 0));
-        // }
       }
     }
   }
 
   &.inline {
     .select-ucam-btn {
-      border: 1.5px solid #B6CCD9;
-      border-radius: 8px;
+      border: var(--ucam-border-width) solid var(--ucam-color-border-hover);
+      border-radius: var(--ucam-radius-sm);
       display: flex;
-      background-color: #fff;
+      background-color: var(--ucam-color-surface);
 
       .select-ucam-label {
         position: unset !important;
         left: unset !important;
         top: unset !important;
-
         padding-top: 5px;
         padding-left: 15px;
-
         font-weight: bold;
-
         z-index: 0 !important;
         word-break: unset !important;
       }
@@ -357,7 +318,6 @@
       .select-ucam-class {
         border: unset !important;
         padding-left: unset !important;
-
         padding-right: 30px !important;
         min-height: 31px !important;
         height: 31px !important;

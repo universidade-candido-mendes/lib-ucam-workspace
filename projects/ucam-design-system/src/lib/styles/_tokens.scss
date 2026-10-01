@@ -1,0 +1,59 @@
+/* 
+  UCAM Design System Tokens
+  Centraliza variáveis de CSS e Mixins estruturais.
+  Esses tokens usam fallback nativos para proteção.
+*/
+
+:root {
+  /* Shapes & Borders */
+  --ucam-radius-sm: 8px;
+  --ucam-radius-md: 10px;
+  --ucam-border-width: 1px;
+  
+  /* Colors */
+  --ucam-color-border: var(--stroke-soft-200, #E2E4E9);
+  --ucam-color-border-hover: #B6CCD9;
+  --ucam-color-primary: var(--mat-select-focused-arrow-color, #1900AF);
+  --ucam-color-secondary: var(--secondary-color, #B4365B);
+  --ucam-color-success: var(--ucam-validated-color, #098500);
+  --ucam-color-error: var(--mat-form-field-error-text-color, #BD0700);
+  
+  /* Backgrounds */
+  --ucam-color-surface: var(--mat-dialog-container-color, #FFFFFF);
+  --ucam-color-disabled: var(--ucam-disabled-color, #E6E6F0);
+  --ucam-color-hover: #F1F3F5;
+  
+  /* Text */
+  --ucam-color-text-main: var(--mat-app-text-color, #3E4148);
+  --ucam-color-text-muted: #707683;
+  --ucam-color-text-on-primary: #FFFFFF;
+  
+  /* Shadows */
+  --ucam-shadow-sm: 0px 1px 2px 0px rgba(27, 28, 29, 0.12);
+  --ucam-shadow-md: 0px 2px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+/* Mixins Tipográficos e Visuais Globais */
+@mixin ucam-typography-base {
+  font-family: 'Nexa Text', 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+}
+
+@mixin ucam-control-base {
+  @include ucam-typography-base;
+  box-sizing: border-box;
+  appearance: none;
+  border-radius: var(--ucam-radius-sm);
+  border: var(--ucam-border-width) solid var(--ucam-color-border);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: var(--ucam-color-surface);
+  color: var(--ucam-color-text-main);
+
+  &:focus, &:focus-visible {
+    outline: none;
+    border-color: var(--ucam-color-primary);
+  }
+}

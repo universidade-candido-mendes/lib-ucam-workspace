@@ -1,6 +1,26 @@
-<img src="images/logo-ucam-cinza.svg" id="ucam-navbar-main-logo" alt="Logo da ucam">
-<ng-content></ng-content>
-<ucam-profile [userprofile]="userprofile">
-  <ng-content select="profile,[profile]" ></ng-content>
-</ucam-profile>
+<header class="ucam-appbar ucam-appbar--marca">
+  <button
+    class="ucam-btn ucam-btn--icon ucam-btn--ghost ucam-appbar__menu"
+    type="button"
+    aria-label="Abrir navegação"
+    (click)="toggleNav()"
+  >
+    <svg class="ic" aria-hidden="true"><use href="#i-menu"></use></svg>
+  </button>
+
+  <a class="ucam-appbar__brand" href="#">
+    <span class="ucam-icon-tile ucam-appbar__marca ucam-icon-tile--financeiro" aria-hidden="true">
+      <svg class="ic" aria-hidden="true"><use href="#i-wallet"></use></svg>
+    </span>
+    <span class="ucam-appbar__system">SigFin</span>
+  </a>
+
+  <span class="ucam-appbar__spacer"></span>
+
+  <ng-content></ng-content>
+
+  <ucam-profile [userprofile]="userprofile()">
+    <ng-content select="profile,[profile]"></ng-content>
+  </ucam-profile>
+</header>
 

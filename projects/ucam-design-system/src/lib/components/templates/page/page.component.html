@@ -1,8 +1,12 @@
 
-<ucam-sidemenu></ucam-sidemenu>
-<div class="page-main-content-wrapper">
+<div class="ucam-shell" [attr.data-nav]="navState()">
   <ucam-navbar>
     <ng-content select="header,[header]"></ng-content>
   </ucam-navbar>
-  <div class="page-main-content"><ng-content></ng-content></div>
+  <div class="ucam-main">
+    <ucam-sidemenu></ucam-sidemenu>
+    <main class="ucam-content">
+      <ng-content></ng-content>
+    </main>
+  </div>
 </div>
