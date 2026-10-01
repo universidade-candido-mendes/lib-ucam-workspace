@@ -4,7 +4,10 @@ import {
   StatComponent, 
   CardComponent, 
   DescriptionListComponent, 
-  UcamDescriptionItem 
+  UcamDescriptionItem,
+  PageComponent,
+  NavbarComponent,
+  SidemenuComponent
 } from 'ucam-design-system';
 
 @Component({
@@ -13,7 +16,10 @@ import {
     TableComponent,
     StatComponent,
     CardComponent,
-    DescriptionListComponent
+    DescriptionListComponent,
+    PageComponent,
+    NavbarComponent,
+    SidemenuComponent
   ],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

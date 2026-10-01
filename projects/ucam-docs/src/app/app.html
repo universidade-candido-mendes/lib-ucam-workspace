@@ -1,53 +1,60 @@
-<div style="padding: 2rem; font-family: sans-serif; background: #f4f5f7; min-height: 100vh;">
-  <h1 style="color: #2c3e50;">UCAM Design System - Showcase</h1>
-  <p>Bem-vindo à documentação visual interativa dos componentes atômicos da biblioteca.</p>
+<ucam-page>
+  <header>
+    <div style="padding: 10px 20px; font-weight: bold;">Docs Workspace</div>
+  </header>
+  
+  <div class="ucam-content--larga" style="padding: 2rem;">
+    <h1>UCAM Design System</h1>
+    <p class="ucam-descricao__valor">Catálogo de Componentes Interativos</p>
 
-  <section style="margin-top: 3rem;">
-    <h2>1. Ucam Stat Component</h2>
-    <p>Ideal para exibição de métricas rápidas. Utilize a tag <code>&lt;ucam-stat&gt;</code>.</p>
-    <div style="display: flex; gap: 1rem;">
-      <ucam-stat label="Pagando até hoje" value="R$ 450,00" meta="Desconto de 10%" tone="success"></ucam-stat>
-      <ucam-stat label="Vencimento Padrão" value="R$ 500,00" tone="default"></ucam-stat>
-      <ucam-stat label="Em Atraso" value="R$ 550,00" meta="Juros diários" tone="danger"></ucam-stat>
-    </div>
-  </section>
-
-  <section style="margin-top: 3rem;">
-    <h2>2. Ucam Description List Component</h2>
-    <p>Componente semântico <code>&lt;ucam-description-list&gt;</code> para chaves/valores organizados.</p>
-    <ucam-card>
-      <div style="padding: 1.5rem;">
-        <h3 style="margin-top: 0;">Dados do Projeto</h3>
-        <ucam-description-list [items]="docItems"></ucam-description-list>
+    <section class="ucam-section" style="margin-top: 2rem;">
+      <h2 class="ucam-section__title">Estatísticas (ucam-stat)</h2>
+      <div class="ucam-cluster ucam-cluster--md">
+        <ucam-stat label="Alunos Ativos" value="1.240" tone="default"></ucam-stat>
+        <ucam-stat label="Matrículas" value="89%" tone="success"></ucam-stat>
+        <ucam-stat label="Inadimplência" value="12%" tone="danger" meta="Acima da média"></ucam-stat>
       </div>
-    </ucam-card>
-  </section>
+    </section>
 
-  <section style="margin-top: 3rem;">
-    <h2>3. Ucam Table Component</h2>
-    <p>Tabela padronizada <code>&lt;ucam-table&gt;</code> usando content projection nativo.</p>
-    <ucam-card>
-      <ucam-table [compact]="true">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Componente</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>01</td>
-            <td>Table</td>
-            <td>Concluído</td>
-          </tr>
-          <tr>
-            <td>02</td>
-            <td>Stat</td>
-            <td>Concluído</td>
-          </tr>
-        </tbody>
-      </ucam-table>
-    </ucam-card>
-  </section>
-</div>
+    <section class="ucam-section" style="margin-top: 2rem;">
+      <h2 class="ucam-section__title">Listas de Descrição (ucam-description-list)</h2>
+      <ucam-card>
+        <div style="padding: 1rem;">
+          <ucam-description-list [items]="docItems"></ucam-description-list>
+        </div>
+      </ucam-card>
+    </section>
+
+    <section class="ucam-section" style="margin-top: 2rem;">
+      <h2 class="ucam-section__title">Tabelas Genéricas (ucam-table)</h2>
+      <ucam-card>
+        <ucam-table [compact]="true">
+          <thead>
+            <tr>
+              <th class="ucam-table__coluna">Componente</th>
+              <th class="ucam-table__coluna">Tipo</th>
+              <th class="ucam-table__coluna">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ucam-stat</td>
+              <td>Atom</td>
+              <td><span class="ucam-stat--success">Finalizado</span></td>
+            </tr>
+            <tr>
+              <td>ucam-table</td>
+              <td>Atom</td>
+              <td><span class="ucam-stat--success">Finalizado</span></td>
+            </tr>
+            <tr>
+              <td>ucam-card</td>
+              <td>Atom</td>
+              <td><span class="ucam-stat--success">Finalizado</span></td>
+            </tr>
+          </tbody>
+        </ucam-table>
+      </ucam-card>
+    </section>
+  </div>
+</ucam-page>
