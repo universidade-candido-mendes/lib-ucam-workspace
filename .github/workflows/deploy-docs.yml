@@ -21,7 +21,9 @@ jobs:
           node-version: '22.22.3'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          rm -f package-lock.json
+          npm install
 
       - name: Build UCAM Design System Library
         run: npm run build
