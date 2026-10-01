@@ -717,3 +717,28 @@
   @media (prefers-reduced-motion:reduce){}
   @media (forced-colors:active){html.embed{scrollbar-width:auto}}
   body > .ucam{display:flex;flex-direction:column;flex:1;min-block-size:0}
+
+/* Mixins Tipográficos e Visuais Globais RESTAURADOS */
+@mixin ucam-typography-base {
+  font-family: 'Nexa Text', 'Nunito', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+}
+
+@mixin ucam-control-base {
+  @include ucam-typography-base;
+  box-sizing: border-box;
+  appearance: none;
+  border-radius: var(--ucam-radius-sm);
+  border: var(--ucam-border-width) solid var(--ucam-color-border);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: var(--ucam-color-surface);
+  color: var(--ucam-color-text-main);
+
+  &:focus, &:focus-visible {
+    outline: none;
+    border-color: var(--ucam-color-primary);
+  }
+}

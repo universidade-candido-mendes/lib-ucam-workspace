@@ -779,7 +779,7 @@
     max-inline-size: none;
   }
 }
-  .ucam-shell{--ucam-appbar-logo:url('../marca/ucam-logo-horizontal.svg');
+  .ucam-shell{--ucam-appbar-logo:url('https://ucam-ds.vercel.app/marca/ucam-logo-horizontal.svg');
     --ucam-vh:calc(100dvh - 2.125rem);
     min-block-size:0;flex:1}
   html.embed .ucam-shell{--ucam-vh:100dvh}
