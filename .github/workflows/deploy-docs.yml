@@ -26,7 +26,7 @@ jobs:
           npm install --legacy-peer-deps
 
       - name: Build UCAM Design System Library
-        run: npm run build
+        run: npx ng build ucam-design-system
 
       - name: Build UCAM Docs App
         run: npx ng build ucam-docs --base-href /lib-ucam-workspace/ --configuration production
