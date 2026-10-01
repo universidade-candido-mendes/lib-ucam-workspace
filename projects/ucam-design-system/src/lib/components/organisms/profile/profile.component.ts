@@ -95,8 +95,9 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   private updateUnidade() {
-    const authState = JSON.parse(localStorage.getItem('AuthState') ?? '');
-    if (authState === '') return;
+    const authStateStr = localStorage.getItem('AuthState');
+    if (!authStateStr) return;
+    const authState = JSON.parse(authStateStr);
 
     const unidade = authState.unidadeSelecionada;
     if (!unidade) return;
@@ -105,8 +106,9 @@ export class UcamProfileComponent implements AfterContentInit {
   }
 
   private getUnidades(): Unidade[] {
-    const authState = JSON.parse(localStorage.getItem('AuthState') ?? '');
-    if (authState === '') return [];
+    const authStateStr = localStorage.getItem('AuthState');
+    if (!authStateStr) return [];
+    const authState = JSON.parse(authStateStr);
 
     const unidades = authState.unidades;
     if (!unidades) return [];
