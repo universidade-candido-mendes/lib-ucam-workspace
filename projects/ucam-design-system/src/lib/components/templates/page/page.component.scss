@@ -783,3 +783,30 @@
     --ucam-vh:calc(100dvh - 2.125rem);
     min-block-size:0;flex:1}
   html.embed .ucam-shell{--ucam-vh:100dvh}
+
+ucam-navbar {
+  display: block;
+  grid-area: appbar;
+  position: relative; /* Sometimes needed for z-index */
+  z-index: var(--ucam-z-nav);
+}
+
+ucam-sidemenu {
+  display: block;
+  grid-area: nav;
+  position: relative;
+  z-index: var(--ucam-z-nav);
+}
+
+.ucam-main {
+  display: flex;
+  flex-direction: column;
+}
+
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100dvh;
+}
